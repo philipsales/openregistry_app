@@ -1,6 +1,6 @@
 <div [hidden]="show_icd">
 <div class="col-md-12 table-nav" 
-*ngIf="method == 'CREATE' || method == 'UPDATE'">
+*ngIf="method == 'CREATE'">
 <div class="col-sm-3 reset-wrapper">
   <button class="btn btn-default pull-left"
     (click)="resetCase(case)">
@@ -83,8 +83,8 @@
   </div>      
 </div> <!--Case --> 
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-  <div class="x_panel">
+<div class="col-md-12 col-sm-12 col-xs-12"
+  *ngIf="method !== 'CREATE'">
     <app-pcaricase-form-list 
     [caseid]="_case.id"
     [casenumber]="_case.case_nbr"
@@ -103,7 +103,6 @@
     [show]="!show_selected_forms">
     </app-pcaricase-form-add>
   </div> <!-- x-panel -->
-</div>  
 </div>
 
 <app-icdoncology-manage 

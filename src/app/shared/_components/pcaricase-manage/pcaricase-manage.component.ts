@@ -91,6 +91,7 @@ export class PcaricaseManageComponent implements OnInit {
       let answers: Answer[] = [];
       this._case.forms.push(new FormAnswer(form.id, form.name, false, answers));
     }
+    this.onSubmitCaseTrigger.emit(this._case);
     console.log(this._case, 'CASE');
   }
 

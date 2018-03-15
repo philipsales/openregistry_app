@@ -1,39 +1,9 @@
   <!-- Selected Forms  -->
 
 <mat-accordion>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Personal data
-      </mat-panel-title>
-      <mat-panel-description>
-        Type your name and age
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <mat-form-field>
-      <input matInput placeholder="First name">
-    </mat-form-field>
-
-    <mat-form-field>
-      <input matInput placeholder="Age">
-    </mat-form-field>
-  </mat-expansion-panel>
-  <mat-expansion-panel (opened)="panelOpenState = true"
-                        (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Self aware panel
-      </mat-panel-title>
-      <mat-panel-description>
-        Currently I am {{panelOpenState ? 'open' : 'closed'}}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <p>I'm visible because I am open</p>
-  </mat-expansion-panel>
   <mat-expansion-panel 
-    *ngFor="let form of forms; let i = index"
-    (opened)="panelOpenState = true"
+    *ngFor="let form of _forms; let i = index"
+    (opened)="onRevealForm(form.id, form.form_id)"
     (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -43,7 +13,22 @@
           {{ form.date_created | date :'medium' }}
       </mat-panel-description>
     </mat-expansion-panel-header>
-    <p>Contents of form must appear here</p>
+    <div *ngIf="is_ok">
+        <app-dynamic-form
+          [method]="'UPDATE'"
+          [answers]="answers"
+          [caseid]="caseid"
+          [casenumber]="casenumber"
+          [dirpath]="dirpath"
+          [formanswerid]="form_answer_id"
+          [inquestionz]="caseform?.sections" 
+          [insectionz]="caseform?.sections"
+         >
+      </app-dynamic-form>
+    </div>
+
+    <p *ngIf="!is_ok"> Please wait...</p>
+
   </mat-expansion-panel>
 </mat-accordion>
 
@@ -59,7 +44,7 @@ style="margin-top: 15px;"
 
 
   <div class="col-md-12 col-sm-12 col-xs-12"
-    [hidden]="true"> 
+    *ngIf="false"> 
       <div class="x_panel">
         <div class="x_title">
           <h2 class="pull-left">Case Forms</h2>
@@ -87,7 +72,7 @@ style="margin-top: 15px;"
                 </tr>
               </thead>
               <tbody>
-                <tr  *ngFor="let form of forms; let i = index">
+                <tr  *ngFor="let form of _forms; let i = index">
                   <th scope="row">{{ i + 1 }}</th>
                   <td>{{ form.form_name }}</td>
                   <td>{{ form.date_created | date :'medium' }}</td>

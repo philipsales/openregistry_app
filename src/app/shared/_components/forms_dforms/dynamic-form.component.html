@@ -6,10 +6,11 @@
       <div class="form-editor-body">
         <div class="row section-title">
             <span class="pull-left">
-              <h4>Case Details</h4> 
+              <h6>Form Details</h6> 
             </span>
         </div>
-        <div class="row">
+        <div class="row"
+          [hidden]="true">
             <label class="material-question-label
                           col-md-offset-2
                           col-sm-offset-2
@@ -22,6 +23,7 @@
               <label class="" > {{casenumber}} </label>
             </div>
         </div>
+
         <div class="row">
             <label class="material-question-label
                           col-md-offset-2
@@ -51,7 +53,7 @@
         <div *ngFor="let sections of formArrayTest.controls">
           <div class="row section-title">
             <span class="pull-left">
-              <h4>{{sections.get('name').value}}</h4> 
+              <h6>{{sections.get('name').value}}</h6> 
             </span>
           </div>
 

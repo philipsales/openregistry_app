@@ -38,13 +38,14 @@
 						</td>
 						<td style="text-align: right">
 							<button 
+							*ngIf="false"
 							class="btn btn-sm btn-default"
 							[routerLink]="[view_url, case.id]">
 							<i class="fa fa-eye"></i> View</button>
 							<button 
 							class="btn btn-sm btn-warning e2e-update-newest-case"
 							[routerLink]="[update_url, case.id]">
-							<i class="fa fa-edit"></i> Update</button>
+							<i class="fa fa-edit"></i> Data Entry</button>
 						</td>
 					</tr>
 				</tbody>
