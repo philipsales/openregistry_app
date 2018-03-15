@@ -1,6 +1,65 @@
   <!-- Selected Forms  -->
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="First name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Age">
+    </mat-form-field>
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Self aware panel
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel>
+  <mat-expansion-panel 
+    *ngFor="let form of forms; let i = index"
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+          <strong>{{ form.form_name }}</strong>
+      </mat-panel-title>
+      <mat-panel-description>
+          {{ form.date_created | date :'medium' }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>Contents of form must appear here</p>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<div class="col-md-offset-3 col-md-6"
+style="margin-top: 15px;"
+[hidden]="!_show"> 
+  <button class="btn btn-default" style="width: 100%;"
+      *ngIf="method == 'UPDATE' || method == 'CREATE'"
+      (click)="onAddForm()">
+      <i class="fa fa-plus e2e-add-form"></i> Add Form
+  </button>
+</div> <!--button group -->
+
+
   <div class="col-md-12 col-sm-12 col-xs-12"
-    [hidden]="!_show"> 
+    [hidden]="true"> 
       <div class="x_panel">
         <div class="x_title">
           <h2 class="pull-left">Case Forms</h2>
@@ -68,4 +127,5 @@
         </div> <!-- x_content -->
       </div>
 </div> 
+
 <!-- Selected Forms -->

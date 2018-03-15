@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import 'hammerjs';
-import { MatCheckboxModule, MatCheckbox } from '@angular/material';
+import { MatCheckboxModule, MatCheckbox, MatExpansionModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import { MatNativeDateModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAccordion } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatListModule,
     MatTableModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatExpansionModule,
   ],
   exports: [
     MatCheckboxModule,
@@ -56,7 +58,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatListModule,
     MatTableModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatExpansionModule,
   ],
   declarations: [],
   providers: []

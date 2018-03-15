@@ -1,23 +1,23 @@
 <!-- Selected Forms  -->
-<div class="col-md-12 col-sm-12 col-xs-12"           
+
+<div class="col-md-12 col-sm-12 col-xs-12"          
+    style="margin-top: 15px;" 
     *ngIf="_show"> 
-    <div class="x_panel">
-      <div class="x_title">
-        <h2 class="pull-left">Case Forms</h2>
-        <div class="pull-right">
 
-            <button class="btn btn-success"
-              (click)="onAddSelectedForm()">
-              <i class="fa fa-plus e2e-add-form-to-case"></i> Add Selected
-            </button>
+    <div class="col-md-offset-3 col-md-6"> 
 
-            <button class="btn btn-danger"
-              (click)="onCancelAddForm()">
-              <i class="fa fa-window-close"></i> Cancel
-            </button>
-
-        </div>
-        <div class="clearfix"></div>
+        <button class="btn btn-default"
+          style="width: 48%;"
+          (click)="onAddSelectedForm()">
+          <i class="fa fa-plus e2e-add-form-to-case"></i> Add Selected
+        </button>
+  
+        <button class="btn btn-default"
+          style="width: 48%;"
+          (click)="onCancelAddForm()">
+          <i class="fa fa-window-close"></i> Cancel
+        </button>
+  
       </div>
       <div class="x_content">
         <div class="example-container mat-elevation-z8">
@@ -69,5 +69,4 @@
           </mat-table>
         </div>
       </div> <!-- x_content -->
-    </div>
 </div>
