@@ -1,6 +1,59 @@
   <!-- Selected Forms  -->
 
 <mat-accordion>
+    <mat-expansion-panel  [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Specimen Collection Form
+          </mat-panel-title>
+          <mat-panel-description>
+            Mandatory
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngFor="let specimen of specimens; let i = index" 
+          style="width: 100%;">
+          <mat-form-field style="width: 18%">
+            <input matInput placeholder="Qty">
+          </mat-form-field>
+      
+          <mat-form-field style="width: 18%">
+            <mat-select placeholder="Specimen">
+              <mat-option *ngFor="let spec of specs" [value]="spec.value">
+                  {{ spec.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field style="width: 18%">
+            <mat-select placeholder="Type">
+                <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
+                  {{ spectype.viewValue }}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field style="width: 18%">
+              <input matInput placeholder="Characteristic">
+          </mat-form-field>
+  
+          <mat-form-field style="width: 18%">
+              <input matInput placeholder="Qty Available">
+          </mat-form-field>
+          <button class="btn btn-sm btn-danger" 
+            style="width: 4%; margin-left: 1%;"
+            (click)="onRemoveRow(i)">
+              <i class="fa fa-trash"></i> 
+          </button>
+        </div>
+        <div style="clear: both; padding-bottom: 30px;">
+          <button class="btn btn-default pull-right"
+            (click)="onAddRow()">
+            Add Row
+          </button>
+        </div>
+      </mat-expansion-panel>
+
+
   <mat-expansion-panel 
     *ngFor="let form of _forms; let i = index"
     (opened)="onRevealForm(form.id, form.form_id)"

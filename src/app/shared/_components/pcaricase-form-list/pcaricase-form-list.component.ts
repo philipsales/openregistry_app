@@ -14,6 +14,15 @@ export class PcaricaseFormListComponent implements OnInit {
   dirpath = '';
   is_ok = false;
   form_answer_id = '';
+  specimens = [];
+  specs = [
+    {value: 'urine', viewValue: 'Urine'},
+    {value: 'stool', viewValue: 'stool'},
+  ];
+  spectypes = [
+    {value: 'frozen', viewValue: 'Frozen'},
+    {value: 'embedded', viewValue: 'Embedded'},
+  ];
 
   @Input() caseid: string;
   @Input() casenumber: string;
@@ -46,10 +55,20 @@ export class PcaricaseFormListComponent implements OnInit {
     private formAnswerService: FormAnswerService,
     private formService: FormService
   ) {
+    this.specimens.push(1);
+    this.specimens.push(2);
   }
 
   ngOnInit() {
 
+  }
+
+  onAddRow() {
+    this.specimens.push(2);
+  }
+
+  onRemoveRow(index) {
+    this.specimens.splice(index, 1);
   }
 
   onAddForm() {
