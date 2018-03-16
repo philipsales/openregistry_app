@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormAnswer, Answer, Form } from 'app/core/models';
-import { FormService, FormAnswerService } from 'app/core/services';
+import { FormAnswer, Answer, Form, SpecForm, Case } from 'app/core/models';
+import { FormService, FormAnswerService, CaseService } from 'app/core/services';
 import { NoJWTError } from 'app/core/errors';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-pcaricase-form-list',
@@ -14,7 +15,6 @@ export class PcaricaseFormListComponent implements OnInit {
   dirpath = '';
   is_ok = false;
   form_answer_id = '';
-  specimens = [];
   specs = [
     {value: 'urine', viewValue: 'Urine'},
     {value: 'stool', viewValue: 'stool'},
@@ -23,6 +23,7 @@ export class PcaricaseFormListComponent implements OnInit {
     {value: 'frozen', viewValue: 'Frozen'},
     {value: 'embedded', viewValue: 'Embedded'},
   ];
+  specimens: SpecForm[] = [];
 
   @Input() caseid: string;
   @Input() casenumber: string;
@@ -53,18 +54,40 @@ export class PcaricaseFormListComponent implements OnInit {
 
   constructor(
     private formAnswerService: FormAnswerService,
-    private formService: FormService
+    private formService: FormService,
+    private caseService: CaseService,
+    private _notificationsService: NotificationsService
   ) {
-    this.specimens.push(1);
-    this.specimens.push(2);
+    this.specimens.push(new SpecForm('', '', '', '', '', '', '', ''));
   }
 
   ngOnInit() {
 
   }
 
+  onSaveClick() {
+    console.log(this.specimens, 'SPECIMEN');
+    this.caseService.updateSpecForm(this.caseid, this.specimens).subscribe((updated_case: Case) => {
+      //this.is_processing = false;
+      console.log(updated_case, 'CASE UPDATED : case-update.component');
+      this._notificationsService.success(
+        'Case : ' + updated_case.case_nbr,
+        'Successfully Updated.',
+        {
+          timeOut: 10000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: false,
+        }
+      );
+    }, errors => {
+      console.log(errors, 'ERROR : case-update.component');
+      // this.is_processing = false;
+    });
+  }
+
   onAddRow() {
-    this.specimens.push(2);
+    this.specimens.push(new SpecForm('', '', '', '', '', '', '', ''));
   }
 
   onRemoveRow(index) {

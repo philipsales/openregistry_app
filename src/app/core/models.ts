@@ -18,4 +18,4 @@ export * from './models/answer';
 export * from './models/formanswer';
 export * from './models/case';
 export * from './models/icdoncology';
-
+export * from './models/specform';

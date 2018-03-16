@@ -1,7 +1,9 @@
   <!-- Selected Forms  -->
-
 <mat-accordion>
+      
     <mat-expansion-panel  [expanded]="true">
+        
+        
         <mat-expansion-panel-header>
           <mat-panel-title>
             Specimen Collection Form
@@ -10,14 +12,20 @@
             Mandatory
           </mat-panel-description>
         </mat-expansion-panel-header>
+        <div style="text-align: center; margin-bottom: 10px;" class="row">
+            <button class="btn btn-success pull-right"
+              (click)="onSaveClick()">
+              Save
+            </button>
+        </div>
         <div *ngFor="let specimen of specimens; let i = index" 
           style="width: 100%;">
           <mat-form-field style="width: 18%">
-            <input matInput placeholder="Qty">
+            <input matInput placeholder="Qty" [(ngModel)]="specimen.qty">
           </mat-form-field>
       
           <mat-form-field style="width: 18%">
-            <mat-select placeholder="Specimen">
+            <mat-select placeholder="Specimen" [(ngModel)]="specimen.spec">
               <mat-option *ngFor="let spec of specs" [value]="spec.value">
                   {{ spec.viewValue }}
               </mat-option>
@@ -25,7 +33,7 @@
           </mat-form-field>
   
           <mat-form-field style="width: 18%">
-            <mat-select placeholder="Type">
+            <mat-select placeholder="Type" [(ngModel)]="specimen.spec_type">
                 <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
                   {{ spectype.viewValue }}
                 </mat-option>
@@ -33,11 +41,11 @@
           </mat-form-field>
   
           <mat-form-field style="width: 18%">
-              <input matInput placeholder="Characteristic">
+              <input matInput placeholder="Characteristic" [(ngModel)]="specimen.characteristic">
           </mat-form-field>
   
           <mat-form-field style="width: 18%">
-              <input matInput placeholder="Qty Available">
+              <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail">
           </mat-form-field>
           <button class="btn btn-sm btn-danger" 
             style="width: 4%; margin-left: 1%;"
