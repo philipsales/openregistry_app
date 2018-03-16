@@ -23,10 +23,10 @@ export class PcaricaseFormListComponent implements OnInit {
     {value: 'frozen', viewValue: 'Frozen'},
     {value: 'embedded', viewValue: 'Embedded'},
   ];
-  specimens: SpecForm[] = [];
 
   @Input() caseid: string;
   @Input() casenumber: string;
+  @Input() specform: SpecForm[] = [];
   @Input() method: string;
   @Input() update_url: string;
   @Input() view_url: string;
@@ -58,16 +58,17 @@ export class PcaricaseFormListComponent implements OnInit {
     private caseService: CaseService,
     private _notificationsService: NotificationsService
   ) {
-    this.specimens.push(new SpecForm('', '', '', '', '', '', '', ''));
   }
 
   ngOnInit() {
-
+    if (this.specform.length === 0) {
+      this.specform.push(new SpecForm('', '', '', '', '', '', '', ''));
+    }
   }
 
   onSaveClick() {
-    console.log(this.specimens, 'SPECIMEN');
-    this.caseService.updateSpecForm(this.caseid, this.specimens).subscribe((updated_case: Case) => {
+    console.log(this.specform, 'SPECIMEN');
+    this.caseService.updateSpecForm(this.caseid, this.specform).subscribe((updated_case: Case) => {
       //this.is_processing = false;
       console.log(updated_case, 'CASE UPDATED : case-update.component');
       this._notificationsService.success(
@@ -87,11 +88,11 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   onAddRow() {
-    this.specimens.push(new SpecForm('', '', '', '', '', '', '', ''));
+    this.specform.push(new SpecForm('', '', '', '', '', '', '', ''));
   }
 
   onRemoveRow(index) {
-    this.specimens.splice(index, 1);
+    this.specform.splice(index, 1);
   }
 
   onAddForm() {

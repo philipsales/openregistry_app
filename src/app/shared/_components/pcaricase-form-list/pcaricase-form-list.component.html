@@ -18,7 +18,7 @@
               Save
             </button>
         </div>
-        <div *ngFor="let specimen of specimens; let i = index" 
+        <div *ngFor="let specimen of specform; let i = index" 
           style="width: 100%;">
           <mat-form-field style="width: 18%">
             <input matInput placeholder="Qty" [(ngModel)]="specimen.qty">
