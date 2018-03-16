@@ -6,11 +6,8 @@
         
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Specimen Collection Form
+            Specimen Collection Form : &nbsp; <em>Mandatory</em>
           </mat-panel-title>
-          <mat-panel-description>
-            Mandatory
-          </mat-panel-description>
         </mat-expansion-panel-header>
         <div style="text-align: center; margin-bottom: 10px;" class="row">
             <button class="btn btn-success pull-right"
@@ -68,11 +65,8 @@
     (closed)="panelOpenState = false">
     <mat-expansion-panel-header>
       <mat-panel-title>
-          <strong>{{ form.form_name }}</strong>
+          {{ form.form_name }} : &nbsp; <em>{{ form.date_created | date :'medium' }}</em>
       </mat-panel-title>
-      <mat-panel-description>
-          {{ form.date_created | date :'medium' }}
-      </mat-panel-description>
     </mat-expansion-panel-header>
     <div *ngIf="is_ok">
         <app-dynamic-form
