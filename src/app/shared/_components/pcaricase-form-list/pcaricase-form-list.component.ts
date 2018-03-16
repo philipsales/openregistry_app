@@ -30,6 +30,7 @@ export class PcaricaseFormListComponent implements OnInit {
   @Input() method: string;
   @Input() update_url: string;
   @Input() view_url: string;
+  @Input() isBiobank = false;
 
   _forms: FormAnswer;
   @Input() set forms(value: FormAnswer) {
@@ -61,7 +62,7 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (this.specform.length === 0) {
+    if (this.isBiobank && this.specform.length === 0) {
       this.specform.push(new SpecForm('', '', '', '', '', '', '', ''));
     }
   }
