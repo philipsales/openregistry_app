@@ -45,6 +45,10 @@
 						<a  [routerLink]="['./forms']">
 							<i class="fa fa-clone e2e-biobank-form"></i>Forms</a>
 				</li>
+				<li routerLinkActive="active">
+					<a  [routerLink]="['./mtas']">
+						<i class="fa fa-stethoscope e2e-biobank-case"></i>&nbsp;MTA</a>
+				</li>
 				<li routerLinkActive="active"
 				appPcariauth
 				[mustHavePermission]="['biobank_case_create', 'biobank_case_view', 'biobank_case_update']"

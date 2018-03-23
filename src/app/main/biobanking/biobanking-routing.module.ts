@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: './biobankcases/biocase.module#BiocaseModule'
       },
       {
+        path: 'mtas',
+        loadChildren: './mtas/mtas.module#MtasModule'
+      },
+      {
         path: 'reports',
         loadChildren: './biobankreports/reports-biobanking.module#ReportsBiobankingModule'
       },
