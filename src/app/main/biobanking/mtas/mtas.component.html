@@ -39,6 +39,31 @@
             [routerLink]="['/biobanking/mtas/create']" class="btn btn-default pull-right">
             <i class="fa fa-plus"></i> &nbsp; Create MTA
           </a>
-        </div>
+      </div>
+
+      <div class="col-md-12">
+          <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mta of mtas; let i = index">
+              <th scope="row">{{ i+1 }}</th>
+              <td>{{ mta.name }}</td>
+              <td style="text-align: right">
+                <a class="btn btn-sm btn-default"
+                  target="_blank"
+                  href="{{this.download_url + mta.id + '/download'}}">
+                  <i class="fa fa-eye"></i> Download
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+      </div>
   </div>
 </div>
