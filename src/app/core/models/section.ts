@@ -6,6 +6,7 @@ export class Section {
   name: string;
   order?: number;
   questions?: Question[];
+  isTable: boolean;
 
   static fromJSON(json: SectionJSON): Section {
     if (typeof json === 'string') {
@@ -15,7 +16,8 @@ export class Section {
         let output = Object.assign(section, json, {
           key: json.key,
           name: json.name,
-          order: json.order
+          order: json.order,
+          isTable: json.isTable
         });
         if (json.questions) {
           output['questions'] = json.questions.map(Question.fromJSON);
@@ -39,7 +41,8 @@ export class Section {
       key: json.key,
       name: json.name,
       order: json.order,
-      questions: questions
+      questions: questions,
+      isTable: json.isTable
     });
   }
 
@@ -55,6 +58,7 @@ export class Section {
     this.name = name;
     this.order = order;
     this.questions = questions;
+    this.isTable = false;
   }
 
   toJSON(): SectionJSON {
@@ -66,7 +70,8 @@ export class Section {
       key: this.key,
       name: this.name,
       order: this.order,
-      questions: questions
+      questions: questions,
+      isTable: this.isTable
     });
   }
 }

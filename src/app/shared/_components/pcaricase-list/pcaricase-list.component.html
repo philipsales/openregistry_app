@@ -7,11 +7,11 @@
 						<button class="btn btn-default" type="button">Go!</button>
 					</span>
 				</div>
-      </div>
-	  <a [routerLink]="[create_url]"
-	  appPcariauth
-		[mustHavePermission]="['biobank_case_create', 'medical_case_create']"
-		[mustBeAll]="false" 
+	  </div>
+			<a [routerLink]="[create_url]"
+			appPcariauth
+			[mustHavePermission]="['biobank_case_create', 'medical_case_create']"
+			[mustBeAll]="false" 
          class="btn btn-default pull-right">
         <i class="fa fa-plus e2e-create-case"></i> &nbsp; Create Case
       </a>
@@ -41,9 +41,13 @@
 						</td>
 						<td style="text-align: right">
 							<button 
+<<<<<<< HEAD
 							appPcariauth
 							  [mustHavePermission]="['biobank_case_view', 'medical_case_view']"
 							  [mustBeAll]="false" 
+=======
+							*ngIf="false"
+>>>>>>> feature/biobankcasev2
 							class="btn btn-sm btn-default"
 							[routerLink]="[view_url, case.id]">
 							<i class="fa fa-eye"></i> View</button>
@@ -53,7 +57,7 @@
 							  [mustBeAll]="false" 
 							class="btn btn-sm btn-warning e2e-update-newest-case"
 							[routerLink]="[update_url, case.id]">
-							<i class="fa fa-edit"></i> Update</button>
+							<i class="fa fa-edit"></i> Data Entry</button>
 						</td>
 					</tr>
 				</tbody>
