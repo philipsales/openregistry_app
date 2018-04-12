@@ -135,7 +135,8 @@
         </div> <!-- row -->
     
         <div class="row">
-          <div class="col-sm-10"> 
+          <div class="col-sm-10"
+            *ngIf="!withconsent"> 
             <form-section-array
               [parentForm]="templateForm"
               [sections]="_form?.sections" 
@@ -143,12 +144,22 @@
             </form-section-array>
           </div>
     
+          <div class="col-sm-10"
+            *ngIf="withconsent"> 
+            <app-forms-table-section-array
+              [parentForm]="templateForm"
+              [sections]="_form?.sections" 
+              [viewState]="'create'" > 
+            </app-forms-table-section-array>
+          </div>
+
           <div class="col-sm-1 section"  > 
             <div class="col-sm-1" >
               <div class="row">
                 <div class="sidebar">
                   <ul class="nav nav-sidebar form-side-editor-main" style="">
-                    <li title="Add Sectino" class="form-side-editor-fxn" >
+                    <li title="Add Sectino" class="form-side-editor-fxn" 
+                      *ngIf="!withconsent">
                       <button 
                           mat-button
                           matTooltip="Add Sectionz" 
@@ -158,6 +169,18 @@
                           <i class="fa fa-3x fa-plus-circle"></i> &nbsp; 
                       </button>
                     </li>
+                    <li title="Add Table Section" class="form-side-editor-fxn"
+                      *ngIf="withconsent">
+                      <button 
+                          mat-button
+                          matTooltip="Add Table Section" 
+                          [disabled]="is_processing || is_created"
+                          class="e2e-add-new-section"
+                          (click)="onAddTableSection()">
+                          <i class="fa fa-3x fa-plus-circle"></i> &nbsp; 
+                      </button>
+                    </li>
+                    
                     <li title="Preview Template" class="form-side-editor-fxn" >
                       <button 
                           mat-button

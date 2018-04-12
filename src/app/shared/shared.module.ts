@@ -40,6 +40,8 @@ import { IcdoncologyManageComponent } from './_components/icdoncology-manage/icd
 import { IcdoncologySearchComponent } from './_components/icdoncology-search/icdoncology-search.component';
 import { DeleteModalComponent } from './_components/delete-modal/delete-modal.component';
 import { PcariauthDirective } from './_directives/pcariauth.directive';
+import { FormsTableSectionComponent } from './_components/forms-table-section/forms-table-section.component';
+import { FormsTableSectionArrayComponent } from './_components/forms-table-section/forms-table-section-array.component';
 
 
 @NgModule({
@@ -81,7 +83,9 @@ import { PcariauthDirective } from './_directives/pcariauth.directive';
     IcdoncologyManageComponent,
     IcdoncologySearchComponent,
     DeleteModalComponent,
-    PcariauthDirective
+    PcariauthDirective,
+    FormsTableSectionComponent,
+    FormsTableSectionArrayComponent
   ],
   providers: [
     ConsentService,
