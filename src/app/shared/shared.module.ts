@@ -42,6 +42,7 @@ import { DeleteModalComponent } from './_components/delete-modal/delete-modal.co
 import { PcariauthDirective } from './_directives/pcariauth.directive';
 import { FormsTableSectionComponent } from './_components/forms-table-section/forms-table-section.component';
 import { FormsTableSectionArrayComponent } from './_components/forms-table-section/forms-table-section-array.component';
+import { TableQuestionContentArrayComponent } from './_components/table-question-content-array/table-question-content-array.component';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { FormsTableSectionArrayComponent } from './_components/forms-table-secti
     DeleteModalComponent,
     PcariauthDirective,
     FormsTableSectionComponent,
-    FormsTableSectionArrayComponent
+    FormsTableSectionArrayComponent,
+    TableQuestionContentArrayComponent
   ],
   providers: [
     ConsentService,
