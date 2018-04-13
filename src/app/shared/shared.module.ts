@@ -43,6 +43,7 @@ import { PcariauthDirective } from './_directives/pcariauth.directive';
 import { FormsTableSectionComponent } from './_components/forms-table-section/forms-table-section.component';
 import { FormsTableSectionArrayComponent } from './_components/forms-table-section/forms-table-section-array.component';
 import { TableQuestionContentArrayComponent } from './_components/table-question-content-array/table-question-content-array.component';
+import { DynamicTableFormComponent } from './_components/dynamic-table-form/dynamic-table-form.component';
 
 
 @NgModule({
@@ -87,7 +88,8 @@ import { TableQuestionContentArrayComponent } from './_components/table-question
     PcariauthDirective,
     FormsTableSectionComponent,
     FormsTableSectionArrayComponent,
-    TableQuestionContentArrayComponent
+    TableQuestionContentArrayComponent,
+    DynamicTableFormComponent
   ],
   providers: [
     ConsentService,

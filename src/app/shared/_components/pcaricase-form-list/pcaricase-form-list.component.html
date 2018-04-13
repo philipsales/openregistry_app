@@ -70,6 +70,7 @@
     </mat-expansion-panel-header>
     <div *ngIf="is_ok">
         <app-dynamic-form
+          *ngIf="!isBiobank"
           [method]="'UPDATE'"
           [answers]="answers"
           [caseid]="caseid"
@@ -80,6 +81,18 @@
           [insectionz]="caseform?.sections"
          >
       </app-dynamic-form>
+
+      <app-dynamic-table-form  
+        *ngIf="isBiobank"
+        [method]="'UPDATE'"
+        [answers]="answers"
+        [caseid]="caseid"
+        [casenumber]="casenumber"
+        [dirpath]="dirpath"
+        [formanswerid]="form_answer_id"
+        [inquestionz]="caseform?.sections" 
+        [insectionz]="caseform?.sections">
+      </app-dynamic-table-form>
     </div>
 
     <p *ngIf="!is_ok"> Please wait...</p>
