@@ -52,11 +52,11 @@ export class BioformsCreateComponent implements OnInit {
         'Pending',
         [
           new Section(
-
             this.keyGenerator.create(),
             'Untitled section',
             0,
-            [])
+            [],
+            true)
         ],
         new Date(),
         ''

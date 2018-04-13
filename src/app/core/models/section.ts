@@ -50,7 +50,8 @@ export class Section {
     key: string,
     name: string,
     order?: number,
-    questions?: Question[]
+    questions?: Question[],
+    istable?: boolean
   ) {
     if (key) {
       this.key = key;
@@ -58,7 +59,12 @@ export class Section {
     this.name = name;
     this.order = order;
     this.questions = questions;
-    this.isTable = false;
+    console.log(istable, 'TABLE');
+    if (istable) {
+      this.isTable = true;
+    } else {
+      this.isTable = false;
+    }
   }
 
   toJSON(): SectionJSON {

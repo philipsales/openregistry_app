@@ -128,7 +128,8 @@ export class PcariformManageComponent implements OnInit {
       this.keyGenerator.create(),
       'Untitled section',
       0,
-      []
+      [],
+      true
     ));
   }
 
@@ -145,6 +146,7 @@ export class PcariformManageComponent implements OnInit {
       updated_form.file = formModel;
     }
 
+    console.log(updated_form, 'FORM!!');
     this.onSubmitTrigger.emit(updated_form);
   }
 

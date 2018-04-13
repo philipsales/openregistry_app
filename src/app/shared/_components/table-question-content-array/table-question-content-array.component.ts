@@ -4,6 +4,7 @@ import { FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { Question, Form, Section, Option, SpecForm } from 'app/core/models';
 
 import { KeyGenerator } from 'app/core/utils';
+import { MatSelectChange } from '@angular/material';
 
 @Component({
   selector: 'app-table-question-content-array',
@@ -45,9 +46,9 @@ export class TableQuestionContentArrayComponent implements OnInit {
       let options: Option[] = [];
       this.questions.push(new Question(
         this.keyGenerator.create(),
-        'Untitled question',
-        'textbox',
-        '',
+        'specform_row',
+        'specform_row',
+        '||||||||',
         false,
         0,
         options
@@ -59,9 +60,9 @@ export class TableQuestionContentArrayComponent implements OnInit {
     let options: Option[] = [];
     this.questions.push(new Question(
       this.keyGenerator.create(),
-      'Untitled question',
-      'textbox',
-      '',
+      'specform_row',
+      'specform_row',
+      '|||||||',
       false,
       (<FormArray>this.parentForm.controls.questions).length,
       options
@@ -70,12 +71,45 @@ export class TableQuestionContentArrayComponent implements OnInit {
 
   addTableQuestion() {
     this.specform.push(new SpecForm('', '', '', '', '', '', '', ''));
+    let options: Option[] = [];
+    this.questions.push(new Question(
+      this.keyGenerator.create(),
+      'specform_row',
+      'specform_row',
+      '|||||||',
+      false,
+      this.questions.length,
+      options
+    ));
   }
 
   removeTableQuestion(index: number) {
     if (this.specform.length !== 1) {
       this.specform.splice(index, 1);
     }
+    this.removeQuestion(index);
+  }
+
+  onChangeSpec($event: MatSelectChange) {
+    const ar_id = ($event.source.id.split('-'));
+    const index = ar_id[ar_id.length - 1];
+    let curval = (this.questions[index].value).split('|');
+    curval[1] = $event.value;
+    this.questions[index].value = curval.join('|');
+    console.log(this.questions[index]);
+  }
+
+  onChangeSpecType($event: MatSelectChange) {
+    console.log($event.source);
+    const ar_id = ($event.source.id.split('-'));
+    const index = ar_id[ar_id.length - 1];
+    console.log(index);
+    console.log($event.value);
+    console.log(this.questions[index]);
+    let curval = (this.questions[index].value).split('|');
+    curval[2] = $event.value;
+    this.questions[index].value = curval.join('|');
+    console.log(this.questions[index]);
   }
 
   toFormGroup(question: Question) {
@@ -132,6 +166,10 @@ export class TableQuestionContentArrayComponent implements OnInit {
         .removeAt(index);
     }
 
+    for (let index = 0; index < this.questions.length; index++) {
+      this.questions[index].order = index;
+    }
+    
     const ctrl = <FormArray>this.parentForm.controls['questions'];
     ctrl.controls.forEach((x, indexes) => {
       x.patchValue({ order: indexes });

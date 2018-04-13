@@ -10,6 +10,7 @@
         <mat-form-field style="width: 18%">
           <mat-select placeholder="Specimen" 
             id="e2e-question-content-spec-{{sectionIndex}}-{{i}}"
+            (selectionChange)="onChangeSpec($event)"
             [(ngModel)]="specimen.spec">
             <mat-option *ngFor="let spec of specs" [value]="spec.value">
                 {{ spec.viewValue }} 
@@ -20,6 +21,7 @@
         <mat-form-field style="width: 15%">
           <mat-select placeholder="Type" 
             id="e2e-question-content-type-{{sectionIndex}}-{{i}}"
+            (selectionChange)="onChangeSpecType($event)"
             [(ngModel)]="specimen.spec_type">
               <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
                 {{ spectype.viewValue }}
