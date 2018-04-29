@@ -25,14 +25,14 @@
           </div>
         </div>
       </header>
-      <br/> <br/>
 
       <div class="col-md-12 col-sm-12 col-xs-12 form-wrapper"> 
         <app-bioforms-create-form
           [registryTypes]="registryTypes"
           [departments]="departments"
           [organizations]="organizations"
-          [form]="new_form">
+          [form]="new_form"
+          (onResetTrigger)="onResetEvent($event)">
         </app-bioforms-create-form>
       </div><!-- col-md-12 -->
 </div>

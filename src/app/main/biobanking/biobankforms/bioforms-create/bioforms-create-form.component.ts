@@ -27,6 +27,8 @@ import { MatSelectChange } from '@angular/material';
 })
 export class BioformsCreateFormComponent implements OnInit {
 
+  @Output() onResetTrigger: EventEmitter<Form> = new EventEmitter();
+
   @Input() registryTypes: RegType[];
   @Input() departments: Department[];
   @Input() organizations: Organization[];
@@ -41,6 +43,7 @@ export class BioformsCreateFormComponent implements OnInit {
 
   status: any[];
   table_section: any[];
+  is_processing = false;
 
   specs = [
     {value: 'urine', viewValue: 'Urine'},
@@ -62,6 +65,10 @@ export class BioformsCreateFormComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  onResetForm() {
+    this.onResetTrigger.emit(this._form);
   }
 
   onChangeFile() {

@@ -44,23 +44,7 @@ export class BioformsCreateComponent implements OnInit {
       this.new_form = this.formService.currentForm;
     } else {
       console.log('COMPLETELY NEW');
-      this.new_form = new Form(
-        '',
-        environment.ORG_BIOBANK,
-        environment.DEPT_BIOBANK,
-        environment.FORM_TYPE_BIOBANK,
-        'Pending',
-        [
-          new Section(
-            this.keyGenerator.create(),
-            'Untitled section',
-            0,
-            [],
-            true)
-        ],
-        new Date(),
-        ''
-      );
+      this.resetForm();
       this.getRegistryTypes();
       this.getDepartments();
       this.getOrganizations();
@@ -69,6 +53,23 @@ export class BioformsCreateComponent implements OnInit {
     this.getRegistryTypes();
     this.getDepartments();
     this.getOrganizations();
+  }
+
+  resetForm() {
+    this.new_form = new Form(
+      '',
+      environment.ORG_BIOBANK,
+      environment.DEPT_BIOBANK,
+      environment.FORM_TYPE_BIOBANK,
+      'Pending',
+      [],
+      new Date(),
+      ''
+    );
+  }
+
+  onResetEvent(form: Form) {
+    this.resetForm();
   }
 
   ngOnInit() {

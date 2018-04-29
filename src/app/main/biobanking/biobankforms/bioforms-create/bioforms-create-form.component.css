@@ -320,3 +320,13 @@ input.material-right-align {
 .question_button:hover {
     text-decoration: underline;
 }
+
+
+.reset-wrapper, .save-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.form-editor-body {
+    margin-top: 15px;
+}
