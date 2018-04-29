@@ -310,3 +310,13 @@ input.material-right-align {
     margin-top: -15px;
     text-align: right;
 }
+
+.question_button {
+    margin: 20px;
+    display: inline-block;
+    cursor:  pointer;
+}
+
+.question_button:hover {
+    text-decoration: underline;
+}

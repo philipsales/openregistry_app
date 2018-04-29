@@ -17,6 +17,7 @@ import { OrganizationService, DepartmentService, RegTypeService, FormService, Ca
 
 import { KeyGenerator } from 'app/core/utils';
 import { Router } from '@angular/router';
+import { MatSelectChange } from '@angular/material';
 
 
 @Component({
@@ -39,12 +40,25 @@ export class BioformsCreateFormComponent implements OnInit {
   }// -- setter for forms
 
   status: any[];
+  table_section: any[];
+
+  specs = [
+    {value: 'urine', viewValue: 'Urine'},
+    {value: 'stool', viewValue: 'stool'},
+  ];
+  
+  spectypes = [
+    {value: 'frozen', viewValue: 'Frozen'},
+    {value: 'embedded', viewValue: 'Embedded'},
+  ];
 
   constructor() {
     this.status = [
       { 'name': 'Pending', 'key': 'Pending' },
       { 'name': 'Approved', 'key': 'Approved' }
     ];
+    this.table_section = [];
+    this.table_section.push({speciment: '', type: ''});
   }
 
   ngOnInit() {
@@ -57,5 +71,35 @@ export class BioformsCreateFormComponent implements OnInit {
     this._form.dir_path = (fi.files[0].name).split(' ').join('_');
   }
 
+  addTableQuestion() {
+    this.table_section.push({speciment: '', type: ''});
+  }
 
+  removeTableQuestion(index: number) {
+    if (this.table_section.length !== 1) {
+      this.table_section.splice(index, 1);
+    }
+  }
+
+  onChangeSpec($event: MatSelectChange) {
+    const ar_id = ($event.source.id.split('-'));
+    const index = ar_id[ar_id.length - 1];
+    let curval = (this.table_section[index].value).split('|');
+    curval[1] = $event.value;
+    this.table_section[index].value = curval.join('|');
+    console.log(this.table_section[index]);
+  }
+
+  onChangeSpecType($event: MatSelectChange) {
+    console.log($event.source);
+    const ar_id = ($event.source.id.split('-'));
+    const index = ar_id[ar_id.length - 1];
+    console.log(index);
+    console.log($event.value);
+    console.log(this.table_section[index]);
+    let curval = (this.table_section[index].value).split('|');
+    curval[2] = $event.value;
+    this.table_section[index].value = curval.join('|');
+    console.log(this.table_section[index]);
+  }
 }

@@ -110,6 +110,67 @@
     <div class="row">
       <div class="col-sm-10">
         <!-- form section bla bla here -->
+        <div class="" >
+          <div class="">
+
+            <!-- section-->
+            <div class="col-md-12 col-sm-12 col-xs-12 ">
+              <mat-card>
+                <mat-card-header >
+                  <mat-card-title>
+                  </mat-card-title>
+                </mat-card-header>
+                <!-- rows-->
+                <div>
+                  <div *ngFor="let specimen of table_section; let i = index;">
+                    <mat-form-field>
+                      <mat-select placeholder="Specimen" 
+                        (selectionChange)="onChangeSpec($event)"
+                        [(ngModel)]="specimen.spec">
+                        <mat-option *ngFor="let spec of specs" [value]="spec.value">
+                            {{ spec.viewValue }} 
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+            
+                    <mat-form-field>
+                      <mat-select placeholder="Type" 
+                        id="e2e-question-content-type-{{sectionIndex}}-{{i}}"
+                        (selectionChange)="onChangeSpecType($event)"
+                        [(ngModel)]="specimen.spec_type">
+                          <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
+                            {{ spectype.viewValue }}
+                          </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  
+                    <button mat-button style="width: 5%; padding: 2px;"
+                      (click)="removeTableQuestion(i)">
+                      Remove
+                    </button>  
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                      <mat-card-actions style="text-align: right; margin-right: 0;">
+                        <button mat-raised-button color="primary"
+                                class="e2e-add-question"
+                                (click)="addTableQuestion()">
+                            Add Row
+                        </button>
+                      </mat-card-actions>
+                    </div>
+                  </div>
+                </div>
+                <!-- end of rows -->
+              </mat-card>
+              <br/>
+              <br/>
+            </div>
+            <!-- end of section -->
+          </div>
+        </div>          
+        <!-- END of form section bla bla here -->
       </div>
     </div> <!-- row-->
 
