@@ -1,0 +1,117 @@
+<div class="form-editor-body">
+  <form #userSaveFormAccount="ngForm" novalidate>
+    <div class="row">
+      <div class="col-sm-10" > 
+          <div id="formcreatecontainer">
+            <input type="hidden" class="form-control"
+                    placeholder="id">
+            <div class="material-form-group">
+              <mat-form-field class="material-form-control">
+                    <input matInput 
+                          id="formname"
+                          placeholder="Form Name"
+                          [(ngModel)]="_form.name"
+                          #input_name="ngModel" name="input_name"
+                          required="required">
+                          <mat-error *ngIf="(input_name.errors && (input_name.dirty || input_name.touched))">
+                              Form Name is required 
+                          </mat-error>
+              </mat-form-field>
+              <mat-form-field class="material-form-control" >
+                <mat-select placeholder="Registry Type"
+                            [disabled]="true"
+                            [(ngModel)]="_form.type"
+                            #input_type="ngModel" name="input_type"
+                            required="required" >
+                  <mat-option *ngFor="let type of registryTypes"
+                              [id]="type.name" 
+                              [value]="type.name">{{type.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> <!-- material-form-group -->
+
+            <div class="material-form-group">
+              <mat-form-field class="material-form-control" >
+                <mat-select placeholder="Organization"
+                            [disabled]="true"
+                            [(ngModel)]="_form.organization" 
+                            #input_org="ngModel" name="input_org"
+                            required="required" >
+                  <mat-option *ngFor="let org of organizations"
+                              [id]="org.key" 
+                              [value]="org.name">{{org.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="material-form-control" >
+                <mat-select placeholder="Department"
+                            [disabled]="true"
+                            [(ngModel)]="_form.department" 
+                            #input_department="ngModel" name="input_department"
+                            required="required" >
+                  <mat-option *ngFor="let dept of departments"
+                              [id]="dept.key" 
+                              [value]="dept.name">{{dept.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> <!-- material-form-group -->
+
+
+            <div class="material-form-group">
+              <mat-form-field class="material-form-control" >
+                <input placeholder="Consent Form Validity Date"
+                        [(ngModel)]="_form.validity_date"
+                        #input_validity_date="ngModel" name="input_validity_date"
+                        required="required" 
+                        matInput [matDatepicker]="i" >
+                <mat-datepicker-toggle matSuffix [for]="i"></mat-datepicker-toggle>
+                <mat-datepicker #i></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field class="material-form-control pull-left" >
+                  <div class="col-sm-10 material-file-input-textbox" >
+                    <input placeholder="Consent Form Attachment" 
+                        matInput disabled 
+                        value="{{_form.dir_path}}" >
+                  </div>
+                  <div class="col-sm-1 material-file-input-icon pull-right" >
+                    <button mat-icon-button
+                            (click)="fileInput.click()" > 
+                          <mat-icon>attachment</mat-icon>&nbsp;
+                    </button>
+                  </div>
+                <span hidden>
+                  <input type="file" 
+                        (change)="onChangeFile()"
+                        #fileInput>
+                </span>
+              </mat-form-field>
+            </div>
+          
+            <div class="material-form-group" [hidden]="true">
+              <mat-form-field class="material-form-control pull-left" >
+                <mat-select [(ngModel)]="_form.status"
+                            #input_status="ngModel" name="input_status"
+                            placeholder="Approval Status" >
+                  <mat-option *ngFor="let stat of status"
+                              [id]="stat.key" 
+                              [value]="stat.name">{{stat.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> <!-- material-form-group -->
+
+          </div> <!-- #formcreatecontainer -->
+      </div> <!-- col-sm-10 -->
+    </div> <!-- row -->
+
+    <div class="row">
+      <div class="col-sm-10">
+        <!-- form section bla bla here -->
+      </div>
+    </div> <!-- row-->
+
+  </form> <!-- templateForm -->
+</div> <!-- form-editor-body -->

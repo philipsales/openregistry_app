@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { FormsModule } from '@angular/forms';
 
 import { MaterialModule } from 'app/shared/_material/material.module';
 import { SharedModule } from 'app/shared/shared.module';
@@ -13,10 +14,12 @@ import { BioformsListComponent } from './bioforms-list/bioforms-list.component';
 import { BioformsCreateComponent } from './bioforms-create/bioforms-create.component';
 import { BioformsUpdateComponent } from './bioforms-update/bioforms-update.component';
 import { BioformsPreviewComponent } from './bioforms-preview/bioforms-preview.component';
+import { BioformsCreateFormComponent } from './bioforms-create/bioforms-create-form.component';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     MaterialModule,
     SharedModule,
     InMemoryWebApiModule.forRoot(FormDummyApiResponse, {
@@ -28,7 +31,8 @@ import { BioformsPreviewComponent } from './bioforms-preview/bioforms-preview.co
     BioformsListComponent,
     BioformsCreateComponent,
     BioformsUpdateComponent,
-    BioformsPreviewComponent
+    BioformsPreviewComponent,
+    BioformsCreateFormComponent
   ],
   providers: [
     FormService,
