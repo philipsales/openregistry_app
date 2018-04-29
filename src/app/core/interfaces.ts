@@ -8,6 +8,8 @@ export * from './interfaces/formjson';
 export * from './interfaces/tablesectionjson';
 export * from './interfaces/answerjson';
 export * from './interfaces/casejson';
+export * from './interfaces/specformjson';
+export * from './interfaces/specformhistoryjson';
 export * from './interfaces/permissionjson';
 export * from './interfaces/formanswerjson';
 export * from './interfaces/databasejson';

@@ -1,3 +1,5 @@
+import {SpecFormHistoryJSON} from './specformhistoryjson';
+
 export interface SpecFormJSON {
     qty: string;
     spec: string;
@@ -7,4 +9,5 @@ export interface SpecFormJSON {
     mta_qty: string;
     mta_recipient: string;
     mta_file: string;
+    history: SpecFormHistoryJSON[];
 }
