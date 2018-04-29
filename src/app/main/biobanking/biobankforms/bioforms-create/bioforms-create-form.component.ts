@@ -12,7 +12,7 @@ declare var jquery: any;
 declare var $: any;
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Form, Section, Question, RegType, Department, Organization } from 'app/core/models';
+import { Form, Section, Question, RegType, Department, Organization, TableSection } from 'app/core/models';
 import { OrganizationService, DepartmentService, RegTypeService, FormService, CaseService } from 'app/core/services';
 
 import { KeyGenerator } from 'app/core/utils';
@@ -61,7 +61,7 @@ export class BioformsCreateFormComponent implements OnInit {
       { 'name': 'Approved', 'key': 'Approved' }
     ];
     this.table_section = [];
-    this.table_section.push({speciment: '', type: ''});
+    this.table_section.push({specimen: '', type: ''});
   }
 
   ngOnInit() {
@@ -79,12 +79,12 @@ export class BioformsCreateFormComponent implements OnInit {
   }
 
   addTableQuestion() {
-    this.table_section.push({speciment: '', type: ''});
+    this._form.table_section.push(new TableSection('', ''));
   }
 
   removeTableQuestion(index: number) {
-    if (this.table_section.length !== 1) {
-      this.table_section.splice(index, 1);
+    if (this._form.table_section.length !== 1) {
+      this._form.table_section.splice(index, 1);
     }
   }
 

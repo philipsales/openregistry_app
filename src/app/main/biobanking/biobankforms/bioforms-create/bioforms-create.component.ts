@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, Section, RegType, Department, Organization } from 'app/core/models';
+import { Form, Section, RegType, Department, Organization, TableSection } from 'app/core/models';
 
 import { KeyGenerator } from 'app/core/utils';
 import { NotificationsService } from 'angular2-notifications';
@@ -66,6 +66,7 @@ export class BioformsCreateComponent implements OnInit {
       new Date(),
       ''
     );
+    this.new_form.table_section = [new TableSection('', '')];
   }
 
   onResetEvent(form: Form) {

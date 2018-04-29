@@ -152,7 +152,7 @@
                 </mat-card-header>
                 <!-- rows-->
                 <div>
-                  <div *ngFor="let specimen of table_section; let i = index;">
+                  <div *ngFor="let specimen of _form.table_section; let i = index;">
                     <mat-form-field>
                       <mat-select placeholder="Specimen" 
                         (selectionChange)="onChangeSpec($event)"
