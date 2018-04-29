@@ -21,6 +21,7 @@
       <button class="btn btn-success pull-right"
         [disabled]="!userSaveFormAccount.form.valid ||
         is_processing"
+        (click)="onSaveForm()"
         >
         <i class="fa fa-save"></i> &nbsp; Save
       </button>
@@ -155,9 +156,10 @@
                   <div *ngFor="let specimen of _form.table_section; let i = index;">
                     <mat-form-field>
                       <mat-select placeholder="Specimen" 
-                        (selectionChange)="onChangeSpec($event)"
-                        [(ngModel)]="specimen.spec">
-                        <mat-option *ngFor="let spec of specs" [value]="spec.value">
+                      id="e2e-question-content-spec-{{i}}"
+                        (selectionChange)="onChangeSpec($event)">
+                        <mat-option *ngFor="let spec of specs" 
+                          [value]="spec.value">
                             {{ spec.viewValue }} 
                         </mat-option>
                       </mat-select>
@@ -165,9 +167,8 @@
             
                     <mat-form-field>
                       <mat-select placeholder="Type" 
-                        id="e2e-question-content-type-{{sectionIndex}}-{{i}}"
-                        (selectionChange)="onChangeSpecType($event)"
-                        [(ngModel)]="specimen.spec_type">
+                        id="e2e-question-content-type-{{i}}"
+                        (selectionChange)="onChangeSpecType($event)">
                           <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
                             {{ spectype.viewValue }}
                           </mat-option>

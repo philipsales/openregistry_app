@@ -129,4 +129,20 @@ export class BioformsCreateComponent implements OnInit {
         });
 
   }
+
+  onSubmitEvent(form_created: Form) {
+    this.is_processing = false;
+    this.is_created = true;
+    this.notificationsService
+      .success(
+        'Form: ' + form_created.name,
+        'Successfully Saved.',
+        {
+          timeOut: 10000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: false
+        });
+    this.router.navigate(['/biobanking/forms']);
+  }
 }

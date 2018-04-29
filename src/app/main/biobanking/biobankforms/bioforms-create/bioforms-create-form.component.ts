@@ -28,6 +28,7 @@ import { MatSelectChange } from '@angular/material';
 export class BioformsCreateFormComponent implements OnInit {
 
   @Output() onResetTrigger: EventEmitter<Form> = new EventEmitter();
+  @Output() onSubmitTrigger: EventEmitter<Form> = new EventEmitter();
 
   @Input() registryTypes: RegType[];
   @Input() departments: Department[];
@@ -55,7 +56,9 @@ export class BioformsCreateFormComponent implements OnInit {
     {value: 'embedded', viewValue: 'Embedded'},
   ];
 
-  constructor() {
+  constructor(
+    private formService: FormService
+  ) {
     this.status = [
       { 'name': 'Pending', 'key': 'Pending' },
       { 'name': 'Approved', 'key': 'Approved' }
@@ -91,22 +94,34 @@ export class BioformsCreateFormComponent implements OnInit {
   onChangeSpec($event: MatSelectChange) {
     const ar_id = ($event.source.id.split('-'));
     const index = ar_id[ar_id.length - 1];
-    let curval = (this.table_section[index].value).split('|');
-    curval[1] = $event.value;
-    this.table_section[index].value = curval.join('|');
-    console.log(this.table_section[index]);
+    this._form.table_section[index].specimen = $event.value;
   }
 
   onChangeSpecType($event: MatSelectChange) {
-    console.log($event.source);
     const ar_id = ($event.source.id.split('-'));
     const index = ar_id[ar_id.length - 1];
-    console.log(index);
-    console.log($event.value);
-    console.log(this.table_section[index]);
-    let curval = (this.table_section[index].value).split('|');
-    curval[2] = $event.value;
-    this.table_section[index].value = curval.join('|');
-    console.log(this.table_section[index]);
+    this._form.table_section[index].type = $event.value;;
+  }
+
+  onSaveForm() {
+    console.log(this._form, 'FORM');
+    this.is_processing = true;
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this._form.created_by = currentUser.username;
+
+    const data = this._form.toJSON();
+    this.formService
+      .submitForm(data)
+      .subscribe(
+        created_question => {
+          console.warn(created_question, 'AYUS')
+          this.onSubmitTrigger.emit(created_question);
+          this.is_processing = false;
+        }, errors => {
+          this.is_processing = false;
+          console.warn('error');
+          throw errors;
+        });
   }
 }
