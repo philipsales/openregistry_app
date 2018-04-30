@@ -13,6 +13,10 @@ import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { Specimen } from '../../../core/models/specimen';
 import { SpecimenHistory } from '../../../core/models/specimenhistory';
+import { Observable } from 'rxjs/Observable';
+import { FormControl } from '@angular/forms';
+import { startWith } from 'rxjs/operators/startWith';
+import { map } from 'rxjs/operators/map';
 
 @Component({
   selector: 'app-case-create',
@@ -29,6 +33,8 @@ export class CaseCreateComponent implements OnInit {
   show_icd: boolean;
   has_errors = false;
   show_selected_forms = true;
+  filteredOptions: Observable<string[]>;
+  myControl: FormControl = new FormControl();
 
   methods = ['MTA', 'Disposal'];
 
@@ -54,8 +60,19 @@ export class CaseCreateComponent implements OnInit {
     this.caseService.getMedicalCaseNumbers().subscribe(
       casenbrs => {
         this.medcases = casenbrs;
+        this.filteredOptions = this.myControl.valueChanges
+          .pipe(
+            startWith(''),
+            map(val => this.filter(val))
+          );
       }
     );
+  }
+
+  filter(val: string): string[] {
+    console.log('ewan');
+    return this.medcases.filter(option =>
+      option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
 
@@ -96,6 +113,27 @@ export class CaseCreateComponent implements OnInit {
     });
     specimen.qty_avail = specimen.qty - specimen.qty_avail;
     console.warn(specimen, 'TOTAL COUNT');
+  }
+
+  onSaveCase() {
+    this.caseService.create(this.case).subscribe((created_case: Case) => {
+      this.is_processing = false;
+      console.log(created_case, 'CASE CREATED : case-manage.component');
+      this._notificationsService.success(
+        'New Case : ' + created_case.case_nbr,
+        'Successfully Created',
+        {
+          timeOut: 10000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: false,
+        }
+      );
+      this.router.navigate(['/biobanking/cases']);
+    }, errors => {
+      console.log(errors, 'ERROR : case-manage.component');
+      this.is_processing = false;
+    });
   }
 
   onSubmitCase(case_for_create: Case) {

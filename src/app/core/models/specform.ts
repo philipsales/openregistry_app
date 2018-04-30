@@ -48,7 +48,7 @@ export class SpecForm {
     return Object.assign({}, this, {
         form_id: this.form_id,
         form_name: this.form_name,
-        specimen: this.specimen
+        specimen: specimen
     });
   }
 }

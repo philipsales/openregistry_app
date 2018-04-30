@@ -74,7 +74,7 @@ export class Case {
       forms = this.forms.map((form) => form.toJSON());
     }
     if (this.specform) {
-      specform = this.specform.map((cur_specform) => cur_specform.toJSON());
+      specform = this.specform.map((cur_specform: SpecForm) => cur_specform.toJSON());
     }
     if (this.date_created) {
       date_created = this.date_created.getTime();
@@ -87,7 +87,7 @@ export class Case {
       is_active: this.is_active,
       date_created: date_created,
       created_by: this.created_by,
-      specform: this.specform,
+      specforms: specform,
       forms: forms
     });
   }

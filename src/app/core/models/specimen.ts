@@ -57,8 +57,11 @@ export class Specimen {
   toJSON(): SpecimenJSON {
     let history;
     if (this.history) {
-      history = this.history.map((this_history) => history.toJSON());
+      history = this.history.map((this_history: SpecimenHistory) => {
+        return this_history.toJSON();
+      });
     }
+    console.log(history, 'HISTORY');
     return Object.assign({}, this, {
         qty: this.qty,
         spec: this.spec,
