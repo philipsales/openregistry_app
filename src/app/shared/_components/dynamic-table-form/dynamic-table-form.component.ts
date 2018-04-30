@@ -38,6 +38,8 @@ export class DynamicTableFormComponent implements OnInit {
       console.warn(this.sectionz, 'HELLO sectionz!');
       console.log('yahooo!');
       this.specform.length = 0;
+      /*
+      REFACTOR
       this.sectionz.map(section => {
         section.questions.map(question => {
           let arvalue = question.value.split('|');
@@ -49,6 +51,7 @@ export class DynamicTableFormComponent implements OnInit {
           }
         });
       });
+      */
     }
   }
 

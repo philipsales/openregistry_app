@@ -1,17 +1,17 @@
-import { SpecFormHistoryJSON } from '../interfaces';
+import { SpecimenHistoryJSON } from '../interfaces';
 
-export class SpecFormHistory {
+export class SpecimenHistory {
     qty: number;
     type: string;
     recipient: string;
     reference: string;
 
 
-  static fromJSON(json: SpecFormHistoryJSON): SpecFormHistory {
+  static fromJSON(json: SpecimenHistoryJSON): SpecimenHistory {
     if (typeof json === 'string') {
-      return JSON.parse(json, SpecFormHistory.reviver);
+      return JSON.parse(json, SpecimenHistory.reviver);
     } else {
-      const section = Object.create(SpecFormHistory.prototype);
+      const section = Object.create(SpecimenHistory.prototype);
       let output = Object.assign(section, json, {
         qty: json.qty,
         type: json.type,
@@ -24,7 +24,7 @@ export class SpecFormHistory {
   }
 
   static reviver(key: string, value: any): any {
-    return key === '' ? SpecFormHistory.fromJSON(value) : value;
+    return key === '' ? SpecimenHistory.fromJSON(value) : value;
   }
 
   constructor(
@@ -39,7 +39,7 @@ export class SpecFormHistory {
     this.reference = reference;
   }
 
-  toJSON(): SpecFormHistoryJSON {
+  toJSON(): SpecimenHistoryJSON {
     return Object.assign({}, this, {
         qty: this.qty,
         type: this.type,

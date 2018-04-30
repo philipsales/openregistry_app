@@ -1,18 +1,12 @@
-import { SpecFormJSON, SpecFormHistoryJSON } from './../interfaces';
+import { SpecFormJSON, SpecimenJSON } from './../interfaces';
 
-import { SpecFormHistory } from './specformhistory';
+import { Specimen } from './specimen';
 import { HOST_ATTR } from '@angular/platform-browser/src/dom/dom_renderer';
 
 export class SpecForm {
-    qty: string;
-    spec: string;
-    spec_type: string;
-    characteristic: string;
-    qty_avail: string;
-    mta_qty: string;
-    mta_recipient: string;
-    mta_file: string;
-    history: SpecFormHistory[];
+    form_id: string;
+    form_name: string;
+    specimen: Specimen[];
 
   static fromJSON(json: SpecFormJSON): SpecForm {
     if (typeof json === 'string') {
@@ -20,19 +14,13 @@ export class SpecForm {
     } else {
       const section = Object.create(SpecForm.prototype);
       let output = Object.assign(section, json, {
-        qty: json.qty,
-        spec: json.spec,
-        spec_type: json.spec_type,
-        characteristic: json.characteristic,
-        qty_avail: json.qty_avail,
-        mta_qty: json.mta_qty,
-        mta_recipient: json.mta_recipient,
-        mta_file: json.mta_file
+        form_if: json.form_id,
+        form_name: json.form_name
       });
-      if (json.history) {
-        output['history'] = json.history.map(SpecFormHistory.fromJSON);
+      if (json.specimen) {
+        output['specimen'] = json.specimen.map(Specimen.fromJSON);
       } else {
-        output['history'] = [];
+        output['specimen'] = [];
       }
       return output;
     }
@@ -43,44 +31,24 @@ export class SpecForm {
   }
 
   constructor(
-    qty: string,
-    spec: string,
-    spec_type: string,
-    characteristic: string,
-    qty_avail: string,
-    mta_qty: string,
-    mta_recipient: string,
-    mta_file: string,
-    history?: SpecFormHistory[]
+    form_id: string,
+    form_name: string,
+    specimen: Specimen[]
   ) {
-    this.qty = qty;
-    this.spec = spec;
-    this.spec_type = spec_type;
-    this.characteristic = characteristic;
-    this.qty_avail = qty_avail;
-    this.mta_qty = mta_qty;
-    this.mta_recipient = mta_recipient;
-    this.mta_file = mta_file;
-    if (history) {
-      this.history = history;
-    }
+    this.form_id = form_id;
+    this.form_name = form_name;
+    this.specimen = specimen;
   }
 
   toJSON(): SpecFormJSON {
-    let history;
-    if (this.history) {
-      history = this.history.map((this_history) => history.toJSON());
+    let specimen;
+    if (this.specimen) {
+      specimen = this.specimen.map((this_specimen) => this_specimen.toJSON());
     }
     return Object.assign({}, this, {
-        qty: this.qty,
-        spec: this.spec,
-        spec_type: this.spec_type,
-        characteristic: this.characteristic,
-        qty_avail: this.qty_avail,
-        mta_qty: this.mta_qty,
-        mta_recipient: this.mta_recipient,
-        mta_file: this.mta_file,
-        history: history
+        form_id: this.form_id,
+        form_name: this.form_name,
+        specimen: this.specimen
     });
   }
 }

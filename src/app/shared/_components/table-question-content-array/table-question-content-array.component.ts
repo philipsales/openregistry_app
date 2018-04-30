@@ -38,7 +38,10 @@ export class TableQuestionContentArrayComponent implements OnInit {
   ngOnInit() {
     this.initQuestion();
     this.parentForm.addControl('questions', new FormArray([]));
+    /*
+    REFACTOR
     this.specform.push(new SpecForm('', '', '', '', '', '', '', ''));
+    */
   }
 
   initQuestion() {
@@ -70,7 +73,10 @@ export class TableQuestionContentArrayComponent implements OnInit {
   }
 
   addTableQuestion() {
+    /*
+    REFACTOR
     this.specform.push(new SpecForm('', '', '', '', '', '', '', ''));
+    */
     let options: Option[] = [];
     this.questions.push(new Question(
       this.keyGenerator.create(),

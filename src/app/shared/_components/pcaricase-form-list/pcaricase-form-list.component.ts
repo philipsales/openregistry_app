@@ -62,9 +62,12 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*
+    REFACTOR
     if (this.isBiobank && this.specform.length === 0) {
       this.specform.push(new SpecForm('', '', '', '', '', '', '', ''));
     }
+    */
   }
 
   onSaveClick() {
@@ -89,7 +92,10 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   onAddRow() {
+    /*
+    REFACTOR
     this.specform.push(new SpecForm('', '', '', '', '', '', '', ''));
+    */
   }
 
   onRemoveRow(index) {
