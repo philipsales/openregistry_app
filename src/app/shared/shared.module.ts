@@ -102,6 +102,7 @@ import { DynamicTableFormComponent } from './_components/dynamic-table-form/dyna
     DynamicFormComponent,
     PcariformListComponent,
     PcariformManageComponent,
+    PcaricaseFormAddComponent,
     PcaricaseListComponent,
     PcaricaseManageComponent,
     IcdoncologyManageComponent,

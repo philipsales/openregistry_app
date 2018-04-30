@@ -3,13 +3,15 @@ import { Component, OnInit } from '@angular/core';
 import {
   Case,
   FormAnswer,
-  Form
+  Form,
+  SpecForm
 } from 'app/core/models';
 
 import { environment } from 'environments/environment';
 import { FormService, CaseService } from 'app/core/services';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
+import { Specimen } from '../../../core/models/specimen';
 
 @Component({
   selector: 'app-case-create',
@@ -24,6 +26,8 @@ export class CaseCreateComponent implements OnInit {
   is_processing = false;
   medcases: string[];
   show_icd: boolean;
+  has_errors = false;
+  show_selected_forms = true;
 
   constructor(
     private formService: FormService,
@@ -33,6 +37,7 @@ export class CaseCreateComponent implements OnInit {
   ) {
     this.answers = [];
     this.case = new Case('', environment.ORG_BIOBANK, '', this.answers);
+    this.case.specform = [];
   }
 
   ngOnInit() {
@@ -48,6 +53,32 @@ export class CaseCreateComponent implements OnInit {
         this.medcases = casenbrs;
       }
     );
+  }
+
+
+  onAddSelectedForm(forms: Form[]) {
+    this.show_selected_forms = true;
+    // this.is_adding_forms = false;
+    console.log(forms);
+    for (const form of forms) {
+      /*
+      let answers: Answer[] = [];
+      this._case.forms.push(new FormAnswer(form.id, form.name, false, answers));
+      */
+     let specimens : Specimen[] = [];
+     for (const x of form.table_section){
+      specimens.push(new Specimen(0, x.specimen, x.type, '', 0, []));
+     }
+
+     this.case.specform.push(new SpecForm(form.id, form.name, specimens));
+    }
+    // this.onSubmitCaseTrigger.emit(this._case);
+    console.log(this.case, 'CASE');
+  }
+
+  onCancelAddForm() {
+    this.show_selected_forms = true;
+    // this.is_adding_forms = false;
   }
 
   onSubmitCase(case_for_create: Case) {

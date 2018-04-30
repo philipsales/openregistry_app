@@ -29,6 +29,85 @@
     </header>
 
     <div class="row" id="page-body">
+<!-- START OF REFACTOR -->
+      <div class="col-md-12 table-nav" >
+          <div class="col-sm-3 reset-wrapper">
+            <button class="btn btn-default pull-left"
+              (click)="resetCase(case)">
+              <i class="fa fa-refresh"></i> &nbsp; Reset
+            </button>
+          </div>
+          
+          <div class="col-sm-6">
+            <div class="alert alert-danger" *ngIf="false">
+              <strong> <i class="fa fa-warning"></i> XUnable to process your request. </strong>
+              <em>Please see details below: </em>
+            </div>
+          </div>
+          
+        <div class="col-sm-3 save-wrapper">
+          <button class="btn btn-success pull-right">
+            <i class="fa fa-save e2e-save-case"></i> &nbsp; Save Case
+          </button>
+        </div>
+      </div>
+
+
+      <!-- Case -->
+      <div class="col-md-12 col-sm-12 col-xs-12"> 
+          <div class="x_panel">
+            <div class="x_content">
+            <br>
+              <form data-parsley-validate=""
+              class="form-horizontal form-label-left"
+              #caseCreateForm="ngForm" novalidate>
+                <div class="row">
+                </div>
+                <div class="material-form-group">
+                    <!-- Case Number-->
+                    <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                        <input matInput 
+                              id="casenumber"
+                              name="input_casenumber"
+                              [(ngModel)]="case.case_nbr"
+                              [disabled]="method == 'VIEW'"
+                              [matAutocomplete]="auto"
+                              placeholder="Case Number">
+                    </mat-form-field>	
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                        {{ option }}
+                      </mat-option>
+                    </mat-autocomplete>
+      
+                    <br/><br/>
+                </div> <br/><br/>
+              </form>
+            </div>
+
+            
+          </div> <!-- x panel -->     
+        </div> <!--Case --> 
+
+
+        <!-- SECTION PORTION -->
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          
+
+
+          
+          <app-pcaricase-form-add
+          (onSaveFormAddTrigger)="onAddSelectedForm($event)"
+          (onCancelFormAddTrigger)="onCancelAddForm()"
+          [forms]="forms"
+          [show]="true">
+          </app-pcaricase-form-add>
+        </div> <!-- x-panel -->
+
+
+        <!-- end of SECTION PORTION -->
+<!-- END OF REFACTOR -->
+      <!--
       <app-pcaricase-manage 
         [case]="case" 
         [forms]="forms"
@@ -39,6 +118,7 @@
         [medcases]="medcases"
         (onSubmitCaseTrigger)="onSubmitCase($event)">
       </app-pcaricase-manage>
+      //-->
     </div> <!-- page-body -->
     
 </div>  <!-- page-content -->
