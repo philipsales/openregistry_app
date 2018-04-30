@@ -38,7 +38,8 @@
             </div>
             </div>
             <a
-              [routerLink]="['/biobanking/mtas/create']" class="btn btn-default pull-right">
+              (click)="saveMTA()"
+              class="btn btn-default pull-right">
               <i class="fa fa-plus"></i> &nbsp; Save
             </a>
         </div>
@@ -60,13 +61,9 @@
           placeholder="MTA Name"
           type="text" 
           id="input_name" 
-          [(ngModel)]="_user.username"
+          [(ngModel)]="_form.name"
           #input_name="ngModel" name="input_name"
-          required="required"
-          >
-                <mat-error *ngIf="templateForm.get('name').hasError('required')">
-                    Form Name is required 
-                </mat-error>
+          required="required">
     </mat-form-field>
   </div> <!-- material-form-group -->
 

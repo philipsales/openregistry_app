@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Headers, RequestOptions, Response } from '@angular/http';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
@@ -31,5 +31,30 @@ export class MtaService {
       .catch(Helper.handleError);
   }
 
+  create(this_mta: MTA): Observable<MTA> {
+    const url = environment.API_ENDPOINT + `mtas/`;
+    const consent_mta = this_mta.toJSON();
 
+    return this.http
+      .post(url, consent_mta)
+      .map((response: MTAJSON) => {
+        console.log(response);
+        return MTA.fromJSON(response);
+      })
+      .catch(Helper.handleError);
+  }
+
+  save(this_mta: FormData): Observable<MTA> {
+    const url = environment.API_ENDPOINT + `mtas/`;
+    //var headers = new HttpHeaders().set('Content-Type', 'multipart/form-data;boundary='+ Math.random());
+    //headers.append('Accept', 'application/json');
+    
+    return this.http
+      .post(url, this_mta)
+      .map((response: MTAJSON) => {
+        console.log(response);
+        return MTA.fromJSON(response);
+      })
+      .catch(Helper.handleError);
+  }
 }
