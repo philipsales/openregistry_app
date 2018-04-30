@@ -46,7 +46,7 @@ export class CaseCreateComponent implements OnInit {
   ) {
     this.answers = [];
     this.case = new Case('', environment.ORG_BIOBANK, '', this.answers);
-    this.case.specform = [];
+    this.case.specforms = [];
   }
 
   ngOnInit() {
@@ -93,7 +93,7 @@ export class CaseCreateComponent implements OnInit {
       specimens.push(new Specimen(0, x.specimen, x.type, '', 0, history));
      }
 
-     this.case.specform.push(new SpecForm(form.id, form.name, specimens));
+     this.case.specforms.push(new SpecForm(form.id, form.name, specimens));
     }
     // this.onSubmitCaseTrigger.emit(this._case);
     console.log(this.case, 'CASE');

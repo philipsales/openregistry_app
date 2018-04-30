@@ -9,7 +9,7 @@ export class Case {
   date_created: Date;
   diagnosis?: string;
   is_active?: string;
-  specform?: SpecForm[];
+  specforms?: SpecForm[];
   forms?: FormAnswer[];
   is_deleted: boolean;
   created_by?: string;
@@ -29,11 +29,11 @@ export class Case {
         is_deleted: json.isDeleted,
         created_by: json.created_by
       });
-      console.log(json.specform);
-      if (json.specform) {
-        output['specform'] = json.specform.map(SpecForm.fromJSON);
+      console.log(json.specforms);
+      if (json.specforms) {
+        output['specforms'] = json.specforms.map(SpecForm.fromJSON);
       } else {
-        output['specform'] = [];
+        output['specforms'] = [];
       }
       console.log(json.forms);
       if (json.forms) {
@@ -68,13 +68,13 @@ export class Case {
 
   toJSON(): CaseJSON {
     let forms: FormAnswerJSON[] = [];
-    let specform: SpecFormJSON[] = [];
+    let specforms: SpecFormJSON[] = [];
     let date_created: number = (new Date).getTime();
     if (this.forms) {
       forms = this.forms.map((form) => form.toJSON());
     }
-    if (this.specform) {
-      specform = this.specform.map((cur_specform: SpecForm) => cur_specform.toJSON());
+    if (this.specforms) {
+      specforms = this.specforms.map((cur_specform: SpecForm) => cur_specform.toJSON());
     }
     if (this.date_created) {
       date_created = this.date_created.getTime();
@@ -87,7 +87,7 @@ export class Case {
       is_active: this.is_active,
       date_created: date_created,
       created_by: this.created_by,
-      specforms: specform,
+      specforms: specforms,
       forms: forms
     });
   }
