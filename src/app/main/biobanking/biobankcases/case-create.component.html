@@ -107,34 +107,65 @@
       <div>
           <div *ngFor="let specimen of form.specimen; let i = index" 
           style="width: 100%;">
-          <!-- specimen -->
-          <mat-form-field style="width: 18%">
-            <input matInput placeholder="Qty" [(ngModel)]="specimen.qty">
-          </mat-form-field>
-      
-          <mat-form-field style="width: 18%">
-              <input matInput placeholder="Specimen" [(ngModel)]="specimen.spec"
-                readonly disabled>
-          </mat-form-field>
-        
-          <mat-form-field style="width: 18%">
-              <input matInput placeholder="Type" [(ngModel)]="specimen.spec_type"
-                readonly disabled>
-          </mat-form-field>
-  
-          <mat-form-field style="width: 18%">
-              <input matInput placeholder="Characteristic" [(ngModel)]="specimen.characteristic">
-          </mat-form-field>
-  
-          <mat-form-field style="width: 18%">
-              <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail">
-          </mat-form-field>
+          <div>
+            <!-- specimen -->
+            <mat-form-field style="width: 20%">
+                <input matInput placeholder="Qty" [(ngModel)]="specimen.qty"
+                  (change)="historyChanged(specimen)">
+              </mat-form-field>
 
-          <button class="btn btn-sm btn-danger" 
-            style="width: 4%; margin-left: 1%;"
-            (click)="onRemoveRow(i)">
-              <i class="fa fa-trash"></i> 
-          </button>
+              <mat-form-field style="width: 18%">
+                  <input matInput placeholder="Specimen" [(ngModel)]="specimen.spec"
+                    readonly disabled>
+              </mat-form-field>
+
+              <mat-form-field style="width: 20%">
+                  <input matInput placeholder="Type" [(ngModel)]="specimen.spec_type"
+                    readonly disabled>
+              </mat-form-field>
+
+              <mat-form-field style="width: 20%">
+                  <input matInput placeholder="Characteristic" [(ngModel)]="specimen.characteristic">
+              </mat-form-field>
+
+              <mat-form-field style="width: 20%">
+                  <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"
+                  readonly disabled>
+              </mat-form-field>
+          </div>
+
+          <div style="margin-top: -15px; margin-bottom: 25px">
+              <mat-accordion>  
+                  <mat-expansion-panel [expanded]="i == 0">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <strong>MTA : </strong> &nbsp; <em>{{ specimen.spec }} - {{ specimen.spec_type }} </em>
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div style="text-align: center"  *ngFor="let history of specimen.history; let j = index">
+                          <mat-form-field>
+                              <input matInput placeholder="Qty" 
+                                (change)="historyChanged(specimen)"
+                                [(ngModel)]="history.qty" 
+                                name="qty-{{j}}" >
+                            </mat-form-field>
+              
+                            <mat-form-field>
+                                <mat-select placeholder="Method"  [(ngModel)]="history.type" name="type-{{j}}" >
+                                    <mat-option *ngFor="let method of methods" [value]="method">
+                                      {{ method }}
+                                    </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+              
+                            <mat-form-field>
+                                <input matInput placeholder="Reference" [(ngModel)]="history.reference" name="reference-{{j}}">
+                            </mat-form-field>
+                      </div>
+                  </mat-expansion-panel>
+              </mat-accordion>  
+          </div>
+          
         </div>
         <!-- end of specimen -->
       </div>

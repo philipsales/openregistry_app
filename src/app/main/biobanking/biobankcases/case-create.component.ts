@@ -12,6 +12,7 @@ import { FormService, CaseService } from 'app/core/services';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { Specimen } from '../../../core/models/specimen';
+import { SpecimenHistory } from '../../../core/models/specimenhistory';
 
 @Component({
   selector: 'app-case-create',
@@ -28,6 +29,8 @@ export class CaseCreateComponent implements OnInit {
   show_icd: boolean;
   has_errors = false;
   show_selected_forms = true;
+
+  methods = ['MTA', 'Disposal'];
 
   constructor(
     private formService: FormService,
@@ -67,7 +70,10 @@ export class CaseCreateComponent implements OnInit {
       */
      let specimens : Specimen[] = [];
      for (const x of form.table_section){
-      specimens.push(new Specimen(0, x.specimen, x.type, '', 0, []));
+       let history : SpecimenHistory[] = [];
+       history.push(new SpecimenHistory(0, 'MTA', 'recipient', 'somefile.pdf'));
+       history.push(new SpecimenHistory(0, 'Disposal', 'recipient', 'Case number: 121212'));
+      specimens.push(new Specimen(0, x.specimen, x.type, '', 0, history));
      }
 
      this.case.specform.push(new SpecForm(form.id, form.name, specimens));
@@ -79,6 +85,17 @@ export class CaseCreateComponent implements OnInit {
   onCancelAddForm() {
     this.show_selected_forms = true;
     // this.is_adding_forms = false;
+  }
+
+  historyChanged(specimen: Specimen) {
+    let total_count: number;
+    total_count = 0;
+    specimen.qty_avail = 0;
+    specimen.history.map((this_history) => {
+      specimen.qty_avail = (specimen.qty_avail * 1) + (this_history.qty * 1);
+    });
+    specimen.qty_avail = specimen.qty - specimen.qty_avail;
+    console.warn(specimen, 'TOTAL COUNT');
   }
 
   onSubmitCase(case_for_create: Case) {
