@@ -92,15 +92,77 @@
 
         <!-- SECTION PORTION -->
         <div class="col-md-12 col-sm-12 col-xs-12">
-          
 
+<!-- ULTIMATE -->
 
+  <!-- Selected Forms  -->
+  <mat-accordion>  
+    <mat-expansion-panel [expanded]="true"
+      *ngFor="let form of case.specform; let i = index">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+            <em>{{ form.form_name }} </em>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+          <div *ngFor="let specimen of form.specimen; let i = index" 
+          style="width: 100%;">
+          <!-- specimen -->
+          <mat-form-field style="width: 18%">
+            <input matInput placeholder="Qty" [(ngModel)]="specimen.qty">
+          </mat-form-field>
+      
+          <mat-form-field style="width: 18%">
+              <input matInput placeholder="Specimen" [(ngModel)]="specimen.spec"
+                readonly disabled>
+          </mat-form-field>
+        
+          <mat-form-field style="width: 18%">
+              <input matInput placeholder="Type" [(ngModel)]="specimen.spec_type"
+                readonly disabled>
+          </mat-form-field>
+  
+          <mat-form-field style="width: 18%">
+              <input matInput placeholder="Characteristic" [(ngModel)]="specimen.characteristic">
+          </mat-form-field>
+  
+          <mat-form-field style="width: 18%">
+              <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail">
+          </mat-form-field>
+
+          <button class="btn btn-sm btn-danger" 
+            style="width: 4%; margin-left: 1%;"
+            (click)="onRemoveRow(i)">
+              <i class="fa fa-trash"></i> 
+          </button>
+        </div>
+        <!-- end of specimen -->
+      </div>
+  
+      <p *ngIf="!is_ok"> Please wait...</p>
+  
+    </mat-expansion-panel>
+  </mat-accordion>
+  
+
+<!-- end of ULTIMATE -->
           
+<div class="col-md-12 col-sm-12 col-xs-12"          
+    style="margin-top: 15px;" 
+    [hidden]="!show_selected_forms"> 
+    <div class="col-md-offset-4 col-md-6"> 
+        <button class="btn btn-default"
+          style="width: 48%;"
+          (click)="show_selected_forms = false">
+          <i class="fa fa-plus e2e-add-form"></i> Add Form
+        </button>
+    </div>
+</div>
           <app-pcaricase-form-add
           (onSaveFormAddTrigger)="onAddSelectedForm($event)"
           (onCancelFormAddTrigger)="onCancelAddForm()"
           [forms]="forms"
-          [show]="true">
+          [show]="!show_selected_forms">
           </app-pcaricase-form-add>
         </div> <!-- x-panel -->
 
