@@ -4,11 +4,12 @@ import {
   Case,
   FormAnswer,
   Form,
-  SpecForm
+  SpecForm,
+  MTA
 } from 'app/core/models';
 
 import { environment } from 'environments/environment';
-import { FormService, CaseService } from 'app/core/services';
+import { FormService, CaseService, MtaService } from 'app/core/services';
 import { NotificationsService } from 'angular2-notifications';
 import { Router } from '@angular/router';
 import { Specimen } from '../../../core/models/specimen';
@@ -17,6 +18,7 @@ import { Observable } from 'rxjs/Observable';
 import { FormControl } from '@angular/forms';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
+import { NoJWTError } from 'app/core/errors';
 
 @Component({
   selector: 'app-case-create',
@@ -35,12 +37,14 @@ export class CaseCreateComponent implements OnInit {
   show_selected_forms = true;
   filteredOptions: Observable<string[]>;
   myControl: FormControl = new FormControl();
+  mtas: MTA[];
 
   methods = ['MTA', 'Disposal'];
 
   constructor(
     private formService: FormService,
     private caseService: CaseService,
+    private mtaService: MtaService,
     private _notificationsService: NotificationsService,
     private router: Router
   ) {
@@ -65,6 +69,18 @@ export class CaseCreateComponent implements OnInit {
             startWith(''),
             map(val => this.filter(val))
           );
+      }
+    );
+
+    this.mtaService.getAll().subscribe(
+      mtas => {
+        this.mtas = mtas;
+        console.warn(mtas);
+      }, error => {
+        console.log(error); // get the error in error handler
+        if (error instanceof NoJWTError) {
+          console.warn('TO DO : handle JWT Expired');
+        }
       }
     );
   }

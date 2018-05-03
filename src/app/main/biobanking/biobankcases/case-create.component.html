@@ -157,10 +157,18 @@
                                       {{ method }}
                                     </mat-option>
                                 </mat-select>
-                              </mat-form-field>
+                            </mat-form-field>
               
-                            <mat-form-field>
-                                <input matInput placeholder="Reference" [(ngModel)]="history.reference" name="reference-{{j}}">
+                            <mat-form-field *ngIf="history.type == 'MTA'">
+                                <mat-select placeholder="Method"  [(ngModel)]="history.reference" name="reference-mta-{{j}}">
+                                    <mat-option *ngFor="let mta of mtas" [value]="mta.name">
+                                      {{ mta.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field *ngIf="history.type == 'Disposal'">
+                                <input matInput placeholder="Reference" [(ngModel)]="history.reference" name="reference-disposal-{{j}}">
                             </mat-form-field>
                       </div>
                   </mat-expansion-panel>
