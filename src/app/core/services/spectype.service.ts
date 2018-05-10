@@ -29,6 +29,14 @@ export class SpecTypeService {
 
   }// --getAll
 
+  get(spectype_id: string): Observable<SpecType> {
+    const url = environment.API_ENDPOINT + 'spectypes/' + spectype_id;
+    return this.http.get(url).map((response: SpecTypeJSON) => {
+      console.log(response, 'OUTPUT GET /spectypes');
+      return SpecType.fromJSON(response);
+    }).catch(Helper.handleError);
+  }// --get
+
   create(this_spectype: SpecType): Observable<SpecType> {
 
     const url = environment.API_ENDPOINT + `spectypes/`;

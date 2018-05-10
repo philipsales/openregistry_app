@@ -14,7 +14,7 @@ const routes: Routes = [
       component: SpecsCreateComponent
   },
   {
-    path: 'update',
+    path: 'update/:id',
      component: SpecsUpdateComponent
   },
   {path: '', redirectTo: 'list'}

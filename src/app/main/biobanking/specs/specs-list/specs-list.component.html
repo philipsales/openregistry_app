@@ -55,6 +55,12 @@
               <th scope="row">{{ i+1 }}</th>
               <td>{{ spec.name }}</td>
               <td style="text-align: right">
+                  <button 
+                  class="btn btn-sm btn-warning"
+                  [routerLink]="['/biobanking/specs/update', spec.id]">
+                  <i class="fa fa-edit"></i> 
+                  Update
+                </button>
               </td>
             </tr>
           </tbody>
