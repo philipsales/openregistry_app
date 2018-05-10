@@ -12,7 +12,7 @@ import { SpecTypeJSON } from '../interfaces';
 import { environment } from 'environments/environment';
 
 @Injectable()
-export class SpecTypeTypeService {
+export class SpecTypeService {
 
   constructor(private http: HttpClient) {
   }// --constructor

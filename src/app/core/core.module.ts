@@ -15,7 +15,9 @@ import {
   CaseService,
   PermissionService,
   FormAnswerService,
-  MtaService
+  MtaService,
+  SpecService,
+  SpecTypeService
 } from './services';
 import { environment } from 'environments/environment';
 
@@ -45,7 +47,9 @@ export function getToken() {
     AuthService,
     CaseService,
     PermissionService,
-    FormAnswerService
+    FormAnswerService,
+    SpecService,
+    SpecTypeService
   ],
   declarations: [],
 })

@@ -23,6 +23,14 @@ const routes: Routes = [
         path: 'reports',
         loadChildren: './biobankreports/reports-biobanking.module#ReportsBiobankingModule'
       },
+      {
+        path: 'specs',
+        loadChildren: './specs/specs.module#SpecsModule'
+      },
+      {
+        path: 'spectypes',
+        loadChildren: './spectypes/spectypes.module#SpectypesModule'
+      },
       { path: '', redirectTo: 'forms' }
     ]
   }
