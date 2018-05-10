@@ -21,3 +21,5 @@ export * from './models/case';
 export * from './models/icdoncology';
 export * from './models/specform';
 export * from './models/mta';
+export * from './models/spec';
+export * from './models/spectype';

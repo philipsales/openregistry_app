@@ -47,7 +47,7 @@
 				</li>
 				<li routerLinkActive="active">
 					<a  [routerLink]="['./mtas']">
-						<i class="fa fa-stethoscope e2e-biobank-case"></i>&nbsp;MTA</a>
+						<i class="fa fa-file-text e2e-biobank-case"></i>&nbsp;MTA</a>
 				</li>
 				<li routerLinkActive="active"
 				appPcariauth
@@ -62,6 +62,20 @@
 				[mustBeAll]="false">
 					<a  [routerLink]="['./reports']">
 						<i class="fa fa-area-chart e2e-biobank-report"></i>Reports</a>
+				</li>
+				<li routerLinkActive="active"
+				appPcariauth
+				[mustHavePermission]="['biobank_report_view']"
+				[mustBeAll]="false">
+					<a  [routerLink]="['./reports']">
+						<i class="fa fa-flask e2e-biobank-report"></i>Specimen</a>
+				</li>
+				<li routerLinkActive="active"
+				appPcariauth
+				[mustHavePermission]="['biobank_report_view']"
+				[mustBeAll]="false">
+					<a  [routerLink]="['./reports']">
+						<i class="fa fa-object-group e2e-biobank-report"></i>Specimen Types</a>
 				</li>
       </ul>
     </div>

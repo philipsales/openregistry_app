@@ -19,3 +19,5 @@ export * from './interfaces/consentformjson';
 export * from './interfaces/icdoncologyjson';
 export * from './interfaces/specformjson';
 export * from './interfaces/mtajson';
+export * from './interfaces/specjson';
+export * from './interfaces/spectypejson';
