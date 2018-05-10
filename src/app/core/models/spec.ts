@@ -10,12 +10,15 @@ export class Spec {
         return JSON.parse(json, Spec.reviver);
       } else {
         const this_spec = Object.create(Spec.prototype);
-        delete this_spec._id;
-        return Object.assign(this_spec, json, {
-          id: json._id,
+        let out =  Object.assign(this_spec, json, {
           name: json.name,
           is_deleted: json.is_deleted
         });
+        if (json._id) {
+          out.id = json._id;
+        }
+        delete out._id;
+        return out;
       }
     }
 
@@ -31,10 +34,14 @@ export class Spec {
     }
 
     toJSON(): SpecJSON {
+      let is_deleted = this.is_deleted;
+      if (!is_deleted === true) {
+        is_deleted = false;
+      }
       return Object.assign({}, this, {
         _id: this.id,
         name: this.name,
-        is_deleted: this.is_deleted
+        is_deleted: is_deleted
       });
     }
 }

@@ -43,4 +43,15 @@ export class SpecService {
 
   }// --create
 
+  update(this_spec: Spec): Observable<Spec> {
+    const url = environment.API_ENDPOINT + 'specs/' + this_spec.id;
+    const role_json = this_spec.toJSON();
+    console.log(role_json);
+    return this.http.patch(url, role_json)
+      .map((response: SpecJSON) => {
+        console.log(response, 'SPEC UPDATED from /specs');
+        return Spec.fromJSON(response);
+    }).catch(Helper.handleError);
+  }
+
 }// -- SpecService
