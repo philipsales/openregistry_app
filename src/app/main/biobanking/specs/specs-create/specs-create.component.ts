@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { NotificationsService } from 'angular2-notifications';
-
 import { Spec } from 'app/core/models';
-import { SpecService } from 'app/core/services';
 
 @Component({
   selector: 'app-specs-create',
@@ -20,5 +17,5 @@ export class SpecsCreateComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
 }

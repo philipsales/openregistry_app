@@ -43,4 +43,14 @@ export class SpecTypeService {
 
   }// --create
 
+  update(this_spectype: SpecType): Observable<SpecType> {
+    const url = environment.API_ENDPOINT + 'spectypes/' + this_spectype.id;
+    const spectype_json = this_spectype.toJSON();
+    console.log(spectype_json);
+    return this.http.patch(url, spectype_json)
+      .map((response: SpecTypeJSON) => {
+        console.log(response, 'SPEC UPDATED from /spectypes');
+        return SpecType.fromJSON(response);
+    }).catch(Helper.handleError);
+  }
 }// -- SpecTypeService

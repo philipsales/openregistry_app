@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { SpecType } from 'app/core/models';
+
 @Component({
   selector: 'app-spectypes-create',
   templateUrl: './spectypes-create.component.html',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpectypesCreateComponent implements OnInit {
 
-  constructor() { }
+  new_spectype: SpecType;
+
+  constructor() {
+    this.new_spectype = new SpecType('');
+   }
 
   ngOnInit() {
   }
