@@ -156,11 +156,13 @@
                 <div *ngFor="let specimen of _form.table_section; let i = index;">
                   <mat-form-field>
                     <mat-select placeholder="Specimen" 
-                    id="e2e-question-content-spec-{{i}}"
+                      id="e2e-question-content-spec-{{i}}"
+                      [(ngModel)]="specimen.specimen"
+                      name="specname-{{i}}"
                       (selectionChange)="onChangeSpec($event)">
-                      <mat-option *ngFor="let specimen of specimens" 
-                        [value]="specimen.name">
-                          {{ specimen.name }} 
+                      <mat-option *ngFor="let spec of specimens" 
+                        [value]="spec.name">
+                          {{ spec.name }} 
                       </mat-option>
                     </mat-select>
                   </mat-form-field>
@@ -168,6 +170,8 @@
                   <mat-form-field>
                     <mat-select placeholder="Type" 
                       id="e2e-question-content-type-{{i}}"
+                      [(ngModel)]="specimen.type"
+                      name="spectype-{{i}}"
                       (selectionChange)="onChangeSpecType($event)">
                         <mat-option *ngFor="let specimen_type of specimen_types" 
                           [value]="specimen_type.name">

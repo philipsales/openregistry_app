@@ -28,18 +28,14 @@
       <br/> <br/>
 
       <div class="col-md-12 col-sm-12 col-xs-12 form-wrapper"> 
-        <app-pcariform-manage
+          <app-bioforms-form
           [method]="'UPDATE'"
-          [withconsent]="false"
           [registryTypes]="registryTypes"
           [departments]="departments"
           [organizations]="organizations"
           [form]="for_update"
-          [is_created]="is_updated"
-          [is_processing]="is_processing"
-          [preview_url]="'biobanking/forms/preview/update'"
           (onSubmitTrigger)="onSubmitTrigger($event)">
-        </app-pcariform-manage>
+          </app-bioforms-form>
       </div><!-- col-md-12 -->
 </div>
 <!--end of page-content-->

@@ -48,6 +48,14 @@ export class BioformsFormComponent implements OnInit {
   @Input() set form(value: Form) {
     this._form = value;
     console.warn(this._form, 'HELLO!');
+    /*
+    if (value.table_section) {
+      const total = value.table_section.length;
+      for (let i = 0; i < total; ++i) {
+        this._form.table_section[i] = value.table_section[i];
+      }
+    }
+    */
   }// -- setter for forms
 
   status: any[];
@@ -113,6 +121,7 @@ export class BioformsFormComponent implements OnInit {
     }
   }
 
+  /*
   onChangeSpec($event: MatSelectChange) {
     const ar_id = ($event.source.id.split('-'));
     const index = ar_id[ar_id.length - 1];
@@ -122,9 +131,9 @@ export class BioformsFormComponent implements OnInit {
   onChangeSpecType($event: MatSelectChange) {
     const ar_id = ($event.source.id.split('-'));
     const index = ar_id[ar_id.length - 1];
-    this._form.table_section[index].type = $event.value;;
+    this._form.table_section[index].type = $event.value;
   }
-
+  */
   onSaveForm() {
     console.log(this._form, 'FORM');
     this.is_processing = true;
