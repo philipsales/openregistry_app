@@ -12,8 +12,8 @@ declare var jquery: any;
 declare var $: any;
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Form, Section, Question, RegType, Department, Organization, TableSection } from 'app/core/models';
-import { OrganizationService, DepartmentService, RegTypeService, FormService, CaseService } from 'app/core/services';
+import { Form, Section, Question, RegType, Department, Organization, TableSection, Spec, SpecType } from 'app/core/models';
+import { OrganizationService, DepartmentService, RegTypeService, FormService, CaseService, SpecService, SpecTypeService } from 'app/core/services';
 
 import { KeyGenerator } from 'app/core/utils';
 import { Router } from '@angular/router';
@@ -45,6 +45,8 @@ export class BioformsCreateFormComponent implements OnInit {
   status: any[];
   table_section: any[];
   is_processing = false;
+  specimens: Spec[];
+  specimen_types: SpecType[];
 
   specs = [
     {value: 'urine', viewValue: 'Urine'},
@@ -57,7 +59,9 @@ export class BioformsCreateFormComponent implements OnInit {
   ];
 
   constructor(
-    private formService: FormService
+    private formService: FormService,
+    private specService: SpecService,
+    private specTypeService: SpecTypeService
   ) {
     this.status = [
       { 'name': 'Pending', 'key': 'Pending' },
@@ -65,6 +69,16 @@ export class BioformsCreateFormComponent implements OnInit {
     ];
     this.table_section = [];
     this.table_section.push({specimen: '', type: ''});
+
+    this.specService.getAll().subscribe(allspecs => {
+      console.log(allspecs);
+      this.specimens = allspecs;
+    });
+
+    this.specTypeService.getAll().subscribe(allspectypes => {
+      console.log(allspectypes);
+      this.specimen_types = allspectypes;
+    });
   }
 
   ngOnInit() {

@@ -158,9 +158,9 @@
                       <mat-select placeholder="Specimen" 
                       id="e2e-question-content-spec-{{i}}"
                         (selectionChange)="onChangeSpec($event)">
-                        <mat-option *ngFor="let spec of specs" 
-                          [value]="spec.value">
-                            {{ spec.viewValue }} 
+                        <mat-option *ngFor="let specimen of specimens" 
+                          [value]="specimen.name">
+                            {{ specimen.name }} 
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -169,8 +169,9 @@
                       <mat-select placeholder="Type" 
                         id="e2e-question-content-type-{{i}}"
                         (selectionChange)="onChangeSpecType($event)">
-                          <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
-                            {{ spectype.viewValue }}
+                          <mat-option *ngFor="let specimen_type of specimen_types" 
+                            [value]="specimen_type.name">
+                            {{ specimen_type.name }}
                           </mat-option>
                       </mat-select>
                     </mat-form-field>
