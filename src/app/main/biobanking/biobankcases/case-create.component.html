@@ -152,7 +152,9 @@
                           </mat-form-field>
             
                           <mat-form-field>
-                              <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+                              <input matInput [matDatepicker]="picker" 
+                              [value]="history.date_done"
+                              placeholder="Choose a date">
                               <mat-datepicker-toggle matSuffix [for]="picker">
                                 <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                               </mat-datepicker-toggle>
