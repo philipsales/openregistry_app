@@ -15,6 +15,7 @@ import { BioformsCreateComponent } from './bioforms-create/bioforms-create.compo
 import { BioformsUpdateComponent } from './bioforms-update/bioforms-update.component';
 import { BioformsPreviewComponent } from './bioforms-preview/bioforms-preview.component';
 import { BioformsCreateFormComponent } from './bioforms-create/bioforms-create-form.component';
+import { BioformsFormComponent } from './bioforms-form/bioforms-form.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { BioformsCreateFormComponent } from './bioforms-create/bioforms-create-f
     BioformsCreateComponent,
     BioformsUpdateComponent,
     BioformsPreviewComponent,
-    BioformsCreateFormComponent
+    BioformsCreateFormComponent,
+    BioformsFormComponent
   ],
   providers: [
     FormService,
