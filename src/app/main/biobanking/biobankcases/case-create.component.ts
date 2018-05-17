@@ -31,6 +31,7 @@ export class CaseCreateComponent implements OnInit {
   forms: Form[];
   answers: FormAnswer[];
   is_processing = false;
+  biobankcases: string[];
   medcases: string[];
   show_icd: boolean;
   has_errors = false;
@@ -39,7 +40,7 @@ export class CaseCreateComponent implements OnInit {
   myControl: FormControl = new FormControl();
   mtas: MTA[];
 
-  methods = ['MTA', 'Disposal'];
+  methods = ['MTA', 'Discard', 'Transfer To'];
 
   constructor(
     private formService: FormService,
@@ -58,6 +59,12 @@ export class CaseCreateComponent implements OnInit {
       forms => {
         this.forms = forms;
         console.log(this.forms, 'filtered forms');
+      }
+    );
+
+    this.caseService.getBiobankCaseNumbers().subscribe(
+      casenbrs => {
+        this.biobankcases = casenbrs;
       }
     );
 
@@ -105,7 +112,7 @@ export class CaseCreateComponent implements OnInit {
      for (const x of form.table_section){
        let history : SpecimenHistory[] = [];
        history.push(new SpecimenHistory(0, 'MTA', 'recipient', 'somefile.pdf'));
-       history.push(new SpecimenHistory(0, 'Disposal', 'recipient', 'Case number: 121212'));
+       history.push(new SpecimenHistory(0, 'Discard', 'recipient', 'Case number: 121212'));
       specimens.push(new Specimen(0, x.specimen, x.type, '', 0, history));
      }
 

@@ -52,6 +52,20 @@ export class CaseService {
     }).catch(Helper.handleError);
   }
 
+  getBiobankCaseNumbers(): Observable<string[]> {
+    const url = environment.API_ENDPOINT + 'cases/';
+    const biobank_org = environment.ORG_BIOBANK;
+    return this.httpclient.get(url).map((response: Response) => {
+      console.log(response['data'], 'OUTPUT GET /cases all');
+      return response['data'].filter((all_cases: CaseJSON) => {
+        return all_cases.organization === biobank_org;
+      }).map((x) => {
+        console.log(x);
+        return x['case_number'];
+      });
+    }).catch(Helper.handleError);
+  }
+
   getMedicalCaseNumbers(): Observable<string[]> {
     const url = environment.API_ENDPOINT + 'cases/';
     const medical_org = environment.ORG_MEDICAL;
