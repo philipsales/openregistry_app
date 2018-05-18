@@ -31,17 +31,15 @@ export class CaseFormComponent implements OnInit {
   @Input() set case(value: Case) {
     this._case = value;
     console.warn(this._case, 'HELLO!');
-    
     if (this._case.specforms) {
       const total_specforms = this._case.specforms.length;
-      for (let i = 0; i < total_specforms; ++i) {
-        const total_specimen = this._case.specforms[i].specimen.length;
-        for (let j = 0; j < total_specimen; ++j) {
-          this.historyChanged(this._case.specforms[i].specimen[j]);
+      for (let h = 0; h < total_specforms; ++h) {
+        const total_specimen = this._case.specforms[h].specimen.length;
+        for (let i = 0; i < total_specimen; ++i) {
+          this.historyChanged(this._case.specforms[h].specimen[i]);
         }
       }
     }
-    
   }// -- setter for forms
 
   forms: Form[];
@@ -114,6 +112,9 @@ export class CaseFormComponent implements OnInit {
       specimen.qty_avail = (specimen.qty_avail * 1) + (this_history.qty * 1);
     });
     specimen.qty_avail = specimen.qty - specimen.qty_avail;
+    if (isNaN(specimen.qty_avail)) {
+      specimen.qty_avail = specimen.qty;
+    }
     console.warn(specimen, 'TOTAL COUNT');
   }
 
@@ -180,7 +181,7 @@ export class CaseFormComponent implements OnInit {
      for (const x of form.table_section){
        let history : SpecimenHistory[] = [];
        history.push(new SpecimenHistory(0, (new Date), 'MTA', 'recipient', 'somefile.pdf'));
-       history.push(new SpecimenHistory(0, (new Date), 'Discard', 'recipient', 'Case number: 121212'));
+       // history.push(new SpecimenHistory(0, (new Date), 'Discard', 'recipient', 'Case number: 121212'));
       specimens.push(new Specimen(0, x.specimen, x.type, '', 0, history));
      }
 
@@ -193,6 +194,17 @@ export class CaseFormComponent implements OnInit {
   onCancelAddForm() {
     this.show_selected_forms = true;
     // this.is_adding_forms = false;
+  }
+
+  onRemoveMTARow(h: number, i: number, j: number) {
+    this._case.specforms[h].specimen[i].history.splice(j, 1);
+    this.historyChanged(this._case.specforms[h].specimen[i]);
+  }
+
+  onAddMTARow(h: number, i: number, j: number) {
+    const newhistoryrow = new SpecimenHistory(0, (new Date), 'MTA', 'recipient', 'somefile.pdf');
+    this._case.specforms[h].specimen[i].history.push(newhistoryrow);
+    this.historyChanged(this._case.specforms[h].specimen[i]);
   }
 
   private filter(val: string): string[] {

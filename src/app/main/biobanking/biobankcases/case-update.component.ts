@@ -44,26 +44,4 @@ export class CaseUpdateComponent implements OnInit {
       }
     });
   }// --OnInit
-  /*
-  onSubmitCase(case_for_update: Case) {
-    this.caseService.update(case_for_update).subscribe((updated_case: Case) => {
-      this.is_processing = false;
-      this.case = updated_case;
-      console.log(updated_case, 'CASE UPDATED : case-update.component');
-      this._notificationsService.success(
-        'Case : ' + updated_case.case_nbr,
-        'Successfully Updated.',
-        {
-          timeOut: 10000,
-          showProgressBar: true,
-          pauseOnHover: false,
-          clickToClose: false,
-        }
-      );
-    }, errors => {
-      console.log(errors, 'ERROR : case-update.component');
-      this.is_processing = false;
-    });
-  }
-  */
 }

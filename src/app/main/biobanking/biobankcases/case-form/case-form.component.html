@@ -68,7 +68,7 @@
 <!-- Selected Forms  -->
 <mat-accordion>  
 <mat-expansion-panel [expanded]="true"
-*ngFor="let form of _case.specforms; let i = index">
+*ngFor="let form of _case.specforms; let h = index">
 <mat-expansion-panel-header>
   <mat-panel-title>
       <em>{{ form.form_name }} </em>
@@ -82,30 +82,30 @@
       <mat-form-field style="width: 20%">
           <input matInput placeholder="Qty" 
             [(ngModel)]="specimen.qty"
-            name="specimenqty-{{i}}"
+            name="specimenqty-{{h}}-{{i}}"
             (change)="historyChanged(specimen)">
         </mat-form-field>
 
         <mat-form-field style="width: 18%">
             <input matInput placeholder="Specimen" [(ngModel)]="specimen.spec"
-              name="specimenspec-{{i}}"
+              name="specimenspec-{{h}}-{{i}}"
               readonly disabled>
         </mat-form-field>
 
         <mat-form-field style="width: 20%">
             <input matInput placeholder="Type" [(ngModel)]="specimen.spec_type"
-              name="specimentype-{{i}}"
+              name="specimentype-{{h}}-{{i}}"
               readonly disabled>
         </mat-form-field>
 
         <mat-form-field style="width: 20%">
             <input matInput placeholder="Notes" [(ngModel)]="specimen.characteristic"
-            name="specimennotes-{{i}}">
+            name="specimennotes-{{h}}-{{i}}">
         </mat-form-field>
 
         <mat-form-field style="width: 20%">
             <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"
-            name="specimenqtyavail-{{i}}"
+            name="specimenqtyavail-{{h}}-{{i}}"
             readonly disabled>
         </mat-form-field>
     </div>
@@ -167,7 +167,25 @@
                       <mat-form-field *ngIf="history.type == 'Discard'">
                           <input matInput placeholder="Reference" [(ngModel)]="history.reference" name="reference-disposal-{{j}}">
                       </mat-form-field>
+
+                      <button mat-button style="width: 5%; padding: 2px;"
+                        (click)="onRemoveMTARow(h,i,j)">
+                        Remove
+                      </button> 
                 </div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                      <mat-card-actions style="float: right; margin-right: 0;">
+                        <button mat-raised-button color="primary"
+                                class="e2e-add-question"
+                                (click)="onAddMTARow(h,i,j)">
+                            Add Row
+                        </button>
+                      </mat-card-actions>
+                    </div>
+                </div>
+
             </mat-expansion-panel>
         </mat-accordion>  
     </div>
