@@ -27,7 +27,22 @@ import { NoJWTError } from 'app/core/errors';
 })
 export class CaseFormComponent implements OnInit {
 
-  @Input() case: Case;
+  private _case: Case;
+  @Input() set case(value: Case) {
+    this._case = value;
+    console.warn(this._case, 'HELLO!');
+    
+    if (this._case.specforms) {
+      const total_specforms = this._case.specforms.length;
+      for (let i = 0; i < total_specforms; ++i) {
+        const total_specimen = this._case.specforms[i].specimen.length;
+        for (let j = 0; j < total_specimen; ++j) {
+          this.historyChanged(this._case.specforms[i].specimen[j]);
+        }
+      }
+    }
+    
+  }// -- setter for forms
 
   forms: Form[];
   myControl: FormControl = new FormControl();
@@ -49,8 +64,8 @@ export class CaseFormComponent implements OnInit {
     private router: Router
   ) {
     this.answers = [];
-    this.case = new Case('', environment.ORG_BIOBANK, '', this.answers);
-    this.case.specforms = [];
+    this._case = new Case('', environment.ORG_BIOBANK, '', this.answers);
+    this._case.specforms = [];
   }
 
   ngOnInit() {
@@ -103,7 +118,15 @@ export class CaseFormComponent implements OnInit {
   }
 
   onSaveCase() {
-    this.caseService.create(this.case).subscribe((created_case: Case) => {
+    if (this._case.id) {
+      this.updateCase();
+    } else {
+      this.createNewCase();
+    }
+  }
+
+  private createNewCase() {
+    this.caseService.create(this._case).subscribe((created_case: Case) => {
       this.is_processing = false;
       console.log(created_case, 'CASE CREATED : case-manage.component');
       this._notificationsService.success(
@@ -119,6 +142,27 @@ export class CaseFormComponent implements OnInit {
       this.router.navigate(['/biobanking/cases']);
     }, errors => {
       console.log(errors, 'ERROR : case-manage.component');
+      this.is_processing = false;
+    });
+  }
+
+  private updateCase() {
+    this.caseService.update(this._case).subscribe((updated_case: Case) => {
+      this.is_processing = false;
+      this._case = updated_case;
+      console.log(updated_case, 'CASE UPDATED : case-update.component');
+      this._notificationsService.success(
+        'Case : ' + updated_case.case_nbr,
+        'Successfully Updated.',
+        {
+          timeOut: 10000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: false,
+        }
+      );
+    }, errors => {
+      console.log(errors, 'ERROR : case-update.component');
       this.is_processing = false;
     });
   }
@@ -140,10 +184,10 @@ export class CaseFormComponent implements OnInit {
       specimens.push(new Specimen(0, x.specimen, x.type, '', 0, history));
      }
 
-     this.case.specforms.push(new SpecForm(form.id, form.name, specimens));
+     this._case.specforms.push(new SpecForm(form.id, form.name, specimens));
     }
     // this.onSubmitCaseTrigger.emit(this._case);
-    console.log(this.case, 'CASE');
+    console.log(this._case, 'CASE');
   }
 
   onCancelAddForm() {

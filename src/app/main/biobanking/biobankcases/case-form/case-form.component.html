@@ -39,7 +39,7 @@
                   <input matInput 
                         id="casenumber"
                         name="input_casenumber"
-                        [(ngModel)]="case.case_nbr"
+                        [(ngModel)]="_case.case_nbr"
                         [disabled]="method == 'VIEW'"
                         [matAutocomplete]="auto"
                         placeholder="Case Number">
@@ -68,7 +68,7 @@
 <!-- Selected Forms  -->
 <mat-accordion>  
 <mat-expansion-panel [expanded]="true"
-*ngFor="let form of case.specforms; let i = index">
+*ngFor="let form of _case.specforms; let i = index">
 <mat-expansion-panel-header>
   <mat-panel-title>
       <em>{{ form.form_name }} </em>
@@ -80,26 +80,32 @@
     <div>
       <!-- specimen -->
       <mat-form-field style="width: 20%">
-          <input matInput placeholder="Qty" [(ngModel)]="specimen.qty"
+          <input matInput placeholder="Qty" 
+            [(ngModel)]="specimen.qty"
+            name="specimenqty-{{i}}"
             (change)="historyChanged(specimen)">
         </mat-form-field>
 
         <mat-form-field style="width: 18%">
             <input matInput placeholder="Specimen" [(ngModel)]="specimen.spec"
+              name="specimenspec-{{i}}"
               readonly disabled>
         </mat-form-field>
 
         <mat-form-field style="width: 20%">
             <input matInput placeholder="Type" [(ngModel)]="specimen.spec_type"
+              name="specimentype-{{i}}"
               readonly disabled>
         </mat-form-field>
 
         <mat-form-field style="width: 20%">
-            <input matInput placeholder="Notes" [(ngModel)]="specimen.characteristic">
+            <input matInput placeholder="Notes" [(ngModel)]="specimen.characteristic"
+            name="specimennotes-{{i}}">
         </mat-form-field>
 
         <mat-form-field style="width: 20%">
             <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"
+            name="specimenqtyavail-{{i}}"
             readonly disabled>
         </mat-form-field>
     </div>
@@ -112,12 +118,13 @@
                       <strong>MTA : </strong> &nbsp; <em>{{ specimen.spec }} - {{ specimen.spec_type }} </em>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div style="text-align: center"  *ngFor="let history of specimen.history; let j = index">
+                <div style="text-align: center"  
+                    *ngFor="let history of specimen.history; let j = index">
                     <mat-form-field>
                       <input matInput placeholder="Qty" 
                         (change)="historyChanged(specimen)"
                         [(ngModel)]="history.qty" 
-                        name="qty-{{j}}" >
+                        name="qty-{{i}}-{{j}}" >
                     </mat-form-field>
       
                     <mat-form-field>
