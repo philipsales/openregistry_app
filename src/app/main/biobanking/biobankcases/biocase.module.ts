@@ -26,6 +26,7 @@ import { CaseUpdateComponent } from './case-update.component';
 import { MatTableModule } from '@angular/material';
 import { CaseFormsComponent } from './case-forms/case-forms.component';
 import { CaseFormsUpdateComponent } from './case-forms/case-forms-update.component';
+import { CaseFormComponent } from './case-form/case-form.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { CaseFormsUpdateComponent } from './case-forms/case-forms-update.compone
     CaseViewComponent,
     CaseUpdateComponent,
     CaseFormsComponent,
-    CaseFormsUpdateComponent
+    CaseFormsUpdateComponent,
+    CaseFormComponent
   ],
   providers: [
     // Material Form ErrorMatcher
