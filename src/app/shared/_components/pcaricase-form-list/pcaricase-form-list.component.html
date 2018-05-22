@@ -59,15 +59,20 @@
       </mat-expansion-panel>
 
 
+
+
+
+      
   <mat-expansion-panel 
     *ngFor="let form of _forms; let i = index"
-    (opened)="onRevealForm(form.id, form.form_id)"
-    (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
+    [expanded]="openqueue.index === i"
+    [disabled]="openqueue.index !== i">
+    <mat-expansion-panel-header (click)="tryOpen(i, form.id, form.form_id)">
       <mat-panel-title>
           {{ form.form_name }} : &nbsp; <em>{{ form.date_created | date :'medium' }}</em>
       </mat-panel-title>
     </mat-expansion-panel-header>
+
     <div *ngIf="is_ok">
         <app-dynamic-form
           *ngIf="!isBiobank"
@@ -79,6 +84,8 @@
           [formanswerid]="form_answer_id"
           [inquestionz]="caseform?.sections" 
           [insectionz]="caseform?.sections"
+          [initsave]="openqueue.saveindex === i"
+          (onSuccessSubmit)="onSuccessSubmitEvent($event)"
          >
       </app-dynamic-form>
 
@@ -96,7 +103,6 @@
     </div>
 
     <p *ngIf="!is_ok"> Please wait...</p>
-
   </mat-expansion-panel>
 </mat-accordion>
 
@@ -182,3 +188,31 @@ style="margin-top: 15px;"
 </div> 
 
 <!-- Selected Forms -->
+
+
+
+
+<div id="modal_confirmation" class="modal fade confirm-modal-holder" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div>
+        <h4 class="modal-header">Please wait..</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-content">
+          <p>You have unsaved changes, do you want to save changes?</p>
+        </div>
+        <form style="text-align: right;">
+          <button class="btn btn-text" 
+          (click)="onCloseConfirmation()">
+            No
+          </button>
+          <button class="btn btn-primary btn-customize-primary" 
+            (click)="onConfirmSave()">
+            Yes
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

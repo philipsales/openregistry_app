@@ -4,6 +4,9 @@ import { FormService, FormAnswerService, CaseService } from 'app/core/services';
 import { NoJWTError } from 'app/core/errors';
 import { NotificationsService } from 'angular2-notifications';
 
+declare var jquery: any;
+declare var $: any;
+
 @Component({
   selector: 'app-pcaricase-form-list',
   templateUrl: './pcaricase-form-list.component.html',
@@ -31,6 +34,17 @@ export class PcaricaseFormListComponent implements OnInit {
   @Input() update_url: string;
   @Input() view_url: string;
   @Input() isBiobank = false;
+  ewan = false;
+  ewan2 = true;
+  openqueue = {
+    queue: -1,
+    index: -1,
+    form_id: '',
+    form_id_id: '',
+    savequeue: -1,
+    saveindex: -1,
+    save: false,
+  };
 
   _forms: FormAnswer;
   @Input() set forms(value: FormAnswer) {
@@ -106,7 +120,56 @@ export class PcaricaseFormListComponent implements OnInit {
     this.onCallSelectFormTrigger.emit();
   }
 
+  tryOpen(index, form_id, form_form_id) {
+    const prev = this.openqueue.index;
+    this.openqueue.save = false;
+    if (this.openqueue.index !== index) {
+      console.log('new index');
+      this.openqueue.queue = index;
+      this.openqueue.form_id = form_id;
+      this.openqueue.form_id_id = form_form_id;
+      this.openqueue.savequeue = prev;
+
+      console.log(this.openqueue, 'yo');
+      if (prev !== -1) {
+        console.log('confirm');
+        $('#modal_confirmation').modal('show');
+      } else {
+        console.log('reveal');
+        this.setAll();
+      }
+    } else {
+      this.setAll();
+    }
+  }
+
+  onCloseConfirmation() {
+    $('#modal_confirmation').modal('hide');
+    this.setAll();
+  }
+
+  onConfirmSave() {
+    //this.openqueue.save = true;
+    $('#modal_confirmation').modal('hide');
+    this.openqueue.saveindex = this.openqueue.savequeue;
+    console.warn(this.openqueue, 'WOOOOOO');
+    // this.openqueue.index = this.openqueue.queue;
+    // this.onRevealForm(this.openqueue.form_id, this.openqueue.form_id_id);
+  }
+
+  onSuccessSubmitEvent() {
+    this.setAll();
+  }
+
+  private setAll() {
+    this.openqueue.savequeue = -1;
+    this.openqueue.saveindex = -1;
+    this.openqueue.index = this.openqueue.queue;
+    this.onRevealForm(this.openqueue.form_id, this.openqueue.form_id_id);
+  }
+
   onRevealForm(form_answer_id, form_id) {
+    console.warn('YO!');
     this.is_ok = false;
     this.form_answer_id = form_answer_id;
 
