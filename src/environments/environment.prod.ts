@@ -11,7 +11,7 @@ export const environment = {
   API_HOST: 'https://ewan.kristhiantiu.com',
   // API_ENDPOINT: 'http://localhost:3001/',
   API_ENDPOINT: 'https://ewan.kristhiantiu.com/',
-  API_ALLOWED_DOMAINS: ['localhost:3001', 'kristhiantiu.com:3000', 'ewan.kristhiantiu.com', 'test.kristhiantiu.com'],
+  API_ALLOWED_DOMAINS: ['localhost:3001', 'kristhiantiu.com:3000', 'ewan.kristhiantiu.com', 'pcari.kristhiantiu.com'],
   ORG_BIOBANK: 'University of the Philippines Diliman',
   ORG_MEDICAL: 'University of the Philippines - Philippine General Hospital',
   DEPT_MEDICAL: 'General Surgery Department',
