@@ -1,0 +1,66 @@
+<div [formGroup]="parentForm">
+  <div formArrayName="questions">
+      <div *ngFor="let specimen of specform; let i = index;">
+        <mat-form-field style="width: 18%">
+          <input matInput 
+            id="e2e-question-content-qty-{{sectionIndex}}-{{i}}"
+            placeholder="Qty" [(ngModel)]="specimen.qty">
+        </mat-form-field>
+    
+        <mat-form-field style="width: 18%">
+          <mat-select placeholder="Specimen" 
+            id="e2e-question-content-spec-{{sectionIndex}}-{{i}}"
+            (selectionChange)="onChangeSpec($event)"
+            [(ngModel)]="specimen.spec">
+            <mat-option *ngFor="let spec of specs" [value]="spec.value">
+                {{ spec.viewValue }} 
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field style="width: 15%">
+          <mat-select placeholder="Type" 
+            id="e2e-question-content-type-{{sectionIndex}}-{{i}}"
+            (selectionChange)="onChangeSpecType($event)"
+            [(ngModel)]="specimen.spec_type">
+              <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
+                {{ spectype.viewValue }}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        
+        <mat-form-field style="width: 16%">
+            <input matInput placeholder="Characteristic" 
+              id="e2e-question-content-char-{{sectionIndex}}-{{i}}"
+              [(ngModel)]="specimen.characteristic">
+        </mat-form-field>
+
+        <mat-form-field style="width: 16%">
+            <input matInput placeholder="Qty Available" 
+              id="e2e-question-content-qtyavail-{{sectionIndex}}-{{i}}"
+              [(ngModel)]="specimen.qty_avail">
+        </mat-form-field>
+        
+          <button mat-button style="width: 5%; padding: 2px;"
+            (click)="removeTableQuestion(i)">
+            Remove
+          </button>
+        
+        
+      </div>
+      <div class="row">
+        <div class="col-sm-12 col-md-12">
+          <mat-card-actions style="text-align: right; margin-right: 0;">
+            <button mat-raised-button color="primary"
+                    class="e2e-add-question"
+                    id="e2e-add-question-{{sectionIndex}}"
+                    (click)="addTableQuestion()">
+                Add Row
+            </button>
+          </mat-card-actions>
+        </div>
+      </div>
+  </div>
+</div>
+

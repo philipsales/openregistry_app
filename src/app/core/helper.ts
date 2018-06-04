@@ -47,11 +47,18 @@ export class Helper {
 	    }
 	    errMsg = err_array;
 	} else {
-	    console.log('XXXXXXXXXXXXXXXXXXXXXXXXXXXX')
-	    errMsg = error.message ? error.message : error.toString();
+		errMsg = error.message ? error.message : error.toString();
+		console.log(errMsg, 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX')
 	    if(errMsg == 'No JWT present or has expired'){
 		errMsg = new NoJWTError('No JWT present or has expired');
-	    } else {
+		} else if (error.status === 400) {
+			console.log('OOOOOO');
+			console.log(error.error.userMessage, 'error');
+			
+			if (error.error.userMessage) {
+				errMsg = error.error.userMessage;
+			}
+		} else {
 		console.warn('TO DO : PLEASE CATCH ME!', 'handleError');
 		console.log(error, 'error');
 	    }

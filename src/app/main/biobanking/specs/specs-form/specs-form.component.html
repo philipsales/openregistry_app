@@ -1,0 +1,52 @@
+<div class="col-md-12 table-nav"
+  [hidden]="method == 'VIEW'">
+  <div class="col-sm-3 reset-wrapper">
+    <button class="btn btn-default pull-left"
+      (click)="onResetSpecimenClick()">
+    <i class="fa fa-refresh"></i> &nbsp; Reset
+    </button>
+  </div>
+  
+  <div class="col-sm-6 col-md-6">
+    <div class="alert alert-danger"
+        [hidden]="!has_errors">
+      <strong>
+        <i class="fa fa-warning"></i> Unable to process your request.
+      </strong><br/>
+      <em> {{ errors }} </em>
+    </div>
+  </div>
+
+  <div class="col-sm-3 col-md-3 save-wrapper">
+    <button class="btn btn-success pull-right"
+    [disabled]="!specimenForm.form.valid || is_processing"
+    (click)="onSaveClick(_specimen)">
+    <i class="fa fa-save"></i> &nbsp; Save
+    </button>
+  </div>
+</div> <!-- table-nav -->
+
+<!-- Specimen Name -->
+<div class="col-md-12 col-sm-12 col-xs-12"> 
+  <div class="x_panel">
+    <div class="x_content">
+    <br>
+      <form data-parsley-validate=""
+      class="form-horizontal form-label-left"
+      #specimenForm="ngForm" novalidate>
+        <div class="row">
+        </div>
+        <div class="material-form-group">
+          <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+            <input matInput 
+                  [(ngModel)]="_specimen.name"
+                  [disabled]="method == 'VIEW'"
+                  #input_name="ngModel" name="input_name"
+                  required
+                  placeholder="Specimen Name">
+          </mat-form-field>	
+        </div> <br/><br/>
+      </form>
+    </div>
+  </div>      
+</div> <!-- Specimen Name -->

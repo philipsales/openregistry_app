@@ -123,6 +123,15 @@ export class PcariformManageComponent implements OnInit {
     ));
   }
 
+  onAddTableSection() {
+    this._form.sections.push(new Section(
+      this.keyGenerator.create(),
+      'Untitled section',
+      0,
+      [],
+      true
+    ));
+  }
 
   @ViewChild("fileInput") fileInput;
 
@@ -137,6 +146,7 @@ export class PcariformManageComponent implements OnInit {
       updated_form.file = formModel;
     }
 
+    console.log(updated_form, 'FORM!!');
     this.onSubmitTrigger.emit(updated_form);
   }
 

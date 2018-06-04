@@ -1,0 +1,126 @@
+<form>
+
+    <!-- Case Details -->
+    <div *ngIf="method !== 'VIEW'">
+      <div class="col-md-12 col-sm-12 col-xs-12 form-wrapper" > 
+        <div class="form-editor-body">
+          <div class="row section-title">
+              <span class="pull-left">
+                <h6>Form Details</h6> 
+              </span>
+          </div>
+          <div class="row"
+            [hidden]="true">
+              <label class="material-question-label
+                            col-md-offset-2
+                            col-sm-offset-2
+                            col-md-10 col-sm-10 col-xs-10">
+                            Case Number </label>
+              <div class="col-md-8 
+                          col-sm-8 col-xs-8
+                          col-md-offset-4
+                          col-sm-offset-4">
+                <label class="" > {{casenumber}} </label>
+              </div>
+          </div>
+  
+          <div class="row">
+              <label class="material-question-label
+                            col-md-offset-2
+                            col-sm-offset-2
+                            col-md-10 col-sm-10 col-xs-10">
+                            Consent Form</label>
+              <div (click)="onClickAttachment(dirpath)"
+                   class="col-md-8 
+                          col-sm-8 col-xs-8
+                          col-md-offset-4
+                          col-sm-offset-4">
+                  <label class="material-view-attachment">
+                    <span *ngIf="!dirpath">No attachment</span>
+                    <i *ngIf="dirpath" class="fa fa-1x fa-paperclip"> </i> {{dirpath}}
+                  </label>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end Case Details -->
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12 form-wrapper"> 
+        <div class="form-editor-body">
+          <div class="col-sm-12" > 
+            <!--insert form Array here-->
+            <div *ngFor="let section of sectionz">
+              <div class="row section-title"  style="margin-bottom: 10px;">
+                <span class="pull-left">
+                  <h6>{{section.name}}</h6> 
+                </span>
+              </div>
+    
+              <div class="row">
+                <!-- put contents here-->
+                <div *ngFor="let specimen of specform; let i = index" 
+                    style="width: 100%;">
+                    <mat-form-field style="width: 18%">
+                        <input matInput  name="qty" placeholder="Qty" [(ngModel)]="specimen.qty">
+                      </mat-form-field>
+                  
+                      <mat-form-field style="width: 18%">
+                        <mat-select placeholder="Specimen" [(ngModel)]="specimen.spec" name="{{'spec'+i}}">
+                          <mat-option *ngFor="let spec of specs" [value]="spec.value">
+                              {{ spec.viewValue }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+              
+                      <mat-form-field style="width: 18%">
+                        <mat-select placeholder="Type" [(ngModel)]="specimen.spec_type" name="{{'spectype'+i}}">
+                            <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
+                              {{ spectype.viewValue }}
+                            </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+              
+                      <mat-form-field style="width: 18%">
+                          <input matInput placeholder="Characteristic" [(ngModel)]="specimen.characteristic"  name="char">
+                      </mat-form-field>
+              
+                      <mat-form-field style="width: 18%">
+                          <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"  name="qtyavail">
+                      </mat-form-field>
+                      <button class="btn btn-sm btn-warning" 
+                        style="width: 4%; margin-left: 1%;"
+                        (click)="onRemoveRow(i)">
+                          <i class="fa fa-edit"></i> 
+                      </button>
+                </div>
+                <!-- end of put contents here-->
+              </div>
+    
+            </div>
+            <!--end formarray-->
+    
+          </div>
+        </div>
+      </div>
+    
+    
+      <div class="form-row col-sm-12 pull-right"
+        *ngIf="method !== 'VIEW'">
+        <button  
+                [disabled]="!form.valid" 
+                class="e2e-save-data-form pull-right btn btn-success"
+                id="e2e-save-data-form-id"
+                (click)="onSubmit()">
+            <i class="fa fa-1x fa-save "></i> &nbsp;Save Form
+        </button>
+      </div>
+    
+    </form>
+    
+    <div *ngIf="payLoad" class="form-row">
+      <!-- {{form.valid}} -->
+      <!-- <strong>Saved the following values</strong><br>{{payLoad}} -->
+    </div>
+        

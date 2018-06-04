@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Form, Section, RegType, Department, Organization } from 'app/core/models';
+import { Form, Section, RegType, Department, Organization, TableSection } from 'app/core/models';
 
 import { KeyGenerator } from 'app/core/utils';
 import { NotificationsService } from 'angular2-notifications';
@@ -44,23 +44,7 @@ export class BioformsCreateComponent implements OnInit {
       this.new_form = this.formService.currentForm;
     } else {
       console.log('COMPLETELY NEW');
-      this.new_form = new Form(
-        '',
-        environment.ORG_BIOBANK,
-        environment.DEPT_BIOBANK,
-        environment.FORM_TYPE_BIOBANK,
-        'Pending',
-        [
-          new Section(
-
-            this.keyGenerator.create(),
-            'Untitled section',
-            0,
-            [])
-        ],
-        new Date(),
-        ''
-      );
+      this.resetForm();
       this.getRegistryTypes();
       this.getDepartments();
       this.getOrganizations();
@@ -69,6 +53,24 @@ export class BioformsCreateComponent implements OnInit {
     this.getRegistryTypes();
     this.getDepartments();
     this.getOrganizations();
+  }
+
+  resetForm() {
+    this.new_form = new Form(
+      '',
+      environment.ORG_BIOBANK,
+      environment.DEPT_BIOBANK,
+      environment.FORM_TYPE_BIOBANK,
+      'Pending',
+      [],
+      new Date(),
+      ''
+    );
+    this.new_form.table_section = [new TableSection('', '')];
+  }
+
+  onResetEvent(form: Form) {
+    this.resetForm();
   }
 
   ngOnInit() {
@@ -126,5 +128,21 @@ export class BioformsCreateComponent implements OnInit {
           throw errors;
         });
 
+  }
+
+  onSubmitEvent(form_created: Form) {
+    this.is_processing = false;
+    this.is_created = true;
+    this.notificationsService
+      .success(
+        'Form: ' + form_created.name,
+        'Successfully Saved.',
+        {
+          timeOut: 10000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: false
+        });
+    this.router.navigate(['/biobanking/forms']);
   }
 }

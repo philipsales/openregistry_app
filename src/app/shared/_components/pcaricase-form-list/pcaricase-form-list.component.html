@@ -1,6 +1,124 @@
   <!-- Selected Forms  -->
+<mat-accordion>
+      
+    <mat-expansion-panel  *ngIf="isBiobank" [expanded]="true">
+        
+        
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Specimen Collection Form : &nbsp; <em>Mandatory</em>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div style="text-align: center; margin-bottom: 10px;" class="row">
+            <button class="btn btn-success pull-right"
+              (click)="onSaveClick()">
+              Save
+            </button>
+        </div>
+        <div *ngFor="let specimen of specform; let i = index" 
+          style="width: 100%;">
+          <mat-form-field style="width: 18%">
+            <input matInput placeholder="Qty" [(ngModel)]="specimen.qty">
+          </mat-form-field>
+      
+          <mat-form-field style="width: 18%">
+            <mat-select placeholder="Specimen" [(ngModel)]="specimen.spec">
+              <mat-option *ngFor="let spec of specs" [value]="spec.value">
+                  {{ spec.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field style="width: 18%">
+            <mat-select placeholder="Type" [(ngModel)]="specimen.spec_type">
+                <mat-option *ngFor="let spectype of spectypes" [value]="spectype.value">
+                  {{ spectype.viewValue }}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+  
+          <mat-form-field style="width: 18%">
+              <input matInput placeholder="Characteristic" [(ngModel)]="specimen.characteristic">
+          </mat-form-field>
+  
+          <mat-form-field style="width: 18%">
+              <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail">
+          </mat-form-field>
+          <button class="btn btn-sm btn-danger" 
+            style="width: 4%; margin-left: 1%;"
+            (click)="onRemoveRow(i)">
+              <i class="fa fa-trash"></i> 
+          </button>
+        </div>
+        <div style="clear: both; padding-bottom: 30px;">
+          <button class="btn btn-default pull-right"
+            (click)="onAddRow()">
+            Add Row
+          </button>
+        </div>
+      </mat-expansion-panel>
+
+
+
+
+
+      
+  <mat-expansion-panel 
+    *ngFor="let form of _forms; let i = index"
+    [expanded]="openqueue.index === i"
+    [disabled]="openqueue.index !== i">
+    <mat-expansion-panel-header (click)="tryOpen(i, form.id, form.form_id)">
+      <mat-panel-title>
+          {{ form.form_name }} : &nbsp; <em>{{ form.date_created | date :'medium' }}</em>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div *ngIf="is_ok">
+        <app-dynamic-form
+          *ngIf="!isBiobank"
+          [method]="'UPDATE'"
+          [answers]="answers"
+          [caseid]="caseid"
+          [casenumber]="casenumber"
+          [dirpath]="dirpath"
+          [formanswerid]="form_answer_id"
+          [inquestionz]="caseform?.sections" 
+          [insectionz]="caseform?.sections"
+          [initsave]="openqueue.saveindex === i"
+          (onSuccessSubmit)="onSuccessSubmitEvent($event)"
+         >
+      </app-dynamic-form>
+
+      <app-dynamic-table-form  
+        *ngIf="isBiobank"
+        [method]="'UPDATE'"
+        [answers]="answers"
+        [caseid]="caseid"
+        [casenumber]="casenumber"
+        [dirpath]="dirpath"
+        [formanswerid]="form_answer_id"
+        [inquestionz]="caseform?.sections" 
+        [insectionz]="caseform?.sections">
+      </app-dynamic-table-form>
+    </div>
+
+    <p *ngIf="!is_ok"> Please wait...</p>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<div class="col-md-offset-3 col-md-6"
+style="margin-top: 15px;"
+[hidden]="!_show"> 
+  <button class="btn btn-default" style="width: 100%;"
+      *ngIf="method == 'UPDATE' || method == 'CREATE'"
+      (click)="onAddForm()">
+      <i class="fa fa-plus e2e-add-form"></i> Add Form
+  </button>
+</div> <!--button group -->
+
+
   <div class="col-md-12 col-sm-12 col-xs-12"
-    [hidden]="!_show"> 
+    *ngIf="false"> 
       <div class="x_panel">
         <div class="x_title">
           <h2 class="pull-left">Case Forms</h2>
@@ -28,7 +146,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr  *ngFor="let form of forms; let i = index">
+                <tr  *ngFor="let form of _forms; let i = index">
                   <th scope="row">{{ i + 1 }}</th>
                   <td>{{ form.form_name }}</td>
                   <td>{{ form.date_created | date :'medium' }}</td>
@@ -68,4 +186,33 @@
         </div> <!-- x_content -->
       </div>
 </div> 
+
 <!-- Selected Forms -->
+
+
+
+
+<div id="modal_confirmation" class="modal fade confirm-modal-holder" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div>
+        <h4 class="modal-header">Case Assistant</h4>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body-content">
+          <p>You have unsaved changes, do you want to save changes?</p>
+        </div>
+        <form style="text-align: right;">
+          <button class="btn btn-text" 
+          (click)="onCloseConfirmation()">
+            No
+          </button>
+          <button class="btn btn-primary btn-customize-primary" 
+            (click)="onConfirmSave()">
+            Yes
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
