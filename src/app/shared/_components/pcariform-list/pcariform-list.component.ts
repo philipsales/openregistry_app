@@ -4,6 +4,8 @@ import { FormService } from '../../../core/services';
 import { Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-pcariform-list',
   templateUrl: './pcariform-list.component.html',
@@ -123,5 +125,9 @@ export class PcariformListComponent implements OnInit {
           throw errors;
         });
     });
+  }
+
+  isValid(expirydate) {
+    return moment().isSameOrBefore(expirydate, 'day');
   }
 }

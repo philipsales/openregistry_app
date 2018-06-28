@@ -46,12 +46,10 @@
 
         <td style="text-align: left;">{{ form.department }}</td>
         <td  style="text-align: center;">
-          <span *ngIf='((_date_today | date: "MMM dd, yyyy")
-            <= (form.validity_date | date: "MMM dd, yyyy"))'
+          <span *ngIf='isValid(form.validity_date)'
             class="badge badge--success" #valid> Valid 
           </span>
-          <span *ngIf='!((_date_today | date: "MMM dd, yyyy")
-            <= (form.validity_date | date: "MMM dd, yyyy"))'
+          <span *ngIf='!isValid(form.validity_date)'
             class="badge badge--invalid" #invalid> Expired 
           </span>
         </td>
