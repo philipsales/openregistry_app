@@ -5,6 +5,7 @@ import { environment } from 'environments/environment';
 import { SpecTypeService } from 'app/core/services';
 import { SpecType } from 'app/core/models';
 import { NoJWTError } from 'app/core/errors';
+import { SpectypePipe } from 'app/shared/_pipes/spectype.pipe';
 
 @Component({
   selector: 'app-spectypes-list',
@@ -15,6 +16,8 @@ export class SpectypesListComponent implements OnInit {
 
   spectypes: SpecType[];
   download_url = '';
+  searchText = '';
+  filter = '';
 
   constructor(private specTypeService: SpecTypeService) {
 

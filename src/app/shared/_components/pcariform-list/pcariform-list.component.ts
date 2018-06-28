@@ -13,6 +13,8 @@ export class PcariformListComponent implements OnInit {
 
   @Input() create_url: string;
   @Input() update_url: string;
+  searchText = '';
+  filter = '';
 
   _forms: Form[];
   @Input() set forms(value: Form[]) {

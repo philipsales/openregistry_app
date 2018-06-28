@@ -46,6 +46,11 @@ import { TableQuestionContentArrayComponent } from './_components/table-question
 import { DynamicTableFormComponent } from './_components/dynamic-table-form/dynamic-table-form.component';
 import { UserPipe } from './_pipes/user.pipe';
 import { RolePipe } from './_pipes/role.pipe';
+import { SpectypePipe } from './_pipes/spectype.pipe';
+import { SpecimenPipe } from './_pipes/specimen.pipe';
+import { MtaPipe } from './_pipes/mta.pipe';
+import { FormPipe } from './_pipes/form.pipe';
+import { CasePipe } from './_pipes/case.pipe';
 
 
 @NgModule({
@@ -93,7 +98,12 @@ import { RolePipe } from './_pipes/role.pipe';
     TableQuestionContentArrayComponent,
     DynamicTableFormComponent,
     UserPipe,
-    RolePipe
+    RolePipe,
+    SpectypePipe,
+    SpecimenPipe,
+    MtaPipe,
+    FormPipe,
+    CasePipe
   ],
   providers: [
     ConsentService,
@@ -113,7 +123,12 @@ import { RolePipe } from './_pipes/role.pipe';
     DeleteModalComponent,
     PcariauthDirective,
     UserPipe,
-    RolePipe
+    RolePipe,
+    SpectypePipe,
+    SpecimenPipe,
+    MtaPipe,
+    FormPipe,
+    CasePipe
   ]
 })
 export class SharedModule { }
