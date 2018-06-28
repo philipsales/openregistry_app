@@ -23,3 +23,4 @@ export * from './models/specform';
 export * from './models/mta';
 export * from './models/spec';
 export * from './models/spectype';
+export * from './models/search';
