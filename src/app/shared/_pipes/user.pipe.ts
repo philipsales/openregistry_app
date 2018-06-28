@@ -47,27 +47,3 @@ export class UserPipe implements PipeTransform {
   } // -- transform
 
 }
-
-
-
-@Pipe({
-  name: 'position'
-})
-export class PositionPipe implements PipeTransform {
-
-  transform(items: Position[], filter: Search): any {
-    if (!items || (filter.prop == 'description' && filter.value == '')) {
-      return items;
-    }
-
-    return items.filter(item => {
-      const cur_value = item[filter.prop];
-      if (typeof cur_value === 'string') {
-        const regexp = new RegExp(filter.value.toString(), 'gi');
-        return (cur_value.match(regexp)) ?  true : false;
-      } else {
-          return (cur_value == filter.value);
-      }
-    });
-  }//-- transform
-}

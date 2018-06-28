@@ -45,6 +45,7 @@ import { FormsTableSectionArrayComponent } from './_components/forms-table-secti
 import { TableQuestionContentArrayComponent } from './_components/table-question-content-array/table-question-content-array.component';
 import { DynamicTableFormComponent } from './_components/dynamic-table-form/dynamic-table-form.component';
 import { UserPipe } from './_pipes/user.pipe';
+import { RolePipe } from './_pipes/role.pipe';
 
 
 @NgModule({
@@ -91,7 +92,8 @@ import { UserPipe } from './_pipes/user.pipe';
     FormsTableSectionArrayComponent,
     TableQuestionContentArrayComponent,
     DynamicTableFormComponent,
-    UserPipe
+    UserPipe,
+    RolePipe
   ],
   providers: [
     ConsentService,
@@ -110,7 +112,8 @@ import { UserPipe } from './_pipes/user.pipe';
     IcdoncologyManageComponent,
     DeleteModalComponent,
     PcariauthDirective,
-    UserPipe
+    UserPipe,
+    RolePipe
   ]
 })
 export class SharedModule { }
