@@ -4,7 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   API_QUESTION_HOST: 'http://localhost:8888',
   API_QUESTION_ENDPOINT: 'http://localhost:8888/default',
   // API_HOST: 'http://localhost:3001',

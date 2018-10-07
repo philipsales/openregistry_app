@@ -1,11 +1,18 @@
-<div id="page-content" class="col-md-offset-3 col-md-9">
-    <header class="app-header row">
+<div id="page-content" 
+     class="col-md-offset-3 col-md-9">
+
+     <header class="app-header row">
       <div class="app-header--primary">
         <div class="app-header--context">
           <div class="app-header--breadcrumbs">
             <ol class="aui-nav aui-nav-breadcrumbs" resolved="">
               <li>
-                <a [routerLink]="['./']">Administration</a>
+                <a [routerLink]="['/medical/reports/list']">Medical Registry</a>
+              </li>
+              <li>
+                <a [routerLink]="['/medical/reports/list']">
+                  <strong> Reports List </strong>
+                </a>
               </li>
             </ol>
           </div>
@@ -26,36 +33,51 @@
           <input type="text" class="form-control" placeholder="Search for...">
           <span class="input-group-btn">
             <button class="btn btn-default" type="button">Go!</button>
+            <mat-form-field class="material-form-control">
+                <input matInput 
+                      id="formname"
+                      placeholder="Form Name"
+                      [(ngModel)]="_form" >
+          </mat-form-field>
           </span>
         </div>
       </div>
-      <button class="btn btn-success pull-right"
-        (click)="onViewMedicalCount()">
-        <i class="fa fa-plus e2e-report-medical-view"></i> &nbsp; View Report 
-      </button>
-      <button class="btn btn-success pull-right"
-        (click)="onDownloadMedicalRaw()">
-        <i class="fa fa-plus e2e-report-medical-download"></i> &nbsp; Download Raw Report 
-      </button>
-      <button class="btn btn-success pull-right"
+      <div *ngIf="!reportCounts" >
+        <a class="btn btn-default pull-right"
+           (click)="onViewMedicalCount()">
+            <i class="fa fa-search e2e-report-medical-view-count"></i> &nbsp; View Report
+        </a>
+      </div>
+      <div *ngIf="reportCounts" >
+        <a class="btn btn-success pull-right"
+           (click)="onDownloadMedicalRaw()">
+            <i class="fa fa-download e2e-report-medical-download"></i> &nbsp; Raw Data 
+        </a>
+      </div>
+      <!-- <button class="btn btn-success pull-right"
+        (click)="onDownloadMedicalCount()">
+        <i class="fa fa-plus e2e-report-medical-view-raw"></i> &nbsp; Download Count Raw 
+      </button> -->
+      <!-- <button class="btn btn-success pull-right"
         (click)="downloadJSON()">
         <i class="fa fa-plus e2e-report-medical-download"></i> &nbsp; Download JSONReport 
-      </button>
+      </button> -->
       <!--
       <a class="btn btn-default pull-right">
           <i class="fa fa-plus e2e-report-medical-download"></i> &nbsp; Download Report 
       </a>
       -->
     </div>
-     <div class="col-md-12">
+     <!-- <div class="col-md-12">
       <table class="table table-striped">
         <thead> 
           <tr  *ngFor="let data of testData; let i = index">
-            <!-- <th>{{ objectKeys(data).sort() }}</th> -->
+            <th>{{ objectKeys(data).sort() }}</th>
           </tr>
         </thead>
         <tbody>
-          
+          <tr  *ngFor="let data of testData; let i = index">
+          </tr>
           <tr  *ngFor="let data of testData; let i = index">
             <td *ngFor="let key of objectKeys(data).sort()">
               <span>{{ data[key] }}</span>
@@ -63,24 +85,23 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    </div> -->
 
     <div class="col-md-12">
       <table class="table table-striped">
-        <thead>
-          <!-- <tr> -->
-          <!-- <tr  *ngFor="let report of tableHeaders; let i = index">
-            <th>{{report}}</th>
+        <thead> 
+          <!-- <tr> 
+            <th> Fields </th>
+            <th> Count </th>
           </tr> -->
         </thead>
         <tbody>
-     
-          <span  *ngFor="let data of reportCounts; let i = index">
-            <tr *ngFor="let key of objectKeys(data).sort()">
+          <div *ngFor="let data of reportCounts; let i = index">
+            <tr *ngFor="let key of objectKeys(data).sort(); let i = count">
               <td> <strong>{{ key }}</strong> </td>
               <td> <span>{{ data[key] }}</span> </td>
             </tr>
-          </span>
+          </div>
         </tbody>
       </table>
     </div>

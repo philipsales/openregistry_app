@@ -46,18 +46,6 @@ export class ReportService {
                     .catch(this.handleError);
   }//--getReport
 
-  downloadFileJSON() {
-    const url = environment.API_ENDPOINT + 'reports'; 
-
-    return this.http
-               .get(url)
-               .map((res) => {
-                 console.info("BODY: ", res['_body']);
-                 console.info("BODY: ", JSON.stringify(res['_body'].data));
-                 return new Blob([JSON.stringify(res['_body'].data)], {type: 'application/json'});
-               });
-  }
-
   downloadFilePDF() {
     const url = environment.API_ENDPOINT + 'reports'; 
 

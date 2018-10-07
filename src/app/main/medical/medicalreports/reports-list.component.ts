@@ -23,6 +23,7 @@ export class ReportListComponent implements OnInit {
 
   reports: Report[];
   testHeader: string[]=[];
+  reportCounts: any[];
   private selectedReport: Report;
 
   constructor(
@@ -30,12 +31,14 @@ export class ReportListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    /*
     this.reportService
       .getReports()
       .then(reports => {
         console.log(reports);
         return this.reports = reports;
       });
+      */
 
   }
 
@@ -96,10 +99,6 @@ export class ReportListComponent implements OnInit {
       );
   }
 
-  reportCounts: any[]=[];
-  tableCounts(reports): any {
-    this.reportCounts = reports.payload;
-  }
 
   onViewMedicalCount(): any {
     console.log('hell0 ');
@@ -113,6 +112,10 @@ export class ReportListComponent implements OnInit {
       );
   }
 
+  tableCounts(reports): any {
+    this.reportCounts = reports.payload;
+  }
+
 
   reportsTable: any[];
   tableHeaders: string[]=[]; 
@@ -123,21 +126,67 @@ export class ReportListComponent implements OnInit {
   
   pivotTable(reports): any {
 
-    console.log('pivot', reports);
     this.testData = reports.payload;
+    console.log('raw testData', this.testData);
 
     this.testData.map((headers) => {
       for (let key of Object.keys(headers)){
         this.tempHeader.push(key);
       }
     });
+
+    console.log('v1 testData', this.testData);
     
     this.tableHeaders = this.tempHeader.sort().filter(function(elem, index, self) {
       return index === self.indexOf(elem);
     })
 
-    //this.setPivotTableTest();
-    this.setPivotTable();
+    console.log('tableHealders', this.tableHeaders);
+
+    for (let header of this.tableHeaders) {
+      for (let keys of Object.values(this.testData)) {
+          if(!(header in keys)){ 
+            console.log('keys--header',keys[header]);
+            keys[header] = "";
+          }
+      }
+    } 
+
+    console.log('v2 testdata--',this.testData[0]);
+    console.log('v2 testdata-sort',this.sortObject(this.testData[0]));
+    console.log('v2 testdata-values-',Object.values(this.testData[0]));
+    console.log('v2 testdata-values-sort',Object.values(this.sortObject(this.testData[0])));
+
+    var options = { 
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true, 
+      showTitle: false,
+      title: '',
+      useBom: true,
+      noDownload: false,
+      headers: this.tableHeaders.sort()  
+    };
+
+    var foo = this.sortObject(this.testData[0]); 
+    var bar = this.sortObject(this.testData[1]); 
+    var barz = this.sortObject(this.testData[2]); 
+    var foobar = this.testData[1]; 
+
+    var fofo = [];
+    fofo.push(foo);
+    fofo.push(bar);
+    fofo.push(barz);
+   
+    console.log('v2 fofo-',fofo);
+
+
+    new Angular5Csv(fofo, 'raw-data-'+ new Date(), options);
+  }
+
+  sortObject(o) {
+    return Object.keys(o).sort().reduce((r, k) => (r[k] = o[k], r), {});
   }
 
   generateTestHeader(): any {
