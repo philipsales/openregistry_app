@@ -40,6 +40,17 @@ import { IcdoncologyManageComponent } from './_components/icdoncology-manage/icd
 import { IcdoncologySearchComponent } from './_components/icdoncology-search/icdoncology-search.component';
 import { DeleteModalComponent } from './_components/delete-modal/delete-modal.component';
 import { PcariauthDirective } from './_directives/pcariauth.directive';
+import { FormsTableSectionComponent } from './_components/forms-table-section/forms-table-section.component';
+import { FormsTableSectionArrayComponent } from './_components/forms-table-section/forms-table-section-array.component';
+import { TableQuestionContentArrayComponent } from './_components/table-question-content-array/table-question-content-array.component';
+import { DynamicTableFormComponent } from './_components/dynamic-table-form/dynamic-table-form.component';
+import { UserPipe } from './_pipes/user.pipe';
+import { RolePipe } from './_pipes/role.pipe';
+import { SpectypePipe } from './_pipes/spectype.pipe';
+import { SpecimenPipe } from './_pipes/specimen.pipe';
+import { MtaPipe } from './_pipes/mta.pipe';
+import { FormPipe } from './_pipes/form.pipe';
+import { CasePipe } from './_pipes/case.pipe';
 
 
 @NgModule({
@@ -81,7 +92,18 @@ import { PcariauthDirective } from './_directives/pcariauth.directive';
     IcdoncologyManageComponent,
     IcdoncologySearchComponent,
     DeleteModalComponent,
-    PcariauthDirective
+    PcariauthDirective,
+    FormsTableSectionComponent,
+    FormsTableSectionArrayComponent,
+    TableQuestionContentArrayComponent,
+    DynamicTableFormComponent,
+    UserPipe,
+    RolePipe,
+    SpectypePipe,
+    SpecimenPipe,
+    MtaPipe,
+    FormPipe,
+    CasePipe
   ],
   providers: [
     ConsentService,
@@ -94,11 +116,19 @@ import { PcariauthDirective } from './_directives/pcariauth.directive';
     DynamicFormComponent,
     PcariformListComponent,
     PcariformManageComponent,
+    PcaricaseFormAddComponent,
     PcaricaseListComponent,
     PcaricaseManageComponent,
     IcdoncologyManageComponent,
     DeleteModalComponent,
-    PcariauthDirective
+    PcariauthDirective,
+    UserPipe,
+    RolePipe,
+    SpectypePipe,
+    SpecimenPipe,
+    MtaPipe,
+    FormPipe,
+    CasePipe
   ]
 })
 export class SharedModule { }

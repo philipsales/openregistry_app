@@ -23,6 +23,7 @@ export class PcaricaseFormAddComponent implements OnInit {
   @Input() set show(value: boolean) {
     console.warn(this._show);
     this._show = value;
+    this.selection.clear();
   }// -- _reinit setter
   private selection: SelectionModel<Form>;
 

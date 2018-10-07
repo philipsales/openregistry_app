@@ -58,7 +58,6 @@ export class BioformsUpdateComponent implements OnInit {
     this.is_processing = true;
     console.log(form_to_submit, 'SUBMITTING');
     const data = form_to_submit.toJSON();
-
     this.formService
       .updateForm(data)
       .subscribe(

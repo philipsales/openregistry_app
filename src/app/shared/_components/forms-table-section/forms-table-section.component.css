@@ -1,0 +1,67 @@
+.option_icon {
+    padding-left: 15px;
+    padding-top: 10px;
+    float: left;
+    color: lightgrey;
+  }
+  
+  .material-section {
+    dislay: flex; 
+    align-content: center; 
+    align-items: center; 
+    height: 60px;
+  }
+  .material-checkbox-margin {
+   margin: 0 10px;
+  }
+  
+  .material-radio-group {
+    display: inline-flex;
+    flex-direction: column;
+  }
+  
+  .material-radio-button {
+    margin: 5px;
+  }
+  
+  .material-radio-selected-value {
+    margin: 15px 0;
+  }
+  
+  .material-form-group{
+    width: 100%
+  }
+  .material-form-control {
+    padding: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 350px;
+  }
+  .material-input-full-width {
+    width: 100%;
+  }
+  
+  .material-right-align {
+    text-align: right;
+  }
+  
+  input.material-right-align::-webkit-outer-spin-button,
+  input.material-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.material-right-align {
+    -moz-appearance: textfield;
+  }
+  .material-option-clear-btn {
+    padding-top: 20px;
+  }
+  
+  .material-option-clear-btn:hover {
+    cursor: pointer;
+  }
+  
+  .material-more-menu-btn:hover {
+    cursor: pointer
+  }
+  

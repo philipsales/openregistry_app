@@ -49,6 +49,17 @@ export class DynamicFormComponent implements OnInit {
     }
   }
 
+  private _initsave: boolean;
+  @Input() set initsave(value: boolean) {
+    console.log(value, 'ON INITSAVE');
+    this._initsave = value;
+    if (value === true) {
+      this.onSubmit();
+    }
+  }
+
+  @Output() onSuccessSubmit: EventEmitter<null> = new EventEmitter();
+
   private consents: Consent[];
   questions: QuestionBase<any>[] = [];
   form: FormGroup;
@@ -74,6 +85,7 @@ export class DynamicFormComponent implements OnInit {
 
   sectionGroupTest: FormGroup;
   formArrayTest: FormArray;
+
 
   ngOnInit() {
     this.consentService.getConsents().subscribe(
@@ -239,6 +251,9 @@ export class DynamicFormComponent implements OnInit {
       new FormAnswer('', '', false, answers)).subscribe(updated_formanswer => {
         this.is_processing = false;
         console.warn(updated_formanswer, 'AYUS');
+        if(this._initsave) {
+          this.onSuccessSubmit.emit();
+        }
         this.notificationsService
           .success(
             'Form : ' + updated_formanswer.form_name,

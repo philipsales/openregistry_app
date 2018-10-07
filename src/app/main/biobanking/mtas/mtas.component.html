@@ -1,0 +1,77 @@
+<div id="page-content" class="col-md-offset-3 col-md-9">
+  <header class="app-header row">
+    <div class="app-header--primary">
+      <div class="app-header--context">
+				<div class="app-header--breadcrumbs">
+					<ol class="aui-nav aui-nav-breadcrumbs" resolved="">
+						<li>
+							<a [routerLink]="['/biobanking/mtas']">Biobanking</a>
+						</li>
+						<li>
+								<a [routerLink]="['/biobanking/mtas/list']">
+									<strong>MTA List</strong>
+								</a>
+						</li>
+
+					</ol>
+				</div>
+				<h1 class="app-header--heading">
+					MTA
+				</h1>
+      </div>
+    </div>  
+    <div class="app-header--secondary">
+    </div>
+	</header>
+	<br/> <br/>
+
+  <div class="row">
+      <div class="col-md-12 table-nav">
+          <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
+          <div class="input-group">
+            <input type="text" 
+              [(ngModel)]="searchText"
+			        (keyup.enter)="filter = searchText"
+              class="form-control"
+              placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-default"
+                (click)="filter = searchText"
+                type="button">
+                Go!
+              </button>
+            </span>
+          </div>
+          </div>
+          <a
+            [routerLink]="['/biobanking/mtas/create']" class="btn btn-default pull-right">
+            <i class="fa fa-plus"></i> &nbsp; Create MTA
+          </a>
+      </div>
+
+      <div class="col-md-12">
+          <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let mta of mtas | mtafilter : filter; let i = index">
+              <th scope="row">{{ i+1 }}</th>
+              <td>{{ mta.name }}</td>
+              <td style="text-align: right">
+                <a class="btn btn-sm btn-default"
+                  target="_blank"
+                  href="{{this.download_url + mta.id + '/download'}}">
+                  <i class="fa fa-eye"></i> Download
+                </a>
+              </td>
+            </tr>
+          </tbody>
+          </table>
+      </div>
+  </div>
+</div>

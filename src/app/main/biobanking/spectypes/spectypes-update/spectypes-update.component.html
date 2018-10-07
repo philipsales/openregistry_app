@@ -1,0 +1,39 @@
+<div id="page-content"
+     class="col-md-offset-3 col-md-9">
+  <header class="app-header row">
+    <div class="app-header--primary">
+      
+      <div class="app-header--context">
+	<div class="app-header--breadcrumbs">
+	  <ol class="aui-nav aui-nav-breadcrumbs" resolved="">
+	    <li>
+	      <a [routerLink]="['/biobanking/spectypes']">Biobanking</a>
+	    </li>	
+	    <li>
+	      <a [routerLink]="['/biobanking/spectypes/list']">Specimen Type List</a>
+	    </li>
+	    <li>
+        <a [routerLink]="['/biobanking/spectypes/update']">
+            <strong>Update</strong>
+        </a>
+	    </li>
+	  </ol>
+	</div>
+	<h1 class="app-header--heading">
+	  Specimen Type
+	</h1>
+      </div>
+    </div>  
+    <div class="app-header--secondary">
+    </div>
+  </header>
+
+
+  <div class="row" id="page-body">
+		<app-spectypes-form
+			[specimentype]="specimentype"
+			[method]="'UPDATE'">
+		</app-spectypes-form>
+  </div> <!-- page-body -->
+
+</div> <!-- page-content -->

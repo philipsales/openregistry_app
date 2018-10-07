@@ -5,6 +5,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'app-pcaricase-manage',
@@ -21,6 +22,7 @@ export class PcaricaseManageComponent implements OnInit {
   @Input() set case(value: Case) {
     this._case = value;
     this._resetcase = this._case.toJSON();
+    this.isBiobank = this._case.organization === environment.ORG_BIOBANK;
     console.warn('HELLO!');
   }// -- _reinit setter
   private _medcases: string[];
@@ -54,6 +56,7 @@ export class PcaricaseManageComponent implements OnInit {
   is_adding_forms = false;
   selected_forms: Form[];
   options: string[];
+  isBiobank = false;
   filteredOptions: Observable<string[]>;
   myControl: FormControl = new FormControl();
 
@@ -91,6 +94,7 @@ export class PcaricaseManageComponent implements OnInit {
       let answers: Answer[] = [];
       this._case.forms.push(new FormAnswer(form.id, form.name, false, answers));
     }
+    this.onSubmitCaseTrigger.emit(this._case);
     console.log(this._case, 'CASE');
   }
 

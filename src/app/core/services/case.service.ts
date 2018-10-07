@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import { Helper } from '../helper';
-import { Case } from '../models';
+import { Case, SpecForm } from '../models';
 import { CaseJSON } from '../interfaces';
 import { environment } from 'environments/environment';
 
@@ -49,6 +49,20 @@ export class CaseService {
       return response['data'].filter((all_cases: CaseJSON) => {
         return all_cases.organization === biobank_org;
       }).map(Case.fromJSON);
+    }).catch(Helper.handleError);
+  }
+
+  getBiobankCaseNumbers(): Observable<string[]> {
+    const url = environment.API_ENDPOINT + 'cases/';
+    const biobank_org = environment.ORG_BIOBANK;
+    return this.httpclient.get(url).map((response: Response) => {
+      console.log(response['data'], 'OUTPUT GET /cases all');
+      return response['data'].filter((all_cases: CaseJSON) => {
+        return all_cases.organization === biobank_org;
+      }).map((x) => {
+        console.log(x);
+        return x['case_number'];
+      });
     }).catch(Helper.handleError);
   }
 
@@ -101,6 +115,22 @@ export class CaseService {
         console.log(response, 'CASE UPDATED from /cases');
         return Case.fromJSON(response);
       }).catch(Helper.handleError);
+  }
+
+  updateSpecForm(case_id: string, specform: SpecForm[]): Observable<Case> {
+    console.log('SPECFORM : NATAWAG AKO!', case_id);
+    const url = environment.API_ENDPOINT + 'cases/' + case_id + '/specform';
+    let specformjson = [];
+    if (specform) {
+      specformjson = specform.map((cur_specform) => cur_specform.toJSON());
+    }
+    console.log(specformjson, 'FOR SAVING');
+    return this.httpclient.patch(url, {specform: specformjson})
+      .map((response: Case) => {
+        // return (response.json().data as Form[])
+        console.log(response, 'CASE UPDATED from /cases');
+        return Case.fromJSON(response);
+    }).catch(Helper.handleError);
   }
 
   setFileHeader() {

@@ -25,22 +25,17 @@
           </div>
         </div>
       </header>
-      <br/> <br/>
 
       <div class="col-md-12 col-sm-12 col-xs-12 form-wrapper"> 
-        <!-- <h2>CONSENT app-pcariform-manage</h2> -->
-        <app-pcariform-manage
-          [method]="method"
-          [withconsent]="true"
-          [registryTypes]="registryTypes"
-          [departments]="departments"
-          [organizations]="organizations"
-          [form]="new_form"
-          [is_created]="is_created"
-          [is_processing]="is_processing"
-          [preview_url]="'biobanking/forms/preview/create'"
-          (onSubmitTrigger)="onSubmitTrigger($event)">
-        </app-pcariform-manage>
+        <app-bioforms-form
+        [method]="'CREATE'"
+        [registryTypes]="registryTypes"
+        [departments]="departments"
+        [organizations]="organizations"
+        [form]="new_form"
+        (onResetTrigger)="onResetEvent($event)"
+        (onSubmitTrigger)="onSubmitEvent($event)">
+        </app-bioforms-form>
       </div><!-- col-md-12 -->
 </div>
 <!--end of page-content-->

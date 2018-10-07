@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
@@ -11,6 +12,7 @@ import { UsersUpdateComponent } from './users-update.component';
 @NgModule({
   imports: [
       CommonModule,
+      FormsModule,
       SharedModule,
       UsersRoutingModule,
   ],
@@ -18,7 +20,7 @@ import { UsersUpdateComponent } from './users-update.component';
       UsersCreateComponent,
       UsersListComponent,
       UsersViewComponent,
-      UsersUpdateComponent
+      UsersUpdateComponent,
   ]
 })
 export class UsersModule { }

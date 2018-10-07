@@ -14,7 +14,10 @@ import {
   AuthService,
   CaseService,
   PermissionService,
-  FormAnswerService
+  FormAnswerService,
+  MtaService,
+  SpecService,
+  SpecTypeService
 } from './services';
 import { environment } from 'environments/environment';
 
@@ -38,12 +41,15 @@ export function getToken() {
   providers: [
     UserService,
     RoleService,
+    MtaService,
     PositionService,
     OrganizationService,
     AuthService,
     CaseService,
     PermissionService,
-    FormAnswerService
+    FormAnswerService,
+    SpecService,
+    SpecTypeService
   ],
   declarations: [],
 })

@@ -1,4 +1,5 @@
 import { SectionJSON } from './sectionjson';
+import { TableSectionJSON } from './tablesectionjson';
 
 export interface FormJSON {
     _id?: string;
@@ -14,5 +15,7 @@ export interface FormJSON {
     validity_date?: Date;
     dir_path?: string;
     is_deleted?: boolean;
+    is_table?: boolean;
+    table_section: TableSectionJSON[];
     sections?: SectionJSON[];
 }

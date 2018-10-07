@@ -1,4 +1,5 @@
 import { Section } from './section';
+import { TableSection } from './tablesection';
 import { FormJSON } from './../interfaces';
 
 export class Form {
@@ -15,6 +16,8 @@ export class Form {
   created_by?: string;
   date_created?: Date;
   is_deleted?: boolean;
+  is_table?: boolean;
+  table_section: TableSection[];
   sections?: Section[];
 
   static fromJSON(json: FormJSON): Form {
@@ -41,8 +44,15 @@ export class Form {
         date_created: new Date(json.date_created),
         validity_date: json.validity_date,
         dir_path: json.dir_path,
-        is_deleted: json.is_deleted
+        is_deleted: json.is_deleted,
+        is_table: json.is_table
       });
+
+      if (json.table_section) {
+        output['table_section'] = json.table_section.map(TableSection.fromJSON);
+      } else {
+        output['table_section'] = [];
+      }
 
       if (json.sections) {
         output['sections'] = json.sections.map(Section.fromJSON);
@@ -55,9 +65,13 @@ export class Form {
 
   static fromAnyToJSON(json): FormJSON {
     let date_created;
+    let table_section;
     let sections;
     if (json.date_created) {
       date_created = json.date_created.getTime();
+    }
+    if (json.table_section) {
+      table_section = json.table_section.map((this_section) => TableSection.fromJSON(this_section));
     }
     if (json.sections) {
       sections = json.sections.map((section) => Section.fromAnyToJSON(section));
@@ -75,6 +89,8 @@ export class Form {
       validity_date: json.validity_date,
       dir_path: json.dir_path,
       is_deleted: json.is_deleted,
+      is_table: json.is_table,
+      table_section: table_section,
       sections: sections
     });
   }
@@ -112,9 +128,13 @@ export class Form {
 
   toJSON(): FormJSON {
     let date_created;
+    let table_section;
     let sections;
     if (this.date_created) {
       date_created = this.date_created.getTime();
+    }
+    if (this.table_section) {
+      table_section = this.table_section.map((this_section) => this_section.toJSON());
     }
     if (this.sections) {
       sections = this.sections.map((section) => section.toJSON());
@@ -132,6 +152,8 @@ export class Form {
       validity_date: this.validity_date,
       dir_path: this.dir_path,
       is_deleted: this.is_deleted,
+      is_table: this.is_table,
+      table_section: this.table_section,
       sections: sections
     });
   }

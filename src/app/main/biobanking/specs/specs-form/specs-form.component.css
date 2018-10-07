@@ -1,0 +1,160 @@
+#page-content {
+    min-height: 500px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.app-header {
+    align-items: center;
+    display: flex;
+    margin: 20px 20px 0;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.app-header--primary {
+    align-items: center;
+    display: flex;
+    flex: 1 1 auto;
+    position: relative;
+    max-width: 100%;
+}
+
+.app-header--heading {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 10px;
+    font-size: 1.71428571em;
+    font-style: inherit;
+    font-weight: 500;
+    letter-spacing: -.01em;
+    line-height: 1.16666667;
+    margin-top: 28px;
+    color: #172B4D;
+    margin-top: 10px;
+}
+
+body.adg3 .aui-nav-breadcrumbs {
+    margin-top: 16px;
+}
+
+body.adg3 .aui-nav-breadcrumbs a, body.adg3 .aui-nav-breadcrumbs>li,
+body.adg3 .aui-nav-breadcrumbs>li+li::before {
+    color: #5E6C84;
+}
+
+.aui-nav-breadcrumbs>li {
+    padding: 0 10px 0 0;
+}
+.aui-nav-breadcrumbs>li,
+.aui-nav-horizontal>li,
+.aui-nav-pagination>li,
+.aui-navgroup-horizontal .aui-nav>li {
+    float: left;
+}
+.aui-nav, .aui-nav>li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.table-nav {
+    margin-top: 20px;
+    min-height: 15px;
+}
+
+.table-nav .form-group{
+    margin-bottom: 0px;
+}
+
+.app-header--heading {
+    margin-top: 0px;
+    padding-left: 0px;
+}
+
+.app-header--breadcrumbs {
+    padding-left: 0px;
+}
+
+#page-body {
+    margin-top: 15px;
+}
+
+#page-content{
+    margin-bottom: 120px;
+}
+
+body.adg3 .aui-nav-breadcrumbs a,
+body.adg3 .aui-nav-breadcrumbs>li,
+body.adg3 .aui-nav-breadcrumbs>li+li::before {
+    color: #5E6C84;
+}
+
+.aui-nav-breadcrumbs>li+li:before {
+    content: "/";
+    padding-right: 10px;
+}
+
+.aui-nav-breadcrumbs>li {
+    padding: 0 10px 0 0;
+}
+
+form {
+    padding-bottom: 20px;
+}
+
+.panel_toolbox {
+    min-width: 10px;
+}
+
+.required {
+    color: #F1343D;
+}
+
+.alert.alert-danger {
+    margin-bottom: 0px;
+    padding-bottom: 2px;
+    padding-top: 2px;
+    background-color: #F8EEE7;
+    color: #a94442;
+    border-color: #a94442;
+    text-align: center;
+}
+
+.reset-wrapper, .save-wrapper {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.checkbox-wrapper {
+    cursor: pointer;
+}
+
+.checkbox-wrapper .iCheck-helper {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    background: rgb(255, 255, 255);
+    border: 0px;
+    opacity: 0;
+}
+
+:host /deep/ mat-list-option .mat-list .mat-list-option, .mat-nav-list .mat-list-option, .mat-selection-list .mat-list-option {
+    font-size: 13px;
+    font-weight: 400;
+    color: #73879C;
+}
+
+.x_panel {
+    padding-bottom: 30px;
+}

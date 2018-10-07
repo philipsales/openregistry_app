@@ -30,9 +30,16 @@
     <div class="col-md-12 table-nav">
       <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
 	<div class="input-group">
-	  <input type="text" class="form-control" placeholder="Search for...">
+		<input type="text" class="form-control" 
+			[(ngModel)]="searchText"
+			(keyup.enter)="filter = searchText"
+			placeholder="Search for...">
 	  <span class="input-group-btn">
-	    <button class="btn btn-default" type="button">Go!</button>
+			<button class="btn btn-default" 
+				(click)="filter = searchText"
+				type="button">
+				Go!
+			</button>
 	  </span>
 	</div>
       </div>
@@ -56,7 +63,7 @@
 	  </tr>
 	</thead>
 	<tbody>
-	  <tr *ngFor="let user of users; let i = index">
+	  <tr *ngFor="let user of users | userfilter : filter; let i = index">
 	    <th scope="row">{{ i+1 }}</th>
 	    <td>{{ user.first_name }}</td>
 	    <td>{{ user.last_name }}</td>
