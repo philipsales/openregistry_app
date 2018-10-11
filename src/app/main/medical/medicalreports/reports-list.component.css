@@ -72,20 +72,34 @@ li {
     margin-bottom: 0px;
 }
 
-.badge--success {
-    Background-color: #5EB065;
-    width: 80px;
-    padding: 5px;
+.app-header--heading {
+    margin-top: 0px;
+    padding-left: 0px;
 }
 
-.badge--failed {
-    background-color: #C8CDCF;
-    width: 80px;
-    padding: 5px;
+.app-header--breadcrumbs {
+    padding-left: 0px;
 }
 
-.badge--invalid {
-    background-color: #dd3645;
-    width: 80px;
-    padding: 5px;
+#page-body {
+    margin-top: 15px;
+}
+
+#page-content{
+    margin-bottom: 120px;
+}
+
+body.adg3 .aui-nav-breadcrumbs a,
+body.adg3 .aui-nav-breadcrumbs>li,
+body.adg3 .aui-nav-breadcrumbs>li+li::before {
+    color: #5E6C84;
+}
+
+.aui-nav-breadcrumbs>li+li:before {
+    content: "/";
+    padding-right: 10px;
+}
+
+.aui-nav-breadcrumbs>li {
+    padding: 0 10px 0 0;
 }

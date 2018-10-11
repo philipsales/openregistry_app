@@ -12,6 +12,8 @@ export class PcaricaseListComponent implements OnInit {
   @Input() view_url: string;
   @Input() update_url: string;
   @Input() show_diagnosis: boolean;
+  searchText = '';
+  filter = '';
 
   is_adding_forms = true;
   _cases: Case[];

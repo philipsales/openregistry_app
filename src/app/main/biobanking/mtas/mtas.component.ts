@@ -14,6 +14,8 @@ export class MtasComponent implements OnInit {
 
   mtas: MTA[];
   download_url = '';
+  searchText = '';
+  filter = '';
 
   constructor(private mtaService: MtaService) {
     this.download_url = environment.API_ENDPOINT + 'mtas/';

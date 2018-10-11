@@ -15,6 +15,8 @@ export class SpecsListComponent implements OnInit {
 
   specs: Spec[];
   download_url = '';
+  searchText = '';
+  filter = '';
 
   constructor(private specService: SpecService) {
 

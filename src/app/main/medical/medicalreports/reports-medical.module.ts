@@ -12,6 +12,7 @@ import { ReportService } from 'app/core/services';
 import { ReportRoutingModule } from './reports-routing.module';
 import { ReportListComponent } from './reports-list.component';
 
+import { MaterialModule } from 'app/shared/_material/material.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ReportListComponent } from './reports-list.component';
     FormsModule,
     HttpModule,
     InMemoryWebApiModule.forRoot(ReportDummyApiResponse),
-    ReportRoutingModule
+    ReportRoutingModule,
+    MaterialModule
   ],
   declarations: [
     ReportListComponent

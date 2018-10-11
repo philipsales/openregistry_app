@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'app/core/services';
 import { User } from 'app/core/models';
 import { NoJWTError } from 'app/core/errors';
+import { UserPipe } from 'app/shared/_pipes/user.pipe';
 
 @Component({
   selector: 'app-users-list',
@@ -12,6 +13,8 @@ import { NoJWTError } from 'app/core/errors';
 export class UsersListComponent implements OnInit {
 
   users: User[];
+  searchText = '';
+  filter = '';
 
   constructor(private userService: UserService) {
   }//--constructor
