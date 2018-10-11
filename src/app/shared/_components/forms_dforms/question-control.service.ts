@@ -48,11 +48,13 @@ export class QuestionControlService {
     let group: any = {};
     questions.forEach(question => {
       let value = question.value || '';
+      console.log(value, '=======ORIGIN VALUE');
       if (question.controlType === 'checkbox') {
         if (value) {
           //revert string into string[]
-          //value = JSON.parse(value);
-          value= value.split(',');
+          // console.log(value.split(','), '=======PARSE SHIT VALUE');
+          // value = JSON.parse(value);
+          value = value.split(',');
         }
       }
       if (question.required) {

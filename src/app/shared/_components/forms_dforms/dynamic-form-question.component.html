@@ -39,8 +39,8 @@
 
       <div *ngSwitchCase="'checkbox'" class="">
         <mat-select placeholder="Select your option"
-          class="material-input-full-width"
-         [formControlName]="question.key" multiple>
+                    class="material-input-full-width"
+                    [formControlName]="question.key" multiple>
           <mat-option *ngFor="let opt of question.options"
               class="pull-left material-input-full-width"
               [value]="opt.value">{{opt.value}}

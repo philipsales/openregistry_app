@@ -122,6 +122,10 @@ export class DynamicFormComponent implements OnInit {
           // Convert ["option"] to option without the bracket and quote
           // this.answers.get(my_question.key) == ["option 1"]
           // this.answers.get(my_question.key).toString() == "option 1"
+          let temp = '';
+          if (this.answers.get(my_question.key)) {
+            temp = (this.answers.get(my_question.key)).toString();
+          }
 
           this.questions.push(
             new DropdownQuestion({
@@ -130,7 +134,8 @@ export class DynamicFormComponent implements OnInit {
               type: my_question.type,
               // value    : my_question.value,
               // value: (this.answers.get(my_question.key)),
-              value: (this.answers.get(my_question.key)).toString(),
+              // value: (this.answers.get(my_question.key)).toString(),
+              value: temp,
               order: my_question.order,
               required: my_question.required ? true : false,
               options: my_question.options,
@@ -138,14 +143,26 @@ export class DynamicFormComponent implements OnInit {
             })
           );
         } else if (my_question.type === 'checkbox') {
+          console.log(my_question, '=====CHECKBOX.myquestion');
+          console.log(this.answers.get(my_question.key), '=====CHECKBOX.myquestion.key');
+
+          let temp = '';
+          if (this.answers.get(my_question.key)) {
+            temp = (this.answers.get(my_question.key)).toString();
+          }
+
           this.questions.push(
             new CheckboxQuestion({
               key: my_question.key,
               label: my_question.label,
               type: my_question.type,
               // value    : my_question.value,
+              //working if without value
               // value: this.answers.get(my_question.key),
-              value: (this.answers.get(my_question.key)).toString(),
+              // working if with value
+              // value: (this.answers.get(my_question.key)).toString(),
+              value: temp,
+
               order: my_question.order,
               required: my_question.required ? true : false,
               options: my_question.options,
@@ -153,6 +170,11 @@ export class DynamicFormComponent implements OnInit {
             })
           );
         } else if (my_question.type === 'radiobutton') {
+          let temp = '';
+          if (this.answers.get(my_question.key)) {
+            temp = (this.answers.get(my_question.key)).toString();
+          }
+
           this.questions.push(
             new RadiobuttonQuestion({
               key: my_question.key,
@@ -160,7 +182,8 @@ export class DynamicFormComponent implements OnInit {
               type: my_question.type,
               // value    : my_question.value,
               // value: this.answers.get(my_question.key),
-              value: (this.answers.get(my_question.key)).toString(),
+              // value: (this.answers.get(my_question.key)).toString(),
+              value: temp,
               order: my_question.order,
               required: my_question.required ? true : false,
               options: my_question.options,
@@ -168,6 +191,11 @@ export class DynamicFormComponent implements OnInit {
             })
           );
         } else if (my_question.type === 'datepicker') {
+          let temp = '';
+          if (this.answers.get(my_question.key)) {
+            temp = (this.answers.get(my_question.key)).toString();
+          }
+
           this.questions.push(
             new DatepickerQuestion({
               key: my_question.key,
@@ -175,7 +203,8 @@ export class DynamicFormComponent implements OnInit {
               type: my_question.type,
               // value    : my_question.value,
               // value: this.answers.get(my_question.key),
-              value: (this.answers.get(my_question.key)).toString(),
+              // value: (this.answers.get(my_question.key)).toString(),
+              value: temp,
               required: my_question.required ? true : false,
               order: my_question.order,
               disabled: this.method === 'VIEW'
