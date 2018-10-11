@@ -119,13 +119,18 @@ export class DynamicFormComponent implements OnInit {
             })
           );
         } else if (my_question.type === 'dropdown') {
+          // Convert ["option"] to option without the bracket and quote
+          // this.answers.get(my_question.key) == ["option 1"]
+          // this.answers.get(my_question.key).toString() == "option 1"
+
           this.questions.push(
             new DropdownQuestion({
               key: my_question.key,
               label: my_question.label,
               type: my_question.type,
               // value    : my_question.value,
-              value: this.answers.get(my_question.key),
+              // value: (this.answers.get(my_question.key)),
+              value: (this.answers.get(my_question.key)).toString(),
               order: my_question.order,
               required: my_question.required ? true : false,
               options: my_question.options,
@@ -139,7 +144,8 @@ export class DynamicFormComponent implements OnInit {
               label: my_question.label,
               type: my_question.type,
               // value    : my_question.value,
-              value: this.answers.get(my_question.key),
+              // value: this.answers.get(my_question.key),
+              value: (this.answers.get(my_question.key)).toString(),
               order: my_question.order,
               required: my_question.required ? true : false,
               options: my_question.options,
@@ -153,7 +159,8 @@ export class DynamicFormComponent implements OnInit {
               label: my_question.label,
               type: my_question.type,
               // value    : my_question.value,
-              value: this.answers.get(my_question.key),
+              // value: this.answers.get(my_question.key),
+              value: (this.answers.get(my_question.key)).toString(),
               order: my_question.order,
               required: my_question.required ? true : false,
               options: my_question.options,
@@ -167,7 +174,8 @@ export class DynamicFormComponent implements OnInit {
               label: my_question.label,
               type: my_question.type,
               // value    : my_question.value,
-              value: this.answers.get(my_question.key),
+              // value: this.answers.get(my_question.key),
+              value: (this.answers.get(my_question.key)).toString(),
               required: my_question.required ? true : false,
               order: my_question.order,
               disabled: this.method === 'VIEW'
