@@ -7,16 +7,14 @@ export const environment = {
   production: true,
   API_QUESTION_HOST: 'http://localhost:8888',
   API_QUESTION_ENDPOINT: 'http://localhost:8888/default',
-  // API_HOST: 'http://localhost:3001',
-  API_HOST: 'https://ewan.kristhiantiu.com',
-  // API_ENDPOINT: 'http://localhost:3001/',
-  API_ENDPOINT: 'https://ewan.kristhiantiu.com/',
-  API_ALLOWED_DOMAINS: ['localhost:3001', 'kristhiantiu.com:3000', 'ewan.kristhiantiu.com', 'test.kristhiantiu.com'],
+  API_HOST: 'https://pgh.biobank.ph',
+  API_ENDPOINT: 'https://pgh.biobank.ph/',
+  API_ALLOWED_DOMAINS: ['biobank.ph:3000', 'pgh.biobank.ph'],
   ORG_BIOBANK: 'University of the Philippines Diliman',
   ORG_MEDICAL: 'University of the Philippines - Philippine General Hospital',
   DEPT_MEDICAL: 'General Surgery Department',
   DEPT_BIOBANK: 'Institute of Biology',
   FORM_TYPE_BIOBANK: 'Biobanking Repository',
   FORM_TYPE_MEDICAL: 'Patient Repository',
-  VERSION: 'v01.00.00-alpha'
+  VERSION: 'v1.00.00-beta'
 };
