@@ -7,12 +7,12 @@
     </button>
   </div>
   
-  <div class="col-sm-6">
-    <div class="alert alert-danger" [hidden]="!_has_errors" >
+  <div class="col-sm-6 col-md-6">
+    <div class="alert alert-danger" *ngIf="has_errors">
       <strong>
-  <i class="fa fa-warning"></i> Unable to process your request.
-      </strong>
-      <em>Please see details below: </em>
+        <i class="fa fa-warning"></i> Unable to process your request.
+      </strong><br/>
+      <em> {{ errors }} </em>
     </div>
   </div>
 
@@ -22,7 +22,7 @@
       is_processing"
       (click)="onSaveForm()"
       >
-      <i class="fa fa-save"></i> &nbsp; Save
+      <i class="fa fa-save"></i> &nbsp; Savea FORM
     </button>
   </div>
 </div>

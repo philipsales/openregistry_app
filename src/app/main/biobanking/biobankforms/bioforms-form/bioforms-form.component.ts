@@ -44,11 +44,13 @@ export class BioformsFormComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput;
 
-  _has_errors = false;
+  errors: any = {};
+  has_errors = false;
   _form: Form;
 
   @Input() set form(value: Form) {
     this._form = value;
+    console.log('Input');
     console.warn(this._form, 'HELLO!');
     /*
     if (value.table_section) {
@@ -148,11 +150,13 @@ export class BioformsFormComponent implements OnInit {
       .submitForm(data)
       .subscribe(
         created_question => {
-          console.warn(created_question, 'AYUS')
+          console.warn(created_question, 'AYUS');
           this.onSubmitTrigger.emit(created_question);
           this.is_processing = false;
         }, errors => {
           this.is_processing = false;
+          this.has_errors = true;
+          this.errors = errors;
           console.warn('error');
           throw errors;
         });
