@@ -31,7 +31,7 @@ export class DynamicTableFormComponent implements OnInit {
   @Input() answers: Map<string, string>;
   specform: SpecForm[] = [];
 
-  private sectionz: Section[] = [];
+  sectionz: Section[] = [];
   @Input() set insectionz(value: Section[]) {
     if (value) {
       this.sectionz = value;

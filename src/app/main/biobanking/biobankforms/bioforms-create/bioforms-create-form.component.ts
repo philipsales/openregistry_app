@@ -13,7 +13,15 @@ declare var $: any;
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Form, Section, Question, RegType, Department, Organization, TableSection, Spec, SpecType } from 'app/core/models';
-import { OrganizationService, DepartmentService, RegTypeService, FormService, CaseService, SpecService, SpecTypeService } from 'app/core/services';
+import {
+  OrganizationService,
+  DepartmentService,
+  RegTypeService,
+  FormService,
+  CaseService,
+  SpecService,
+  SpecTypeService
+} from 'app/core/services';
 
 import { KeyGenerator } from 'app/core/utils';
 import { Router } from '@angular/router';
@@ -36,7 +44,7 @@ export class BioformsCreateFormComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput;
 
-  private _form: Form;
+  _form: Form;
   @Input() set form(value: Form) {
     this._form = value;
     console.warn(this._form, 'HELLO!');

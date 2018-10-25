@@ -27,7 +27,7 @@ import { NoJWTError } from 'app/core/errors';
 })
 export class CaseFormComponent implements OnInit {
 
-  private _case: Case;
+  _case: Case;
   @Input() set case(value: Case) {
     this._case = value;
     console.warn(this._case, 'HELLO!');

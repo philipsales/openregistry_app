@@ -44,7 +44,9 @@ export class BioformsFormComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput;
 
-  private _form: Form;
+  _has_errors = false;
+  _form: Form;
+
   @Input() set form(value: Form) {
     this._form = value;
     console.warn(this._form, 'HELLO!');

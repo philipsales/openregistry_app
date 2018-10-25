@@ -1,16 +1,9 @@
 <!-- START OF REFACTOR -->
 <div class="col-md-12 table-nav" >
-    <div class="col-sm-3 reset-wrapper">
-      <button class="btn btn-default pull-left"
-      style="visibility: hidden;"
-        (click)="resetCase(case)">
-        <i class="fa fa-refresh"></i> &nbsp; Reset
-      </button>
-    </div>
     
     <div class="col-sm-6">
       <div class="alert alert-danger" *ngIf="false">
-        <strong> <i class="fa fa-warning"></i> XUnable to process your request. </strong>
+        <strong> <i class="fa fa-warning"></i> Unable to process your request. </strong>
         <em>Please see details below: </em>
       </div>
     </div>
@@ -41,7 +34,6 @@
                         id="casenumber"
                         name="input_casenumber"
                         [(ngModel)]="_case.case_nbr"
-                        [disabled]="method == 'VIEW'"
                         [matAutocomplete]="auto"
                         placeholder="Case Number">
               </mat-form-field>	
