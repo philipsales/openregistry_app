@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { Helper } from '../../core/helper';
+
 @Component({
   selector: 'app-my-account-menu',
   templateUrl: './my-account-menu.component.html',
@@ -14,8 +16,6 @@ export class MyAccountMenuComponent implements OnInit {
   }
 
   logout() {
-    console.log('On logout');
-    localStorage.clear();
-    this.router.navigate(['/login']);
+    Helper.logout(this.router);
   }
 }

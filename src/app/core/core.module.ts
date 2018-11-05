@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import {
   UserService,
+  ForgotpasswordService,
   RoleService,
   PositionService,
   OrganizationService,
@@ -40,6 +41,7 @@ export function getToken() {
   ],
   providers: [
     UserService,
+    ForgotpasswordService,
     RoleService,
     MtaService,
     PositionService,

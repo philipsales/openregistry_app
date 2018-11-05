@@ -1,4 +1,5 @@
 export * from './models/user';
+export * from './models/forgotpassword';
 export * from './models/current-user';
 export * from './models/role';
 export * from './models/position';

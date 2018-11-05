@@ -10,6 +10,7 @@ export class LoginComponent implements OnInit {
   show_signup = false;
   show_signin = true;
   show_about = false;
+  show_forgot_password = false;
   version = '';
 
   constructor() {
@@ -28,11 +29,20 @@ export class LoginComponent implements OnInit {
     this.show_signin = true;
     this.show_signup = false;
     this.show_about = false;
+    this.show_forgot_password = false;
   }// --onSigninClick
 
   onAboutClick() {
     this.show_about = true;
     this.show_signup = false;
     this.show_signin = false;
+    this.show_forgot_password = false;
   }// --onSignupClick
+
+  onForgotPasswordClick() {
+    this.show_about = false;
+    this.show_signup = false;
+    this.show_signin = false;
+    this.show_forgot_password = true;
+  }
 }// --LoginComponent

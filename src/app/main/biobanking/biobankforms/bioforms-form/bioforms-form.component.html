@@ -19,7 +19,7 @@
   <div class="col-sm-3 save-wrapper">
     <button class="btn btn-success pull-right"
       [disabled]="!userSaveFormAccount.form.valid ||
-      is_processing"
+      is_processing || !_form.table_section.length > 0"
       (click)="onSaveForm()"
       >
       <i class="fa fa-save"></i> &nbsp; Savea FORM
@@ -158,7 +158,7 @@
                       id="e2e-question-content-spec-{{i}}"
                       [(ngModel)]="specimen.specimen"
                       name="specname-{{i}}"
-                      (selectionChange)="onChangeSpec($event)">
+                      (selectionChange)="onChangeSpec($event)" required>
                       <mat-option *ngFor="let spec of specimens" 
                         [value]="spec.name">
                           {{ spec.name }} 
@@ -171,7 +171,7 @@
                       id="e2e-question-content-type-{{i}}"
                       [(ngModel)]="specimen.type"
                       name="spectype-{{i}}"
-                      (selectionChange)="onChangeSpecType($event)">
+                      (selectionChange)="onChangeSpecType($event)" required>
                         <mat-option *ngFor="let specimen_type of specimen_types" 
                           [value]="specimen_type.name">
                           {{ specimen_type.name }}

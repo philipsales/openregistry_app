@@ -69,6 +69,32 @@
 
   <div class="material-form-group"
   class="col-md-offset-3 col-md-6 col-sm-offset-3  col-sm-6 col-xs-12">
+    <mat-form-field class="material-form-control col-md-7 col-xs-12">
+          <input matInput 
+          placeholder="Type"
+          type="text"
+          id="input_type" 
+          [(ngModel)]="_form.type"
+          #input_type="ngModel" name="input_type"
+          required="required">
+    </mat-form-field>
+  </div>
+
+  <div class="material-form-group"
+  class="col-md-offset-3 col-md-6 col-sm-offset-3  col-sm-6 col-xs-12">
+    <mat-form-field class="material-form-control col-md-7 col-xs-12">
+          <input matInput 
+          placeholder="Description"
+          type="text"
+          id="input_description" 
+          [(ngModel)]="_form.description"
+          #input_description="ngModel" name="input_description"
+          required="required">
+    </mat-form-field>
+  </div>
+
+  <div class="material-form-group"
+  class="col-md-offset-3 col-md-6 col-sm-offset-3  col-sm-6 col-xs-12">
   <mat-form-field class="material-form-control" >
     <div class="material-file-input-textbox" >
       <input placeholder="Attachment" 

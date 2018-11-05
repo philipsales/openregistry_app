@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AuthGuard } from './_guards/auth.guard';
 
+import { UserIdleModule } from 'angular-user-idle';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -17,6 +19,7 @@ import { AuthGuard } from './_guards/auth.guard';
     AppRoutingModule,
     BrowserModule,
     CoreModule,
+    UserIdleModule.forRoot({idle: 60*5, timeout: 60, ping: 120}),
     // Notifications
     SimpleNotificationsModule.forRoot(),
     BrowserAnimationsModule

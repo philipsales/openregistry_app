@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MTA } from 'app/core/models';
 import { MtaService } from 'app/core/services';
 
+import { NotificationsService } from 'angular2-notifications';
+
 @Component({
   selector: 'app-mtas-create',
   templateUrl: './mtas-create.component.html',
@@ -12,8 +14,10 @@ export class MtasCreateComponent implements OnInit {
   @ViewChild('fileInput') fileInput;
   _form: MTA;
 
-  constructor(private mtaService: MtaService) {
-    this._form = new MTA('', '', false);
+  constructor(
+    private mtaService: MtaService,
+    private _notificationsService: NotificationsService) {
+    this._form = new MTA('', '', '', '', false);
   }
 
   ngOnInit() {
@@ -37,11 +41,23 @@ export class MtasCreateComponent implements OnInit {
       console.log('FOMR MODEL', formModel);
     }
     */
-    formModel.set('name', this._form.name);
+    // formModel.set('name', this._form.name);
+    formModel.append('name', this._form.name);
+    formModel.append('type', this._form.type);
+    formModel.append('description', this._form.description);
 
     this.mtaService.save(formModel).subscribe(
       (created_mta) => {
-        console.log(created_mta, 'CREATED MTA');
+        this._notificationsService.success(
+          'New MTA : ' + this._form.name,
+          'Successfully Created',
+          {
+            timeOut: 60*1000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: false,
+          }
+        );
       }, (error) => {
         console.log(error, 'ERROR on CREATE MTA');
       }

@@ -87,7 +87,7 @@ export class RolesManageComponent implements OnInit {
                 'New Role : ' + role.name,
                 'Successfully Created',
                 {
-                    timeOut: 10000,
+                    timeOut: 60*1000,
                     showProgressBar: true,
                     pauseOnHover: false,
                     clickToClose: false,

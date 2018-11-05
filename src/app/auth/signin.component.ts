@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from 'app/core/services';
@@ -9,6 +9,7 @@ import { AuthService } from 'app/core/services';
   styleUrls: ['./signin.component.css']
 })
 export class SigninComponent implements OnInit {
+  @Output() forgotPasswordEmit = new EventEmitter<boolean>();
 
   _show: boolean;
   @Input() set show(value: boolean) {
@@ -28,6 +29,11 @@ export class SigninComponent implements OnInit {
 
   ngOnInit() {
   }// --ngOnInit
+
+  showForgotPassword(e) {
+    e.preventDefault();
+    this.forgotPasswordEmit.emit(true);
+  }
 
   login() {
     this.loading = true;

@@ -77,7 +77,7 @@ export class UserService {
     }
 
     updateMyPassword(id: string, new_password: string): Observable<User> {
-        const url = environment.API_ENDPOINT + 'users/me/' + id;
+        const url = environment.API_ENDPOINT + 'users/me/' + id + '/true';
         const user_json = { password: new_password };
         console.log(user_json);
 

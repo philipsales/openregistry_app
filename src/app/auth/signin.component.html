@@ -33,7 +33,7 @@
           <label for="username" class="form-label">
             <span class="pull-left">PASSWORD</span>
             <span class="pull-right">
-              <a href="#" class="forgot-password">Forgot your password?</a>
+              <a href="#" class="forgot-password" tabindex="-1" (click)="showForgotPassword($event)">Forgot your password?</a>
             </span>
           </label>
           <input id="password" name="password" class="form-control" type="password"

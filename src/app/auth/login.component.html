@@ -31,7 +31,7 @@
         SIGN UP
       </a>
       <a (click)="onSigninClick()"
-        *ngIf="show_signup || show_about"
+        *ngIf="show_signup || show_about || show_forgot_password"
         class="login-panel__button center-block">
         SIGN IN
       </a>
@@ -50,7 +50,10 @@
   </div>
 </div>
 
+<app-forgotpassword [show]="show_forgot_password"
+></app-forgotpassword>
 <app-signin
+  (forgotPasswordEmit)="onForgotPasswordClick()"
   [show]="show_signin">
 </app-signin>
 <app-signup

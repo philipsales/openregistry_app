@@ -1,5 +1,6 @@
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 //import { AuthHttpError } from  'angular2-jwt';
 import { NoJWTError }     from './errors';
@@ -65,5 +66,11 @@ export class Helper {
 	}
 	console.error(errMsg);
 	return Observable.throw(errMsg);
-    }//--handleError
+	}//--handleError
+	
+	static logout(router: Router) {
+		console.log('On logout');
+		localStorage.clear();
+		router.navigate(['/login']);
+	}
 }

@@ -3,6 +3,8 @@ import { MTAJSON } from '../interfaces';
 export class MTA {
   id: string;
   name: string;
+  type: string;
+  description: string;
   dir_path: string;
   is_deleted: boolean;
 
@@ -14,6 +16,8 @@ export class MTA {
       return Object.assign(mta, json, {
         id: json._id,
         name: json.name,
+        type: json.type,
+        description: json.description,
         dir_path: json.dir_path,
         is_deleted: json.is_deleted
       });
@@ -26,10 +30,14 @@ export class MTA {
 
   constructor(
     name: string,
+    type: string,
+    description: string,
     dir_path: string,
     is_deleted: boolean,
   ) {
     this.name = name;
+    this.type = type;
+    this.description = description;
     this.dir_path = dir_path;
     this.is_deleted = is_deleted;
   }
@@ -38,6 +46,8 @@ export class MTA {
     return Object.assign({}, this, {
       _id: this.id,
       name: this.name,
+      type: this.type,
+      description: this.description,
       dir_path: this.dir_path,
       is_deleted: this.is_deleted
     });
