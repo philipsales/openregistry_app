@@ -26,6 +26,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12"> 
     <div class="x_panel">
       <div class="x_content">
+        <p *ngIf="notUnique" style="color:red;font-weight:bold;">Case number already exists.</p>
       <br>
         <form data-parsley-validate=""
         class="form-horizontal form-label-left"
@@ -50,6 +51,7 @@
 
               <br/><br/>
           </div> <br/><br/>
+
         </form>
       </div>
 
