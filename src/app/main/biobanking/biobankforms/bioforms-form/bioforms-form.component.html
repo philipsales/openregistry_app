@@ -19,7 +19,7 @@
   <div class="col-sm-3 save-wrapper">
     <button class="btn btn-success pull-right"
       [disabled]="!userSaveFormAccount.form.valid ||
-      is_processing || !_form.table_section.length > 0"
+      is_processing || !(_form.table_section.length > 0)"
       (click)="onSaveForm()"
       >
       <i class="fa fa-save"></i> &nbsp; Savea FORM
