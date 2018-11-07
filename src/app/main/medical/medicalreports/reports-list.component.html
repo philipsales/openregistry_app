@@ -1,6 +1,6 @@
-<div id="page-content" 
-     class="col-md-offset-3 col-md-9">
+    
 
+<div id="page-content" class="col-md-offset-3 col-md-9"> 
      <header class="app-header row">
       <div class="app-header--primary">
         <div class="app-header--context">
@@ -24,69 +24,82 @@
       <div class="app-header--secondary">
       </div>
     </header>
-    <br/> <br/>
+      <br/>   
 
-  <div class="row">
-    <div class="col-md-12 table-nav">
-      <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for...">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Go!</button>
-            <mat-form-field class="material-form-control">
-                <input matInput 
-                      id="formname"
-                      placeholder="Form Name"
-                       >
-          </mat-form-field>
-          </span>
+    <div class="col-md-12 table-nav" >
+      <div class="col-sm-3 reset-wrapper">
+        <button class="btn btn-default pull-left" >
+          <i class="fa fa-refresh"></i> &nbsp; Reset
+        </button>
+      </div>
+    
+      <div class="col-sm-6">
+        <div class="alert alert-danger" [hidden]="!has_errors">
+          <strong> <i class="fa fa-warning"></i> Unable to process your request. </strong>
+          <em>Please see details below: </em>
         </div>
       </div>
-      <div *ngIf="!reportCounts" >
-        <a class="btn btn-default pull-right"
-           (click)="onViewMedicalCount()">
-            <i class="fa fa-search e2e-report-medical-view-count"></i> &nbsp; View Report
-        </a>
+      
+      <div class="col-sm-3 save-wrapper">
+        <button class="btn btn-success pull-right"
+            (click)="onViewMedicalCountClick(searchCriteria)">
+            <i class="fa fa-save"></i> &nbsp; Search 
+        </button>
       </div>
-      <div *ngIf="reportCounts" >
-        <a class="btn btn-success pull-right"
-           (click)="onDownloadMedicalRaw()">
-            <i class="fa fa-download e2e-report-medical-download"></i> &nbsp; Raw Data 
-        </a>
-      </div>
-      <!-- <button class="btn btn-success pull-right"
-        (click)="onDownloadMedicalCount()">
-        <i class="fa fa-plus e2e-report-medical-view-raw"></i> &nbsp; Download Count Raw 
-      </button> -->
-      <!-- <button class="btn btn-success pull-right"
-        (click)="downloadJSON()">
-        <i class="fa fa-plus e2e-report-medical-download"></i> &nbsp; Download JSONReport 
-      </button> -->
-      <!--
-      <a class="btn btn-default pull-right">
-          <i class="fa fa-plus e2e-report-medical-download"></i> &nbsp; Download Report 
-      </a>
-      -->
     </div>
-     <!-- <div class="col-md-12">
-      <table class="table table-striped">
-        <thead> 
-          <tr  *ngFor="let data of testData; let i = index">
-            <th>{{ objectKeys(data).sort() }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr  *ngFor="let data of testData; let i = index">
-          </tr>
-          <tr  *ngFor="let data of testData; let i = index">
-            <td *ngFor="let key of objectKeys(data).sort()">
-              <span>{{ data[key] }}</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
 
+  <div class="col-md-12 col-sm-12 col-xs-12"> 
+    <div class="x_panel">
+      <div class="x_content">
+          <div class="form-horizontal form-label-left">
+          <div class="row">
+          </div>
+              <div class="material-form-group">
+            <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                  <mat-select placeholder="Questionnaire Form Name" 
+                              [(ngModel)]="searchCriteria.form_name"
+                              (change)="onChangeDropdown($event)" >
+                    <mat-option *ngFor="let type of questionnaireForm"
+                                [id]="type.name" 
+                                [value]="type.name">{{type.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+            <span *ngIf="dropdown_change" >
+            <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                <mat-select placeholder="Questionnaire Fields" 
+                            [(ngModel)]="searchCriteria.form_field"
+                            multiple>
+                  <mat-option *ngFor="let field of questionnaireFields"
+                            class="pull-left material-input-full-width"
+                            [id]="field" 
+                            [value]="field">{{field}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </span>
+
+          </div>
+      </div> 
+    </div>
+
+    <!-- Aggregated result table -->
+    <div *ngIf="reportCounts" > 
+      <a class="btn btn-warning pull-right"
+          (click)="onDownloadMedicalRaw()">
+          <i class="fa fa-download e2e-report-medical-download">
+          </i> &nbsp; Aggregated Data 
+      </a>
+    </div>
+    <div *ngIf="reportCounts" > 
+      <a class="btn btn-success pull-right"
+          (click)="onDownloadMedicalRaw()">
+          <i class="fa fa-download e2e-report-medical-download">
+          </i> &nbsp; Raw Data 
+      </a>
+    </div>
     <div class="col-md-12">
       <table class="table table-striped">
         <thead> 
@@ -105,5 +118,6 @@
         </tbody>
       </table>
     </div>
+    <!-- /Aggregated result table -->
+
   </div>
-</div>

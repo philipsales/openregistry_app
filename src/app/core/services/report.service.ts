@@ -64,11 +64,14 @@ export class ReportService {
     return Promise.reject(error.message || error);
   }
 
-  getMedicalReportCounts(): Observable<Report[]> {
+  getMedicalReportCounts(parameters: any): Observable<Report[]> {
     const url = environment.API_ENDPOINT + 'reports/medicalreportcounts';
 
     return this.http
-      .get(url)
+      .post(url, {
+        form_name: parameters['form_name'],
+        diagnosis: parameters['diagnosis']
+      })
       .map((response: Response) => {
         console.log('databases----', response['result']);
         return response['result'];

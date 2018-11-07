@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ReportService } from 'app/core/services';
 import { Report } from 'app/core/models';
+import { FormGroup } from '@angular/forms';
 
 import * as FileSaver from 'file-saver';
 
@@ -11,7 +12,7 @@ import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map'
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
-//import * as jsPDF from 'jspdf';
+// import * as jsPDF from 'jspdf';
 declare var jsPDF: any;
 
 @Component({
@@ -22,15 +23,38 @@ declare var jsPDF: any;
 export class ReportListComponent implements OnInit {
 
   reports: Report[];
-  testHeader: string[]=[];
+  testHeader: string[] = [];
   reportCounts: any[];
+  templateForm: FormGroup;
   private selectedReport: Report;
+
+  questionnaireForm: any[];
+  dropdown_change: boolean;
+
+  searchCriteria: {} = {};
+  questionnaireFields: {} = {};
 
   constructor(
     private reportService: ReportService
   ) { }
 
   ngOnInit() {
+    this.dropdown_change = false;
+    this.questionnaireForm = [
+      {
+        'name': 'Breast Cancer Form',
+        'key': 'Pending'
+      },
+      {
+        'name': 'Breast Cancer Result Form',
+        'key': 'Pending'
+      },
+      {
+        'name': 'Gynecology Cancer Form',
+        'key': 'Pending'
+      }
+    ];
+    
     /*
     this.reportService
       .getReports()
@@ -94,20 +118,82 @@ export class ReportListComponent implements OnInit {
       .subscribe(
         reportraw => {
           this.pivotTable(reportraw);
-          //this.reports = reports;
+          // this.reports = reports;
         }
       );
   }
 
+  //TODO: Smart dropdown for questionnaire Fields
+  onChangeDropdown(newObject: any) {
+    console.log('dropdownChange', newObject['value']);
+    const search_criteria = [];
+    search_criteria['form_name'] = newObject['value'];
 
-  onViewMedicalCount(): any {
-    console.log('hell0 ');
+
+
     this.reportService
-      .getMedicalReportCounts()
+    .getMedicalReportCounts(search_criteria)
+    .subscribe(
+      reportcounts => {
+        console.log('---report counts---', reportcounts['payload'][0]);
+        const temp = reportcounts['payload'][0];
+
+        console.log('-temp--', temp);
+        console.log('-bjectkys--', Object.keys(temp));
+        
+        this.questionnaireFields = [
+          {
+            'name': 'Patient Info - Age',
+            'key': 'Pending'
+          },
+          {
+            'name': 'Histopathology Result - Clinical Stage',
+            'key': 'Pending'
+          },
+          {
+            'name': 'Histopathology Result - Stage Pathologic',
+            'key': 'Pending'
+          }
+        ];
+        this.questionnaireFields = Object.keys(temp);
+        this.dropdown_change = true;
+        
+      }
+    );
+  }
+
+
+  onViewMedicalCountClick(search_criteria: any) {
+    console.log('---search_critiera', search_criteria);
+
+    console.log('---input_parameters', search_criteria['form_name']);
+
+    this.reportService
+      .getMedicalReportCounts(search_criteria)
       .subscribe(
         reportcounts => {
           this.tableCounts(reportcounts);
-          //this.reports = reports;
+          // this.reports = reports;
+        }
+      );
+  }
+
+  onViewMedicalCount(input_parameters: any) {
+    console.log('hell0 ');
+    console.log('---params onlick', input_parameters);
+    const params = [];
+
+    params['form'] = 'Gynecology Cancer Form';
+    params['diagnosis'] = 'neoplasm';
+    params['admission_start_date'] = '';
+    params['admission_end_date'] = '';
+
+    this.reportService
+      .getMedicalReportCounts(params)
+      .subscribe(
+        reportcounts => {
+          this.tableCounts(reportcounts);
+          // this.reports = reports;
         }
       );
   }
