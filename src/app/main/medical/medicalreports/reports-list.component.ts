@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ReportService } from 'app/core/services';
-import { Report } from 'app/core/models';
+import { Report, SearchCriteria } from 'app/core/models';
 import { FormGroup } from '@angular/forms';
 
 import * as FileSaver from 'file-saver';
@@ -31,14 +31,19 @@ export class ReportListComponent implements OnInit {
   questionnaireForm: any[];
   dropdown_change: boolean;
 
-  searchCriteria: {} = {};
+  //searchCriteria: {} = {};
+  searchCriteria: SearchCriteria;
   questionnaireFields: {} = {};
+  has_errors: boolean;
 
   constructor(
     private reportService: ReportService
   ) { }
 
   ngOnInit() {
+    this.searchCriteria = new SearchCriteria();
+
+    this.has_errors = false;
     this.dropdown_change = false;
     this.questionnaireForm = [
       {

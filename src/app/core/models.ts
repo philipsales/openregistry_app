@@ -25,3 +25,4 @@ export * from './models/mta';
 export * from './models/spec';
 export * from './models/spectype';
 export * from './models/search';
+export * from './models/searchcriteria';
