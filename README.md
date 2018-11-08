@@ -1,4 +1,80 @@
 # _IHITM 2016-013: Establishment of a Philippine Cancer Phenome-Biobanking System and Biomonitoring Program_
+# PCARI website application source code
+
+FHIR STU3 Profiles and Examples
+
+## Versions
+
+###APPLICATION 
+
+| Dependencies | Versions |
+| ------------ | -------- |
+| Angular      | 5.1.3	  |
+| Angular CLI  | 1.6.3    |
+| Node	       | 10.3.0   |
+
+
+###SERVER
+
+| Dependencies | Versions |
+| ------------ | -------- |
+| Linux	       | 16.04LTS |
+| MongoDD      | 3.6.0    |
+
+
+## Security Measures
+
+- [x] Authentication
+- [x] Firewall
+- [x] Secure Sockets Layer (SSL)
+- [x] Automatic Log-out 
+- [x] Password strength
+- [x] Content Delivery Network (CDN)
+- [ ] VPN
+
+
+### Prerequisites
+
+None
+
+### Running the Program
+
+None
+
+## Running the tests
+
+TODO
+
+## Deployment
+
+TODO
+
+## Built With
+
+None
+
+## Contributing
+
+None
+
+## Versioning
+
+0.0.2
+
+## Authors
+
+* **Philip Sales** 
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Open Source Community 
+
+
+>>>>>>> 8b617ff28078897a9f6f79dd7819164122ca162e
 
 PH Project Leader:  [Michael C. Velarde](http://www.biology.upd.edu.ph/index.php/mcvelarde/) (UP DIliman)  
 UC Project Investigator:  [Dr. Linda C. Giudice](http://profiles.ucsf.edu/linda.giudice) (UC San Francisco)
