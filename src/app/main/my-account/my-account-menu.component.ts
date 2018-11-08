@@ -17,5 +17,6 @@ export class MyAccountMenuComponent implements OnInit {
 
   logout() {
     Helper.logout(this.router);
+    return false;
   }
 }

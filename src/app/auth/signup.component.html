@@ -93,9 +93,9 @@
             
             <div class="help-block"
               *ngIf="(signupconfirmpassword.dirty || signupconfirmpassword.touched) && 
-                (model.password != signupconfirmpassword)">	    
-              <span  [hidden]="(model.password == signupconfirmpassword)">
-                Password do not match
+                (model.password != signupconfirmpassword)">	  
+                <span  [hidden]="(model.password == confirm_password)">
+                    Password do not match
               </span>
             </div>	
         </div>

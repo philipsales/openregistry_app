@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, NgZone } from '@angular/core';
 
 import {
   Case,
@@ -26,6 +26,8 @@ import { NoJWTError } from 'app/core/errors';
   styleUrls: ['./case-form.component.css']
 })
 export class CaseFormComponent implements OnInit {
+
+  public notUnique: boolean;
 
   _case: Case;
   @Input() set case(value: Case) {
@@ -58,6 +60,7 @@ export class CaseFormComponent implements OnInit {
     private formService: FormService,
     private caseService: CaseService,
     private mtaService: MtaService,
+    private _ngZone: NgZone,
     private _notificationsService: NotificationsService,
     private router: Router
   ) {
@@ -142,6 +145,9 @@ export class CaseFormComponent implements OnInit {
       );
       this.router.navigate(['/biobanking/cases']);
     }, errors => {
+      if (errors.status == 409) {
+        this.notUnique = true;
+      }
       console.log(errors, 'ERROR : case-manage.component');
       this.is_processing = false;
     });
@@ -163,6 +169,9 @@ export class CaseFormComponent implements OnInit {
         }
       );
     }, errors => {
+      if (errors.status == 409) {
+        this.notUnique = true;
+      }
       console.log(errors, 'ERROR : case-update.component');
       this.is_processing = false;
     });

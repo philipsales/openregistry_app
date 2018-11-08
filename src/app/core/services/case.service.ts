@@ -100,7 +100,8 @@ export class CaseService {
         // return (response.json().data as Form[])
         console.log(response, 'CASE CREATED from /cases');
         return Case.fromJSON(response);
-      }).catch(Helper.handleError);
+      // }).catch(Helper.handleError);
+      }).catch(error => Observable.throw(error));
   }
 
   update(mycase: Case): Observable<Case> {
@@ -114,7 +115,7 @@ export class CaseService {
         // return (response.json().data as Form[])
         console.log(response, 'CASE UPDATED from /cases');
         return Case.fromJSON(response);
-      }).catch(Helper.handleError);
+      }).catch(error => Observable.throw(error));
   }
 
   updateSpecForm(case_id: string, specform: SpecForm[]): Observable<Case> {
