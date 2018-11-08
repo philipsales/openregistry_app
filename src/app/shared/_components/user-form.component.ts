@@ -216,7 +216,7 @@ export class UserFormComponent implements OnInit {
     }
 
     onSaveClick(input_user: User) {
-        console.log(input_user);
+        console.log(input_user, 'ONSAVECLICK');
         if (this.method === 'CREATE') {
             this.createUser(input_user);
         } else if (this.method === 'UPDATE') {
