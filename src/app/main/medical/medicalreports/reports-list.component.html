@@ -59,9 +59,9 @@
                   <mat-select placeholder="Questionnaire Form Name" 
                               [(ngModel)]="searchCriteria.form_name"
                               (change)="onChangeDropdown($event)" >
-                    <mat-option *ngFor="let type of questionnaireForm"
-                                [id]="type.name" 
-                                [value]="type.name">{{type.name}}
+                    <mat-option *ngFor="let form of questionnaireForm"
+                                [id]="form.name" 
+                                [value]="form.name">{{form.name}}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -73,7 +73,7 @@
                             [(ngModel)]="searchCriteria.form_field"
                             multiple>
                   <mat-option *ngFor="let field of questionnaireFields"
-                            class="pull-left material-input-full-width"
+                            class="material-input-full-width"
                             [id]="field" 
                             [value]="field">{{field}}
                   </mat-option>

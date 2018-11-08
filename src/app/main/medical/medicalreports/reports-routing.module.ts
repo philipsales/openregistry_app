@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { ReportListComponent } from './reports-list.component';
 
+import { FormService } from 'app/core/services';
+
 const routes: Routes = [
   {
     path: 'list',
@@ -13,6 +15,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    FormService
+  ]
 })
 export class ReportRoutingModule { }

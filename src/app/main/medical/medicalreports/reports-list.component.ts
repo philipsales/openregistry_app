@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ReportService } from 'app/core/services';
-import { Report, SearchCriteria } from 'app/core/models';
+import { FormService, ReportService } from 'app/core/services';
+import { Form, Report, SearchCriteria } from 'app/core/models';
 import { FormGroup } from '@angular/forms';
 
 import * as FileSaver from 'file-saver';
@@ -23,52 +23,40 @@ declare var jsPDF: any;
 export class ReportListComponent implements OnInit {
 
   reports: Report[];
-  testHeader: string[] = [];
+  testHeader: string[];
   reportCounts: any[];
   templateForm: FormGroup;
-  private selectedReport: Report;
+  selectedReport: Report;
 
-  questionnaireForm: any[];
+  questionnaireForm: Form[];
   dropdown_change: boolean;
 
-  //searchCriteria: {} = {};
   searchCriteria: SearchCriteria;
   questionnaireFields: {} = {};
   has_errors: boolean;
 
+
   constructor(
+    private formService: FormService,
     private reportService: ReportService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.searchCriteria = new SearchCriteria();
-
+    this.testHeader = [];
     this.has_errors = false;
     this.dropdown_change = false;
-    this.questionnaireForm = [
-      {
-        'name': 'Breast Cancer Form',
-        'key': 'Pending'
-      },
-      {
-        'name': 'Breast Cancer Result Form',
-        'key': 'Pending'
-      },
-      {
-        'name': 'Gynecology Cancer Form',
-        'key': 'Pending'
-      }
-    ];
-    
-    /*
-    this.reportService
-      .getReports()
-      .then(reports => {
-        console.log(reports);
-        return this.reports = reports;
-      });
-      */
 
+    this.initForms();
+  }
+
+  initForms() {
+    this.formService.getMedicalForms().subscribe(
+      forms => {
+        this.questionnaireForm = forms;
+      }
+    );
   }
 
   view(id: number): void {
@@ -100,21 +88,6 @@ export class ReportListComponent implements OnInit {
       });
   }
 
-  downloadJSPDF(): any {
-    var columns = [
-      { title: "Demographics", datakey: "id" },
-      { title: "Total", datakey: "name" }
-    ];
-    var rows = [
-      { "id": 1, "name": "Male" },
-      { "id": 2, "name": "Female" }
-    ];
-
-    var doc = new jsPDF('p', 'pt');
-    doc.text("Breast Cancer Stats");
-    doc.autoTable(columns, rows);
-    doc.save("table.pdf");
-  }
 
   onDownloadMedicalRaw(): any {
     console.log('hell0 ');
@@ -145,34 +118,14 @@ export class ReportListComponent implements OnInit {
 
         console.log('-temp--', temp);
         console.log('-bjectkys--', Object.keys(temp));
-        
-        this.questionnaireFields = [
-          {
-            'name': 'Patient Info - Age',
-            'key': 'Pending'
-          },
-          {
-            'name': 'Histopathology Result - Clinical Stage',
-            'key': 'Pending'
-          },
-          {
-            'name': 'Histopathology Result - Stage Pathologic',
-            'key': 'Pending'
-          }
-        ];
         this.questionnaireFields = Object.keys(temp);
         this.dropdown_change = true;
-        
       }
     );
   }
 
 
   onViewMedicalCountClick(search_criteria: any) {
-    console.log('---search_critiera', search_criteria);
-
-    console.log('---input_parameters', search_criteria['form_name']);
-
     this.reportService
       .getMedicalReportCounts(search_criteria)
       .subscribe(
@@ -184,10 +137,7 @@ export class ReportListComponent implements OnInit {
   }
 
   onViewMedicalCount(input_parameters: any) {
-    console.log('hell0 ');
-    console.log('---params onlick', input_parameters);
     const params = [];
-
     params['form'] = 'Gynecology Cancer Form';
     params['diagnosis'] = 'neoplasm';
     params['admission_start_date'] = '';

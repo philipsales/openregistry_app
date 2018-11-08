@@ -19,11 +19,15 @@ export class MedformsListComponent implements OnInit {
 
   ngOnInit() {
     this.formService.currentForm = undefined;
+    this.initForms();
+  }
+
+  initForms() {
     this.formService.getMedicalForms().subscribe(
       forms => {
         this.forms = forms;
-        console.log(this.forms, 'FORMS');
       }
     );
   }
+
 }
