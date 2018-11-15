@@ -51,7 +51,19 @@ export class AuthService {
                 };
             }
       })
-      .catch(Helper.handleError);
+    //   .catch(Helper.handleError);
+    .catch(e => {
+        console.log(e, 'hello world');
+        if (e['status'] == 401) {
+            alert('hello world');
+            let res = {
+                status: false,
+                code: e['status']
+            };
+            return Observable.throw(res);
+        }
+        return Helper.handleError(e);
+    });
   }// --login
 
   checkPassword(username: string, password: string): Observable<any> {

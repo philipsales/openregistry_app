@@ -48,6 +48,9 @@ export class SigninComponent implements OnInit {
         }
       }, error => {
         this.error = 'Username or password is incorrect';
+        if (error['code'] == 401) {
+          this.error = 'The account is inactive, please contact the system admin.';
+        }
         this.loading = false;
         /*
         const error_message = JSON.parse(error).message;
