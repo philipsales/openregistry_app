@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormService } from '../../../../core/services';
 import { Form, RegType, Department, Organization } from 'app/core/models';
 import { RegTypeService } from 'app/core/services/regtype.service';
@@ -6,6 +6,10 @@ import { DepartmentService } from 'app/core/services/department.service';
 import { OrganizationService } from 'app/core/services/organization.service';
 import { Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
+import { BioformsFormComponent } from '../bioforms-form/bioforms-form.component';
+import { DialogService } from 'app/core/services/dialog.service';
+import { Observable } from 'rxjs';
+import { MainComponent } from 'app/main/main.component';
 
 @Component({
   selector: 'app-bioforms-update',
@@ -13,6 +17,7 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./bioforms-update.component.css']
 })
 export class BioformsUpdateComponent implements OnInit {
+  @ViewChild(BioformsFormComponent) bioformcomponent;
 
   for_update: Form;
   registryTypes: RegType[];
@@ -22,6 +27,7 @@ export class BioformsUpdateComponent implements OnInit {
   is_processing = false;
 
   constructor(
+    private dialogService: DialogService,
     private formService: FormService,
     private regTypeService: RegTypeService,
     private departmentService: DepartmentService,
@@ -52,6 +58,13 @@ export class BioformsUpdateComponent implements OnInit {
     this.organizationService.getAll().subscribe(organizations => {
       this.organizations = organizations;
     });
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (!MainComponent.isExpired && this.bioformcomponent.bioform.dirty) {
+      return this.dialogService.confirm('Discard changes?');
+    }
+    return true;
   }
 
   onSubmitTrigger(form_to_submit: Form) {

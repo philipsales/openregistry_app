@@ -10,6 +10,7 @@ import { CoreModule } from './core/core.module';
 import { AuthGuard } from './_guards/auth.guard';
 
 import { UserIdleModule } from 'angular-user-idle';
+import { DialogService } from './core/services/dialog.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { UserIdleModule } from 'angular-user-idle';
     SimpleNotificationsModule.forRoot(),
     BrowserAnimationsModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

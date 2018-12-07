@@ -4,6 +4,7 @@ import { BioformsListComponent } from './bioforms-list/bioforms-list.component';
 import { BioformsCreateComponent } from './bioforms-create/bioforms-create.component';
 import { BioformsPreviewComponent } from './bioforms-preview/bioforms-preview.component';
 import { BioformsUpdateComponent } from './bioforms-update/bioforms-update.component';
+import { CanDeactivateGuardService } from 'app/_guards/can-deactivate-guard.service';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
   },
   {
     path: 'create',
-    component: BioformsCreateComponent
+    component: BioformsCreateComponent,
+    canDeactivate: [CanDeactivateGuardService]
   },
   {
     path: 'preview/:origin',
@@ -20,7 +22,8 @@ const routes: Routes = [
   },
   {
     path: 'update',
-    component: BioformsUpdateComponent
+    component: BioformsUpdateComponent,
+    canDeactivate: [CanDeactivateGuardService]
   },
   { path: '', redirectTo: 'list' }
 ];

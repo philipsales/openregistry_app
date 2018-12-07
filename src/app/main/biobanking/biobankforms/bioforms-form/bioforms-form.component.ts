@@ -11,7 +11,7 @@ import {
 declare var jquery: any;
 declare var $: any;
 
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
 import { Form, Section, Question, RegType, Department, Organization, TableSection, Spec, SpecType } from 'app/core/models';
 import {
   OrganizationService,
@@ -41,6 +41,8 @@ export class BioformsFormComponent implements OnInit {
   @Input() registryTypes: RegType[];
   @Input() departments: Department[];
   @Input() organizations: Organization[];
+  
+  @ViewChild('userSaveFormAccount') bioform: NgForm;
 
   @ViewChild('fileInput') fileInput;
 

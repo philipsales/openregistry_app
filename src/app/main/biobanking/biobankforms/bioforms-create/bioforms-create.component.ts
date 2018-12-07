@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Form, Section, RegType, Department, Organization, TableSection } from 'app/core/models';
 
 import { KeyGenerator } from 'app/core/utils';
@@ -13,6 +13,11 @@ import {
 
 import { environment } from 'environments/environment';
 import { Router } from '@angular/router';
+import { DialogService } from 'app/core/services/dialog.service';
+import { Observable } from 'rxjs';
+import { MainComponent } from 'app/main/main.component';
+import { FormGroup } from '@angular/forms';
+import { BioformsFormComponent } from '../bioforms-form/bioforms-form.component';
 
 @Component({
   selector: 'app-bioforms-create',
@@ -20,7 +25,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./bioforms-create.component.css']
 })
 export class BioformsCreateComponent implements OnInit {
-
+  @ViewChild(BioformsFormComponent) bioformcomponent;
   new_form: Form;
   method = "CREATE";
 
@@ -31,6 +36,7 @@ export class BioformsCreateComponent implements OnInit {
   is_processing = false;
 
   constructor(
+    private dialogService: DialogService,
     private keyGenerator: KeyGenerator,
     private regTypeService: RegTypeService,
     private departmentService: DepartmentService,
@@ -74,6 +80,13 @@ export class BioformsCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  canDeactivate(): Observable<boolean> | boolean {
+    if (!MainComponent.isExpired && this.bioformcomponent.bioform.dirty) {
+      return this.dialogService.confirm('Discard changes?');
+    }
+    return true;
   }
 
   private getRegistryTypes() {

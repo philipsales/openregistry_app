@@ -10,6 +10,7 @@ import { Helper } from '../core/helper';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
+  public static isExpired: boolean = false;
   private debounce = false;
   private firstTime = true;
   private warningShown = false;
@@ -44,6 +45,7 @@ export class MainComponent implements OnInit {
     });
     this.userIdle.onTimeout().subscribe(() => {
       this.userIdle.stopWatching();
+      MainComponent.isExpired = true;
       Helper.logout(this.router);
     });
 
