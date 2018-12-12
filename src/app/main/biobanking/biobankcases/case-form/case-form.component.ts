@@ -191,7 +191,7 @@ export class CaseFormComponent implements OnInit {
        let history : SpecimenHistory[] = [];
        history.push(new SpecimenHistory(0, (new Date), 'MTA', 'recipient', 'somefile.pdf'));
        // history.push(new SpecimenHistory(0, (new Date), 'Discard', 'recipient', 'Case number: 121212'));
-      specimens.push(new Specimen(0, x.specimen, x.type, '', 0, history));
+      specimens.push(new Specimen(0, x.specimen, x.type, '', '', 0, history));
      }
 
      this._case.specforms.push(new SpecForm(form.id, form.name, specimens));

@@ -7,6 +7,7 @@ export class Specimen {
     qty: number;
     spec: string;
     spec_type: string;
+    collectedDate: string;
     characteristic: string;
     qty_avail: number;
     history: SpecimenHistory[];
@@ -20,6 +21,7 @@ export class Specimen {
         qty: json.qty,
         spec: json.spec,
         spec_type: json.spec_type,
+        collectedDate: json.collectedDate,
         characteristic: json.characteristic,
         qty_avail: json.qty_avail,
       });
@@ -40,6 +42,7 @@ export class Specimen {
     qty: number,
     spec: string,
     spec_type: string,
+    collectedDate: string,
     characteristic: string,
     qty_avail: number,
     history?: SpecimenHistory[]

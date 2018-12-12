@@ -103,6 +103,14 @@
             name="specimennotes-{{h}}-{{i}}">
         </mat-form-field>
 
+        <mat-form-field style="width:20%">
+          <input matInput placeholder="Collected Date" 
+          [(ngModel)]="specimen.collectedDate" 
+          [matDatepicker]="myDatepicker">
+          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+          <mat-datepicker #myDatepicker></mat-datepicker>
+        </mat-form-field>
+
         <mat-form-field style="width: 20%">
             <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"
             name="specimenqtyavail-{{h}}-{{i}}"
