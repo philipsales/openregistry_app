@@ -54,7 +54,7 @@ export class MainComponent implements OnInit {
     document.body.addEventListener('keypress', () => this.reset());
 
     window.addEventListener('beforeunload', e => {
-      Helper.logout(this.router);
+      // Helper.logout(this.router);
     });
   }
 

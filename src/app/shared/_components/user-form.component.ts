@@ -41,9 +41,18 @@ export class UserFormComponent implements OnInit {
 
     @Input() set user(value: User) {
         this._user = value;
+        if (this._user.organizations) {
+            this.organization_search = this._user.organizations;
+            this.is_organization_ok = true;
+        }
+        if (this._user.position) {
+            this.position_search = this._user.position;
+            this.is_position_ok = true;
+        }
         this._resetuser = this._user.toJSON();
         if (this._user.department) {
             this.department_search = this._user.department;
+            this.is_department_ok = true;
         } else {
             this.department_search = '';
         }
@@ -79,6 +88,7 @@ export class UserFormComponent implements OnInit {
     has_errors = false;
     is_processing = false;
     is_organization_ok = false;
+    is_position_ok = false;
     is_department_ok = false;
     approval_status = [];
     departments: Department[];
@@ -95,7 +105,7 @@ export class UserFormComponent implements OnInit {
         private _notificationsService: NotificationsService
     ) {
 
-        this._user = new User('', false, '', '', '', '', '', '', false);
+        this._user = new User('', false, '', '', '', '', '', '', '', '', false);
         this._user.gender = 'M';
         this.confirmation_password = '';
         const position = [
@@ -136,38 +146,35 @@ export class UserFormComponent implements OnInit {
 
     onSelectOrganization(data: CompleterItem) {
         if (data) {
-            if (!this._user.organizations) {
-                this._user.organizations = [{
-                    'organization': -1,
-                    'position': -1
-                }];
-            }
-
-            this._user.organizations[0]['organization'] = data.originalObject.id;
-            if (this._user.organizations[0]['position'] !== -1) {
-                this.is_organization_ok = true;
-            }
+            this._user.organizations = this.organization_search;
+            this.is_organization_ok = true;
         } else {
-            this._user.organizations[0]['organization'] = -1;
+            this.is_organization_ok = false;
+        }
+
+        console.log(this.organization_search, 'organization');
+    }
+
+    isOrganizationsOpen(isOpen: boolean) {
+        if (isOpen) {
+            this.organization_search = "";
             this.is_organization_ok = false;
         }
     }
 
     onSelectPosition(data: CompleterItem) {
         if (data) {
-            if (!this._user.organizations) {
-                this._user.organizations = [{
-                    'organization': -1,
-                    'position': -1
-                }];
-            }
-            this._user.organizations[0]['position'] = data.originalObject.id;
-            if (this._user.organizations[0]['organization'] !== -1) {
-                this.is_organization_ok = true;
-            }
+            this._user.position = data.title;
+            this.is_position_ok = true;
         } else {
-            this._user.organizations[0]['position'] = -1;
-            this.is_organization_ok = false;
+            this.is_position_ok = false;
+        }
+    }
+
+    isPositionOpen(isOpen: boolean) {
+        if (isOpen) {
+            this.position_search = "";
+            this.is_position_ok = false;
         }
     }
 
@@ -193,6 +200,13 @@ export class UserFormComponent implements OnInit {
         console.log(this.department_search, 'COMPLETER');
         console.log(this._user.department, 'COMPLETER');
         this.is_department_ok = (this._user.department) ? true : false;
+    }
+
+    isDepartmentOpen(isOpen: boolean) {
+        if (isOpen) {
+            this.department_search = "";
+            this.is_department_ok = false;
+        }
     }
 
     onDepartmentSearchClick() {

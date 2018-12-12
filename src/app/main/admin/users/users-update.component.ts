@@ -22,7 +22,7 @@ export class UsersUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService
   ) {
-    this.user = new User('', true, '', '', '', 'M', '', '', false);
+    this.user = new User('', true, '', '', '', 'M', '', '', '', '', false);
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class UsersUpdateComponent implements OnInit {
     this.userService.get(this.user_id).subscribe((response: User) => {
       delete this.user;
       this.user = response;
-      console.log(response);
+      console.log(response, 'le response');
     }, error => {
       console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {

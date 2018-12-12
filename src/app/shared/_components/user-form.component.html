@@ -154,6 +154,7 @@
 						[minSearchLength]="0"
 						(selected)="onSelectDepartment($event)" 
 						[disabled]="method == 'MYACCOUNT'"
+						(opened)="isDepartmentOpen($event)"
 						[inputClass]="'form-control'"
 						[openOnClick]="true"
 						[required]="method == 'CREATE'"
@@ -407,6 +408,7 @@
 			     (selected)="onSelectOrganization($event)" 
 			     [inputClass]="'form-control'"
 					 [openOnClick]="true"
+					 (opened)="isOrganizationsOpen($event)"
 					 [required]="method == 'CREATE'"
 			     [inputName]="'input_organization_search'">
 	      </ng2-completer>
@@ -425,7 +427,7 @@
 	</div>
 	
 	<div class="form-group"
-		 [ngClass]="{'has-error': _user.organizations && !is_organization_ok }">
+		 [ngClass]="{'has-error': _user.position && !is_position_ok }">
 	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
 			Position 
 			<span class="required"
@@ -440,7 +442,8 @@
 			     [minSearchLength]="0"
 			     (selected)="onSelectPosition($event)" 
 			     [inputClass]="'form-control'"
-			     [openOnClick]="true"
+					 [openOnClick]="true"
+					 (opened)="isPositionOpen($event)"
 					 [inputName]="'input_position_search'"
 					 [required]="method == 'CREATE'"
 			     #input_position_search
@@ -456,7 +459,7 @@
 		  <span class="caret"></span>
 		</button>
 	      </div>
-	    </div> <!-- input-group -->
+			</div> <!-- input-group -->
 	  </div>
 	</div>
 	
