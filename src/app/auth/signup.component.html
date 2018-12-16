@@ -57,19 +57,23 @@
       <div class="form-group" style="margin-bottom: 0;"
 		    [ngClass]="{'has-error': error || 
           (signuppassword.dirty || signuppassword.touched) && 
-          (signuppassword.error) }">
+          (signuppassword.invalid) }">
         <label for="username" class="form-label">
           <span class="pull-left">PASSWORD</span>
         </label>
         <input id="sign_uppassword" name="password" class="form-control" type="password"
           [(ngModel)]="model.password" #signuppassword="ngModel" required
-          placeholder="Enter your password" style="text-align: left;" >
+          placeholder="Enter your password" style="text-align: left;"
+          minlength="6" >
           <div class="help-block"
             *ngIf="(signuppassword.dirty || signuppassword.touched) && 
-              (signuppassword.error)">
-              <span [hidden]="!(signuppassword.error.required)">
+              (signuppassword.invalid)">
+              <div *ngIf="signuppassword.errors.minlength">
+                Password must be at least 6 characters long.
+              </div>
+              <div *ngIf="signuppassword.errors.required">
               Password is required
-              </span>
+              </div>
             </div>
       </div>
 

@@ -19,6 +19,7 @@ export class SignupComponent implements OnInit {
   }// -- _reinit setter
 
   model: any = {};
+  password = '';
   loading = false;
   error = '';
   show_reset = false;
@@ -34,6 +35,8 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.model['password'] = '';
+    console.log(this.model, 'hello world');
   }// --ngOnInit
 
   validateEmail() {
