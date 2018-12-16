@@ -73,8 +73,9 @@ export class ChangePasswordComponent implements OnInit {
       created_user => {
         this.is_processing = false;
         this._notificationsService.success(
-          'Successfully Updated Password',
-          {
+          'Account Settings',
+          'Successfully changed password!',
+          { 
             timeOut: 10000,
             showProgressBar: true,
             pauseOnHover: false,
