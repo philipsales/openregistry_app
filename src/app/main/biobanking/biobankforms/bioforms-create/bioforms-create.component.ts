@@ -83,9 +83,9 @@ export class BioformsCreateComponent implements OnInit {
   }
 
   canDeactivate(): Observable<boolean> | boolean {
-    if (!MainComponent.isExpired && this.bioformcomponent.bioform.dirty) {
-      return this.dialogService.confirm('Discard changes?');
-    }
+    // if (!MainComponent.isExpired && this.bioformcomponent.bioform.dirty) {
+    //   return this.dialogService.confirm('Discard changes?');
+    // }
     return true;
   }
 
