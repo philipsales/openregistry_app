@@ -59,7 +59,7 @@
                   <mat-select placeholder="Questionnaire Form Name" 
                               [(ngModel)]="searchCriteria.form_name"
                               (change)="onDropdownFormType($event)" >
-                    <mat-option *ngFor="let form of questionnaireForm"
+                    <mat-option *ngFor="let form of questionnaire_form"
                                 [id]="form.name" 
                                 [value]="form.name">{{form.name}}
                     </mat-option>
@@ -72,7 +72,7 @@
                 <mat-select placeholder="Questionnaire Fields" 
                             [(ngModel)]="searchCriteria.form_field"
                             multiple>
-                  <mat-option *ngFor="let field of questionnaireFields"
+                  <mat-option *ngFor="let field of questionnaire_fields"
                             class="material-input-full-width"
                             [id]="field" 
                             [value]="field">{{field}}
@@ -86,14 +86,14 @@
     </div>
 
     <!-- Aggregated result table -->
-    <div *ngIf="reportCounts" > 
+    <div *ngIf="aggregated_data" > 
       <a class="btn btn-warning pull-right"
           (click)="onClickDownloadAggregate()">
           <i class="fa fa-download e2e-report-medical-download">
           </i> &nbsp; Aggregated Data 
       </a>
     </div>
-    <div *ngIf="reportCounts" > 
+    <div *ngIf="aggregated_data" > 
       <a class="btn btn-success pull-right"
           (click)="onClickDownloadRaw()">
           <i class="fa fa-download e2e-report-medical-download">
@@ -110,14 +110,14 @@
         </thead>
         <tbody>
 
-					<!-- <tr  *ngFor='let key of reportCounts | keys'> 
+					<!-- <tr  *ngFor='let key of aggregated_data | keys'> 
               <td> <strong>{{ key }}</strong> </td>
           </tr> -->
-          <tr *ngFor="let entry of reportCounts | keys">           
+          <tr *ngFor="let entry of aggregated_data | keys">           
             <td> {{entry.key}} </td>
             <td> {{entry.value}} </td>
           </tr>
-          <!-- <div *ngFor="let data of reportCounts; let i = index">
+          <!-- <div *ngFor="let data of aggregated_data; let i = index">
             <tr *ngFor="let key of objectKeys(data).sort(); let i = count">
               <td> <strong>{{ key }}</strong> </td>
               <td> <span>{{ data[key] }}</span> </td>

@@ -22,20 +22,15 @@ declare var jsPDF: any;
 export class ReportListComponent implements OnInit {
 
   reports: Report[];
-  reportCounts: any[] = [];
-  templateForm: FormGroup;
-  selectedReport: Report;
+  aggregated_data: any[] = [];
 
-  questionnaireForm: Form[];
+  questionnaire_form: Form[];
+  questionnaire_fields: {} = {};
+
   dropdown_change: boolean;
 
   searchCriteria: SearchCriteria;
-  questionnaireFields: {} = {};
   has_errors: boolean;
-
-  tableHeaders: string[] = [];
-  testData: any[] = [];
-  tempHeader: string[] = [];
 
   constructor(
     private formService: FormService,
@@ -56,13 +51,61 @@ export class ReportListComponent implements OnInit {
       .getMedicalForms()
       .subscribe(
         forms => {
-          this.questionnaireForm = forms;
+          this.questionnaire_form = forms;
         }
     );
   }
 
-  setCSVOptions(headersArray): any {
+  onDropdownFormType(newObject: any) {
+    const search_criteria = [];
+    search_criteria['form_name'] = newObject['value'];
 
+    this.reportService
+      .getMedicalReportCounts(search_criteria)
+      .subscribe(
+        reportcounts => {
+          this.questionnaire_fields = reportcounts['payload'][0]['questions'];
+          this.dropdown_change = true;
+        }
+      );
+  }
+
+  onClickSearch(search_criteria: any) {
+
+    this.reportService
+      .getMedicalReportCountResults(search_criteria)
+      .subscribe(
+        reportcountresults => {
+          this.aggregated_data = reportcountresults;
+        }
+      );
+  }
+
+  onClickDownloadAggregate(): any {
+    const csv_body: any[] = [];
+    let csv_options: {} = {};
+    let csv_headers: string[] = [];
+    let form_name = '';
+    let filename = '';
+
+    csv_options = this.setCSVOptions(csv_headers);
+    csv_headers = ['critieria', 'count'];
+    form_name = this.searchCriteria.form_name.replace(/ /g, '');
+    filename = 'Aggregated.' + form_name + '.' + new Date().toLocaleString();
+
+    for (const key in this.aggregated_data) {
+      if (key) {
+        const temp = {};
+        temp['key'] = key;
+        temp['value'] = this.aggregated_data[key];
+        csv_body.push(temp);
+      }
+    }
+
+    this.exportCSV(csv_body, filename, csv_options);
+  }
+
+  setCSVOptions(headersArray): any {
     return {
       fieldSeparator: ',',
       quoteStrings: '"',
@@ -76,118 +119,74 @@ export class ReportListComponent implements OnInit {
     };
   }
 
-  onClickDownloadAggregate(): any {
-    const aggregateData: any[] = [];
-    const headers = ['critieria', 'count'];
-    const options = this.setCSVOptions(headers);
-    const form_name = this.searchCriteria.form_name.replace(/ /g, '');
-    const filename = 'Aggregated.' + form_name + '.' + new Date().toLocaleString();
-
-    for (const key in this.reportCounts) {
-      if (key) {
-        const value = this.reportCounts[key];
-        const temp = {};
-        temp['key'] = key;
-        temp['value'] = value;
-        aggregateData.push(temp);
-      }
-    }
-
-    this.exportCSV(aggregateData, filename, options);
-
-  }
-
   exportCSV(data, filename, options): any {
     return new Angular5Csv(data, filename, options);
   }
 
   onClickDownloadRaw(): any {
-    console.log('hell0 ');
+
     this.reportService
       .getMedicalReportRaw()
       .subscribe(
         reportraw => {
           this.buildCSVTemplate(reportraw);
-          // this.reports = reports;
         }
       );
   }
 
-  // TODO: Smart dropdown for questionnaire Fields
-  onDropdownFormType(newObject: any) {
-    const search_criteria = [];
-    search_criteria['form_name'] = newObject['value'];
+  buildCSVTemplate(data): any {
+    let csv_options: {} = {};
+    let csv_headers: string[] = [];
+    let csv_body = [];
+    let raw_data: any[] = [];
+    let form_name = '';
+    let filename = '';
 
-    this.reportService
-      .getMedicalReportCounts(search_criteria)
-      .subscribe(
-        reportcounts => {
-          this.questionnaireFields = reportcounts['payload'][0]['questions'];
-          this.dropdown_change = true;
-        }
-      );
+    raw_data = data.payload;
+    form_name = raw_data[0]['_form_name'].replace(/ /g, '');
+    filename = 'Raw.' + form_name + '.' + new Date().toLocaleString();
+
+    csv_headers = this.setCSVHeader(raw_data);
+    csv_body = this.setCSVBody(raw_data);
+    csv_options = this.setCSVOptions(csv_headers);
+
+    this.exportCSV(csv_body, filename, csv_options);
   }
 
-  onClickSearch(search_criteria: any) {
+  setCSVHeader(raw_data): any {
+    let csv_tableHeaders: string[] = [];
+    const csv_tempHeaders: string[] = [];
 
-    this.reportService
-      .getMedicalReportCountResults(search_criteria)
-      .subscribe(
-        reportcountresults => {
-          this.reportCounts = reportcountresults;
-        }
-      );
-  }
-
-  buildCSVTemplate(reports): any {
-    this.testData = [];
-    this.tempHeader = [];
-
-    this.testData = reports.payload;
-    console.log('raw testData', this.testData);
-
-    this.testData.map((headers) => {
+    raw_data.map((headers) => {
       for (const key of Object.keys(headers)){
-        this.tempHeader.push(key);
+        csv_tempHeaders.push(key);
       }
     });
 
-    console.log('v1 testData', this.testData);
-    this.tableHeaders = this.tempHeader.sort().filter(function(elem, index, self) {
+    csv_tableHeaders = csv_tempHeaders.sort().filter(function(elem, index, self) {
       return index === self.indexOf(elem);
     });
 
-    console.log('tableHealders', this.tableHeaders);
-
-    for (const header of this.tableHeaders) {
-      for (const keys of Object.values(this.testData)) {
+    for (const header of csv_tableHeaders) {
+      for (const keys of Object.values(raw_data)) {
           if (!(header in keys)) {
-            console.log('keys--header', keys[header]);
             keys[header] = '';
           }
       }
     }
 
-    const options = {
-      fieldSeparator: ',',
-      quoteStrings: '"',
-      decimalseparator: '.',
-      showLabels: true,
-      showTitle: false,
-      title: '',
-      useBom: true,
-      noDownload: false,
-      headers: this.tableHeaders.sort()
-    };
-    const form_name = this.testData[0]['_form_name'].replace(/ /g, '');
+    return csv_tableHeaders.sort();
+  }
 
-    const finalRawResults = [];
-    for (const item of this.testData){
-       let temp = this.sortObject(item);
-       finalRawResults.push(temp);
+  setCSVBody(raw_data): any {
+    const csv_data = [];
+
+    for (const item of raw_data){
+       const temp = this.sortObject(item);
+       csv_data.push(temp);
     }
 
-    new Angular5Csv(finalRawResults, 'Raw.' + form_name + '.'+ new Date().toLocaleString(), options);
+    return csv_data;
   }
 
   sortObject(o) {

@@ -3,23 +3,20 @@ import { Http, Headers, RequestOptions, Response, ResponseContentType } from '@a
 
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-//import { map, catch } from 'rxjs/operators';
-//import { Observable } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
-import { Helper }         from '../helper';
-import { Report }       from '../models';
-import { environment }    from 'environments/environment';
+import { Helper } from '../helper';
+import { Report } from '../models';
+import { environment } from 'environments/environment';
 
 @Injectable()
 export class ReportService {
 
   private reportUrlVersion = 'v1';
-  private reportUrl = environment.API_ENDPOINT + 'reports'; 
-  
+  private reportUrl = environment.API_ENDPOINT + 'reports';
   constructor(private http: HttpClient) {
-  }//--constructor
+  }// --constructor
 
   getReports(): Promise<Report[]> {
     const url = `${this.reportUrl}`;
