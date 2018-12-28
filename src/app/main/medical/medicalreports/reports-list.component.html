@@ -109,12 +109,20 @@
           </tr> -->
         </thead>
         <tbody>
-          <div *ngFor="let data of reportCounts; let i = index">
+
+					<!-- <tr  *ngFor='let key of reportCounts | keys'> 
+              <td> <strong>{{ key }}</strong> </td>
+          </tr> -->
+          <tr *ngFor="let entry of reportCounts | keys">           
+            <td> {{entry.key}} </td>
+            <td> {{entry.value}} </td>
+          </tr>
+          <!-- <div *ngFor="let data of reportCounts; let i = index">
             <tr *ngFor="let key of objectKeys(data).sort(); let i = count">
               <td> <strong>{{ key }}</strong> </td>
               <td> <span>{{ data[key] }}</span> </td>
             </tr>
-          </div>
+          </div>  -->
         </tbody>
       </table>
     </div>

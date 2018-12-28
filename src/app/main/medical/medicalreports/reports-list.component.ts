@@ -24,7 +24,7 @@ export class ReportListComponent implements OnInit {
 
   reports: Report[];
   testHeader: string[];
-  reportCounts: any[];
+  reportCounts: any[] = [];
   templateForm: FormGroup;
   selectedReport: Report;
 
@@ -118,7 +118,8 @@ export class ReportListComponent implements OnInit {
 
         console.log('-temp--', temp);
         console.log('-bjectkys--', Object.keys(temp));
-        this.questionnaireFields = Object.keys(temp);
+        this.questionnaireFields = reportcounts['payload'][0]['questions'];
+        // this.questionnaireFields = Object.keys(temp);
         this.dropdown_change = true;
       }
     );
@@ -126,8 +127,11 @@ export class ReportListComponent implements OnInit {
 
 
   onViewMedicalCountClick(search_criteria: any) {
+    console.log('ON VIEW MEDICAL COUNTCLICK', search_criteria);
+
     this.reportService
-      .getMedicalReportCounts(search_criteria)
+      //.getMedicalReportCounts(search_criteria)
+      .getMedicalReportCountResults(search_criteria)
       .subscribe(
         reportcounts => {
           this.tableCounts(reportcounts);
@@ -142,6 +146,7 @@ export class ReportListComponent implements OnInit {
     params['diagnosis'] = 'neoplasm';
     params['admission_start_date'] = '';
     params['admission_end_date'] = '';
+    console.log('ON VIEW MEDICAL COUNT CLICK', params);
 
     this.reportService
       .getMedicalReportCounts(params)
@@ -154,7 +159,10 @@ export class ReportListComponent implements OnInit {
   }
 
   tableCounts(reports): any {
-    this.reportCounts = reports.payload;
+    //this.reportCounts = reports.payload;
+    console.log('TABLECOUNTS', reports);
+    this.objectKeys = Object.keys;
+    this.reportCounts = reports;
   }
 
 

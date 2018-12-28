@@ -5,7 +5,7 @@ import { FormsModule }  from '@angular/forms';
 //InMemory modules
 import { HttpModule } from '@angular/http';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { ReportDummyApiResponse }   from 'app/core/services-dummy';
+import { ReportDummyApiResponse } from 'app/core/services-dummy';
 
 import { ReportService } from 'app/core/services';
 
@@ -13,6 +13,7 @@ import { ReportRoutingModule } from './reports-routing.module';
 import { ReportListComponent } from './reports-list.component';
 
 import { MaterialModule } from 'app/shared/_material/material.module';
+import { KeysPipe } from 'app/core/utils';
 
 @NgModule({
   imports: [
@@ -24,9 +25,10 @@ import { MaterialModule } from 'app/shared/_material/material.module';
     MaterialModule
   ],
   declarations: [
+    KeysPipe,
     ReportListComponent
   ],
-  providers: [ 
+  providers: [
     ReportService,
     ReportDummyApiResponse
   ]

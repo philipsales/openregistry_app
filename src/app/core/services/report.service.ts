@@ -65,7 +65,8 @@ export class ReportService {
   }
 
   getMedicalReportCounts(parameters: any): Observable<Report[]> {
-    const url = environment.API_ENDPOINT + 'reports/medicalreportcounts';
+    // const url = environment.API_ENDPOINT + 'reports/medicalreportcounts';
+    const url = environment.API_ENDPOINT + 'reports/medicalreportparameters';
 
     return this.http
       .post(url, {
@@ -74,7 +75,28 @@ export class ReportService {
       })
       .map((response: Response) => {
         console.log('databases----', response['result']);
+        console.log('databases-questions---', response['result']['payload'][0]['questions']);
         return response['result'];
+      })
+      .catch(Helper.handleError);
+  }
+
+  getMedicalReportCountResults(parameters: any): Observable<Report[]> {
+    // const url = environment.API_ENDPOINT + 'reports/medicalreportcounts';
+    const url = environment.API_ENDPOINT + 'reports/medicalreportcountresults';
+
+    console.log('BEFORE PARAMETERS', parameters);
+    return this.http
+      .post(url, {
+        form_name: parameters['form_name'],
+        form_field: parameters['form_field'],
+        diagnosis: parameters['diagnosis']
+      })
+      .map((response: Response) => {
+        console.log('databases----', response['result']);
+        console.log('databases-countresults---', response['result']['payload'][0]['results']);
+        return response['result']['payload'][0]['results'];
+        //return response['result']['payload'][0]['results'];
       })
       .catch(Helper.handleError);
   }
