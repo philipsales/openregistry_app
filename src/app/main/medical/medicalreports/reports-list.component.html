@@ -42,7 +42,7 @@
       
       <div class="col-sm-3 save-wrapper">
         <button class="btn btn-success pull-right"
-            (click)="onViewMedicalCountClick(searchCriteria)">
+            (click)="onClickSearch(searchCriteria)">
             <i class="fa fa-save"></i> &nbsp; Search 
         </button>
       </div>
@@ -58,7 +58,7 @@
             <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
                   <mat-select placeholder="Questionnaire Form Name" 
                               [(ngModel)]="searchCriteria.form_name"
-                              (change)="onChangeDropdown($event)" >
+                              (change)="onDropdownFormType($event)" >
                     <mat-option *ngFor="let form of questionnaireForm"
                                 [id]="form.name" 
                                 [value]="form.name">{{form.name}}
@@ -88,14 +88,14 @@
     <!-- Aggregated result table -->
     <div *ngIf="reportCounts" > 
       <a class="btn btn-warning pull-right"
-          (click)="onDownloadMedicalAggregated()">
+          (click)="onClickDownloadAggregate()">
           <i class="fa fa-download e2e-report-medical-download">
           </i> &nbsp; Aggregated Data 
       </a>
     </div>
     <div *ngIf="reportCounts" > 
       <a class="btn btn-success pull-right"
-          (click)="onDownloadMedicalRaw()">
+          (click)="onClickDownloadRaw()">
           <i class="fa fa-download e2e-report-medical-download">
           </i> &nbsp; Raw Data 
       </a>
