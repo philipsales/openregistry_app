@@ -6,10 +6,9 @@ import { FormGroup } from '@angular/forms';
 
 import * as FileSaver from 'file-saver';
 
-import { Observable } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
 // import * as jsPDF from 'jspdf';
@@ -72,6 +71,7 @@ export class ReportListComponent implements OnInit {
 
 
   downloadJSON(): any {
+    console.log("DOWNLOAD JSON ");
     this.reportService
       .downloadFileCSV()
       .subscribe((response) => {
@@ -89,6 +89,41 @@ export class ReportListComponent implements OnInit {
   }
 
 
+  onDownloadMedicalAggregated(): any {
+  let tempKV: any[] = [];
+
+    const options = {
+      fieldSeparator: ',',
+      quoteStrings: '"',
+      decimalseparator: '.',
+      showLabels: true,
+      showTitle: false,
+      title: '',
+      useBom: true,
+      noDownload: false,
+      headers: ['critieria', 'count']
+    };
+    console.log('AGGGREGATED', this.reportCounts);
+
+
+    for (let key in this.reportCounts) {
+      let value = this.reportCounts[key];
+      console.log('VALUE AGGRE', value);
+      let temp = {};
+      temp['key'] = key;
+      temp['value'] = value;
+      tempKV.push(temp);
+      // Use `key` and `value`
+    }
+
+    console.log('TEMPL KV', tempKV);
+    const form_name = this.searchCriteria.form_name.replace(/ /g, '');
+
+    
+    //new Angular5Csv(this.reportCounts, 'Aggregated.' + new Date().toLocaleString(), options);
+    new Angular5Csv(tempKV, 'Aggregated.' + form_name + '.' + new Date().toLocaleString(), options);
+  }
+
   onDownloadMedicalRaw(): any {
     console.log('hell0 ');
     this.reportService
@@ -101,13 +136,11 @@ export class ReportListComponent implements OnInit {
       );
   }
 
-  //TODO: Smart dropdown for questionnaire Fields
+  // TODO: Smart dropdown for questionnaire Fields
   onChangeDropdown(newObject: any) {
     console.log('dropdownChange', newObject['value']);
     const search_criteria = [];
     search_criteria['form_name'] = newObject['value'];
-
-
 
     this.reportService
     .getMedicalReportCounts(search_criteria)
@@ -130,7 +163,7 @@ export class ReportListComponent implements OnInit {
     console.log('ON VIEW MEDICAL COUNTCLICK', search_criteria);
 
     this.reportService
-      //.getMedicalReportCounts(search_criteria)
+      // .getMedicalReportCounts(search_criteria)
       .getMedicalReportCountResults(search_criteria)
       .subscribe(
         reportcounts => {
@@ -159,7 +192,7 @@ export class ReportListComponent implements OnInit {
   }
 
   tableCounts(reports): any {
-    //this.reportCounts = reports.payload;
+    // this.reportCounts = reports.payload;
     console.log('TABLECOUNTS', reports);
     this.objectKeys = Object.keys;
     this.reportCounts = reports;
@@ -174,64 +207,75 @@ export class ReportListComponent implements OnInit {
   tempHeader: string[]=[];
   
   pivotTable(reports): any {
+    this.testData = [];
+    this.tempHeader = [];
 
     this.testData = reports.payload;
     console.log('raw testData', this.testData);
 
     this.testData.map((headers) => {
-      for (let key of Object.keys(headers)){
+      for (const key of Object.keys(headers)){
         this.tempHeader.push(key);
       }
     });
 
     console.log('v1 testData', this.testData);
-    
     this.tableHeaders = this.tempHeader.sort().filter(function(elem, index, self) {
       return index === self.indexOf(elem);
-    })
+    });
 
     console.log('tableHealders', this.tableHeaders);
 
-    for (let header of this.tableHeaders) {
-      for (let keys of Object.values(this.testData)) {
-          if(!(header in keys)){ 
-            console.log('keys--header',keys[header]);
-            keys[header] = "";
+    for (const header of this.tableHeaders) {
+      for (const keys of Object.values(this.testData)) {
+          if (!(header in keys)) {
+            console.log('keys--header', keys[header]);
+            keys[header] = '';
           }
       }
-    } 
+    }
 
-    console.log('v2 testdata--',this.testData[0]);
-    console.log('v2 testdata-sort',this.sortObject(this.testData[0]));
-    console.log('v2 testdata-values-',Object.values(this.testData[0]));
-    console.log('v2 testdata-values-sort',Object.values(this.sortObject(this.testData[0])));
+    console.log('v2 testdata--', this.testData[0]);
+    console.log('v2 testdata-sort', this.sortObject(this.testData[0]));
+    console.log('v2 testdata-values-', Object.values(this.testData[0]));
+    console.log('v2 testdata-values-sort', Object.values(this.sortObject(this.testData[0])));
 
-    var options = { 
+    const options = {
       fieldSeparator: ',',
       quoteStrings: '"',
       decimalseparator: '.',
-      showLabels: true, 
+      showLabels: true,
       showTitle: false,
       title: '',
       useBom: true,
       noDownload: false,
-      headers: this.tableHeaders.sort()  
+      headers: this.tableHeaders.sort()
     };
 
-    var foo = this.sortObject(this.testData[0]); 
-    var bar = this.sortObject(this.testData[1]); 
-    var barz = this.sortObject(this.testData[2]); 
-    var foobar = this.testData[1]; 
+    const foo = this.sortObject(this.testData[0]);
+    const bar = this.sortObject(this.testData[1]);
+    const barz = this.sortObject(this.testData[2]);
+    const foobar = this.testData[1];
 
-    var fofo = [];
+    const form_name = this.testData[0]['_form_name'].replace(/ /g, '');
+
+    const fofo = [];
     fofo.push(foo);
     fofo.push(bar);
     fofo.push(barz);
-   
-    console.log('v2 fofo-',fofo);
+    console.log('v2 fofo-', fofo);
+    console.log('v2 form_name-', form_name);
+
+    const finalRawResults = [];
+    for (const item of this.testData){
+       let temp = this.sortObject(item);
+       finalRawResults.push(temp);
+    }
 
 
-    new Angular5Csv(fofo, 'raw-data-'+ new Date(), options);
+    //new Angular5Csv(fofo, 'raw-data-'+ new Date(), options);
+    new Angular5Csv(finalRawResults, 'Raw.' + form_name + '.'+ new Date().toLocaleString(), options);
+    //new Angular5Csv(, 'raw-data-'+ new Date(), options);
   }
 
   sortObject(o) {
