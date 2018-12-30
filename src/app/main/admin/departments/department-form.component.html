@@ -1,0 +1,73 @@
+<div class="col-md-12 table-nav">
+    <div class="col-sm-3 reset-wrapper">
+        <button class="btn btn-default pull-left"
+            [disabled]="departmentForm.pristine || readonly"
+            (click)="departmentForm.reset(department)">
+            <i class="fa fa-refresh"></i> &nbsp; Reset
+        </button>
+    </div>
+    <div class="col-sm-6 col-md-6"></div>
+    <div class="col-sm-3 col-md-3">
+        <button class="btn btn-success pull-right"
+            [disabled]="departmentForm.pristine || departmentForm.invalid || readonly"
+            (click)="onSubmit()">
+            <i class="fa fa-save"></i> &nbsp; Save
+        </button>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+        <div class="x_content" *ngIf="departmentForm">
+            <br>
+            <form class="form-horizontal form-label-left" 
+                [formGroup]="departmentForm">
+                <div class="row">
+                    <div style="text-align:center;font-weight: bolder;color: red;">
+                        {{serviceErrorMessage}}
+                    </div>
+                </div>
+                <div class="material-form-group">
+                    <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                        <input matInput 
+                        type="text" 
+                        formControlName="name"
+                        placeholder="Department Name *">
+                        <mat-hint>hint: department name must be <strong>unique</strong></mat-hint>
+                        <mat-error *ngIf="departmentForm.controls['name'].hasError('required')">
+                            Department name is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="departmentForm.controls['name'].hasError('nameTaken')">
+                            Department name is already <strong>taken</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                        <input matInput
+                        type="text"
+                        formControlName="description"
+                        placeholder="Description">
+                    </mat-form-field>
+                    <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                        <input matInput
+                        type="text"
+                        formControlName="code"
+                        placeholder="Code">
+                    </mat-form-field>
+
+                    <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
+                        <mat-label>Select an organization</mat-label>
+                        <mat-select matNativeControl 
+                        [compareWith]="compareOrganizationSelectValue"
+                        formControlName="organization"
+                        [value]="organization">
+                            <mat-option [value]="{id:'', name: ''}">--</mat-option>
+                            <mat-option *ngFor="let organization of choicesOrganization" [value]="organization">
+                                {{organization.name}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="row">
+  <div class="col-md-12 table-nav">
+    <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
+      <div class="input-group">
+        <input type="text" class="form-control"
+          [(ngModel)]="searchText"
+          (keyup.enter)="doSearch($event)"
+          placeholder="search">
+        <span class="input-group-btn">
+          <button 
+            class="btn btn-default" 
+            type="button"
+            (click)="doSearch($event)">
+            Go!
+          </button>
+        </span>
+      </div> <!-- end of search group -->
+    </div>
+    <mat-paginator #paginator 
+                  [length]="pagelength" 
+                  [pageIndex]="0"
+                  [pageSize]="10" 
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  class="pull-right"
+                  (page)="getDepartments($event)">
+    </mat-paginator>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th (click)="doSort()">Name <i class="fa fa-4" 
+                      aria-hidden="true"
+                      [ngClass]="{
+                        'fa-chevron-up': sort == 1, 
+                        'fa-chevron-down': sort == -1}"></i></th>
+          <th>Description</th>
+          <th style="text-align: center"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let department of departments">
+          <td>{{department.name}}</td>
+          <td>{{department.description}}</td>
+          <td style="text-align: center">
+            <button appPcariauth
+            [mustHavePermission]="['admin_role_view']"
+            [mustBeAll]="true"
+            [routerLink]="['/admin/departments/details', department.id]"
+            class="btn btn-sm btn-default">
+              <i class="fa fa-eye"></i> View
+            </button>
+            <button appPcariauth
+              [mustHavePermission]="['admin_role_update']"
+              [mustBeAll]="true"
+              [routerLink]="['/admin/departments/update', department.id]"
+              class="btn btn-sm btn-warning">
+              <i class="fa fa-edit"></i> Update
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="z-index:5; position : fixed;display : flex; 
+  align-self : flex-end;bottom : 10%; margin-bottom : 68px; right:5%;">
+    <button 
+    [routerLink]="['/admin/departments/create']"
+      mat-fab color="primary">
+      <i class="fa fa-plus fa-3" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>

@@ -332,7 +332,7 @@ export class FormDummyApiResponse implements InMemoryDbService {
                            .concat(survivalDataTemplate)
                            .concat(mendelimsTemplate),
       registrytypes : registryTypes,
-      departments   : departments 
+      // departments   : departments 
     };
   }
 }

@@ -11,6 +11,7 @@ export interface UserJSON {
     mobile_number: string;
     verification_status: string;
     roles: string[];
+    departments: string[];
     organizations: string;
     position: string;
     isActive: boolean;

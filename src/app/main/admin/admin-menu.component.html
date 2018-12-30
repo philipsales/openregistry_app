@@ -26,6 +26,14 @@
           </a>
         </li>
         <li routerLinkActive="active"
+        appPcariauth
+        [mustHavePermission]="['admin_role_view', 'admin_role_create', 'admin_role_update']"
+        [mustBeAll]="false">
+          <a [routerLink]="['./departments']">
+            <i class="fa fa-building"></i>Departments
+          </a>
+        </li>
+        <li routerLinkActive="active"
           appPcariauth
             [mustHavePermission]="['admin_database_create', 'admin_database_update', 'admin_database_restore']"
             [mustBeAll]="false">

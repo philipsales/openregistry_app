@@ -72,11 +72,11 @@ export class FormService {
   getBiobankForms(): Observable<Form[]> {
     const biobank_form_type = environment.FORM_TYPE_BIOBANK;
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response) => {
       return response['data'].filter((all_forms: FormJSON) => {
-        return all_forms.type === biobank_form_type && all_forms.department === user['department'];
+        return all_forms.type == biobank_form_type &&
+        (<string[]>user['departments']).indexOf(all_forms.department) != -1;
       }).map(Form.fromJSON);
     }).catch(Helper.handleError);
   }

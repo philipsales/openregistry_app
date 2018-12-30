@@ -11,6 +11,7 @@ import { AuthGuard } from './_guards/auth.guard';
 
 import { UserIdleModule } from 'angular-user-idle';
 import { DialogService } from './core/services/dialog.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { DialogService } from './core/services/dialog.service';
     AppRoutingModule,
     BrowserModule,
     CoreModule,
+    ReactiveFormsModule,
     UserIdleModule.forRoot({idle: 60*5, timeout: 60, ping: 120}),
     // Notifications
     SimpleNotificationsModule.forRoot(),
