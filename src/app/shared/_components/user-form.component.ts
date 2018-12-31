@@ -273,7 +273,8 @@ export class UserFormComponent implements OnInit {
             created_user => {
                 this.is_processing = false;
                 this._notificationsService.success(
-                    'Successfully Updated Account',
+                    'Account',
+                    'Successfully Updated!',
                     {
                         timeOut: 10000,
                         showProgressBar: true,
