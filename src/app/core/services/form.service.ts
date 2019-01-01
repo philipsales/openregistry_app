@@ -89,7 +89,8 @@ export class FormService {
     return this.http.get(url).map((response: Response) => {
       return response['data'].filter((all_forms: FormJSON) => {
         console.log(all_forms, 'ALL');
-        return all_forms.type === medical_form_type && all_forms.department === user['department'];
+        return all_forms.type === medical_form_type 
+        && (<string[]>user['departments']).indexOf(all_forms.department) != -1;
       }).map(Form.fromJSON);
     }).catch(Helper.handleError);
   }

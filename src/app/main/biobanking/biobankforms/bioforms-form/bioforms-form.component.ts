@@ -52,8 +52,6 @@ export class BioformsFormComponent implements OnInit {
 
   @Input() set form(value: Form) {
     this._form = value;
-    console.log('Input');
-    console.warn(this._form, 'HELLO!');
     /*
     if (value.table_section) {
       const total = value.table_section.length;
@@ -101,6 +99,15 @@ export class BioformsFormComponent implements OnInit {
       console.log(allspectypes);
       this.specimen_types = allspectypes;
     });
+    // this.specService.getAll().subscribe(allspecs => {
+    //   this.specimens = allspecs.sort(
+    //     (a, b) => a.name.localeCompare(b.name));
+    // });
+
+    // this.specTypeService.getAll().subscribe(allspectypes => {
+    //   this.specimen_types = allspectypes.sort(
+    //     (a, b) => a.name.localeCompare(b.name));
+    // });
   }
 
   ngOnInit() {
