@@ -177,7 +177,7 @@
 			<h2>Departments</h2>
 			<div class="clearfix"></div>
 		</div>
-		<mat-selection-list #sel_departments dense>
+		<mat-selection-list #sel_departments dense [style.overflow]="'auto'" [style.height.px]="'300'">
 			<mat-list-option *ngFor="let department of departments"
 				[disabled]="method == 'VIEW' || method == 'MYACCOUNT'"
 				[selected]="_user.departments.indexOf(department.name) !== -1"
