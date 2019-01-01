@@ -38,9 +38,12 @@ export class UserFormComponent implements OnInit {
     _resetuser: UserJSON;
     _user: User;
 
+    resetuser: User;
+
 
     @Input() set user(value: User) {
         this._user = value;
+        this.resetuser = Object.assign({}, value);
         if (this._user.organizations) {
             this.organization_search = this._user.organizations;
             this.is_organization_ok = true;
@@ -96,6 +99,7 @@ export class UserFormComponent implements OnInit {
     ) {
 
         this._user = new User('', false, '', '', '', '', '', '', '', false);
+        this.resetuser = Object.assign({}, this._user);
         this._user.gender = 'M';
         this.confirmation_password = '';
         const position = [
@@ -203,7 +207,7 @@ export class UserFormComponent implements OnInit {
     }
 
     onResetUserClick() {
-        this._user = User.fromJSON(this._resetuser);
+        this._user = User.fromJSON(this.resetuser);
     }
 
     onSaveClick(input_user: User) {
@@ -224,6 +228,7 @@ export class UserFormComponent implements OnInit {
         this.userService.create(input_user).subscribe(
             created_user => {
                 this.is_processing = false;
+                this.resetuser = Object.assign({}, input_user);
                 this._notificationsService.success(
                     'New User : ' + input_user.username,
                     'Successfully Created',
@@ -248,6 +253,7 @@ export class UserFormComponent implements OnInit {
         this.userService.update(input_user).subscribe(
             created_user => {
                 this.is_processing = false;
+                this.resetuser = Object.assign({}, input_user);
                 this._notificationsService.success(
                     'User : ' + input_user.username,
                     'Successfully Updated',
@@ -272,6 +278,7 @@ export class UserFormComponent implements OnInit {
         this.userService.updateMyAccount(input_user).subscribe(
             created_user => {
                 this.is_processing = false;
+                this.resetuser = Object.assign({}, input_user);
                 this._notificationsService.success(
                     'Account',
                     'Successfully Updated!',
