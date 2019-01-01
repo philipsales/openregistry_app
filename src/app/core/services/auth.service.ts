@@ -53,7 +53,6 @@ export class AuthService {
       })
     //   .catch(Helper.handleError);
     .catch(e => {
-        console.log(e, 'hello world');
         if (e['status'] == 401) {
             alert('hello world');
             let res = {
