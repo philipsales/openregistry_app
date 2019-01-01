@@ -171,27 +171,6 @@
   </div>
 </div> <!-- Account Information -->
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-	<div class="x_panel">
-		<div class="x_title">
-			<h2>Departments</h2>
-			<div class="clearfix"></div>
-		</div>
-		<mat-selection-list #sel_departments dense [style.overflow]="'auto'" [style.height.px]="'300'">
-			<mat-list-option *ngFor="let department of departments"
-				[disabled]="method == 'VIEW' || method == 'MYACCOUNT'"
-				[selected]="_user.departments.indexOf(department.name) !== -1"
-				(click)="onDepartmentListChanged(department)"
-				[value]="department.name">
-				<div class="row">
-						<div class="col-md-4">{{department.name}}</div>
-						<div class="col-md-2">{{department.description}}</div>
-					</div>
-			</mat-list-option>
-		</mat-selection-list>
-	</div>
-</div>
-
 <!-- General -->
 <div class="col-md-12 col-sm-12 col-xs-12"> 
   <div class="x_panel">
@@ -453,6 +432,28 @@
   </div>
 </div> <!-- Organization -->
 
+
+
+<div class="col-md-12 col-sm-12 col-xs-12">
+	<div class="x_panel">
+		<div class="x_title">
+			<h2>Departments</h2>
+			<div class="clearfix"></div>
+		</div>
+		<mat-selection-list #sel_departments dense [style.overflow]="'auto'" [style.height.px]="'300'">
+			<mat-list-option *ngFor="let department of departments"
+				[disabled]="method == 'VIEW' || method == 'MYACCOUNT'"
+				[selected]="_user.departments.indexOf(department.name) !== -1"
+				(click)="onDepartmentListChanged(department)"
+				[value]="department.name">
+				<div class="row">
+						<div class="col-md-4">{{department.name}}</div>
+						<div class="col-md-2">{{department.description}}</div>
+					</div>
+			</mat-list-option>
+		</mat-selection-list>
+	</div>
+</div>
 
 <!-- Approval-->
 <div class="col-md-12 col-sm-12 col-xs-12"> 
