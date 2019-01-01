@@ -49,8 +49,10 @@ export class PcariformManageComponent implements OnInit {
 
   private _form: Form;
   @Input() set form(value: Form) {
-    this._form = value;
-    this.templateForm = this.toFormGroup(this._form);
+    if (value != null) {
+      this._form = value;
+      this.templateForm = this.toFormGroup(this._form);
+    }
     console.warn(this._form, 'HELLO!');
   }// -- setter for forms
 

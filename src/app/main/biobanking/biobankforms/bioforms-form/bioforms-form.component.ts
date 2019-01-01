@@ -48,10 +48,12 @@ export class BioformsFormComponent implements OnInit {
 
   errors: any = {};
   has_errors = false;
-  _form: Form;
+  _form: Form = new Form('', '', '', '', '');;
 
   @Input() set form(value: Form) {
-    this._form = value;
+    if (value != null) {
+      this._form = value;
+    }
     /*
     if (value.table_section) {
       const total = value.table_section.length;
@@ -91,23 +93,12 @@ export class BioformsFormComponent implements OnInit {
     this.table_section.push({specimen: '', type: ''});
 
     this.specService.getAll().subscribe(allspecs => {
-      console.log(allspecs);
       this.specimens = allspecs;
     });
 
     this.specTypeService.getAll().subscribe(allspectypes => {
-      console.log(allspectypes);
       this.specimen_types = allspectypes;
     });
-    // this.specService.getAll().subscribe(allspecs => {
-    //   this.specimens = allspecs.sort(
-    //     (a, b) => a.name.localeCompare(b.name));
-    // });
-
-    // this.specTypeService.getAll().subscribe(allspectypes => {
-    //   this.specimen_types = allspectypes.sort(
-    //     (a, b) => a.name.localeCompare(b.name));
-    // });
   }
 
   ngOnInit() {
