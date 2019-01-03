@@ -45,7 +45,7 @@ export class MedformsCreateComponent implements OnInit {
       this.new_form = new Form(
         '',
         environment.ORG_MEDICAL,
-        environment.DEPT_MEDICAL,
+        [environment.DEPT_MEDICAL],
         environment.FORM_TYPE_MEDICAL,
         'Pending',
         [

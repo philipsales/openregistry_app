@@ -43,8 +43,9 @@
       <tr  *ngFor="let form of _forms | formfilter : filter; let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td class="e2e-newest-form"> {{ form.name }}</td>
-
-        <td style="text-align: left;">{{ form.department }}</td>
+        <td style="text-align: left;">
+          <p *ngFor="let department of form.department">{{department}}</p>
+        </td>
         <td  style="text-align: center;">
           <span *ngIf='isValid(form.validity_date)'
             class="badge badge--success" #valid> Valid 

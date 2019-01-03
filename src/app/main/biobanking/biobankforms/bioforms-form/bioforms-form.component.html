@@ -77,9 +77,11 @@
 
             <mat-form-field class="material-form-control" >
               <mat-select placeholder="Department"
-                          [disabled]="true"
                           [(ngModel)]="_form.department" 
-                          #input_department="ngModel" name="input_department"
+                          #input_department="ngModel" 
+                          name="input_department"
+                          multiple
+                          (selectionChange)="micool()"
                           required="required" >
                 <mat-option *ngFor="let dept of departments"
                             [id]="dept.key" 

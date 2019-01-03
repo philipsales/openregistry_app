@@ -6,7 +6,7 @@ export interface FormJSON {
     id?: string;
     name: string;
     organization: string;
-    department: string;
+    department: string[];
     type: string;
     approval?: string;
     status?: string;

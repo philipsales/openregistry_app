@@ -6,7 +6,7 @@ export class Form {
   id: string;
   name: string;
   organization: string;
-  department: string;
+  department: string[];
   type: string;
   approval?: string;
   validity_date?: Date;
@@ -102,7 +102,7 @@ export class Form {
   constructor(
     name: string,
     organization: string,
-    department: string,
+    department: string[],
     type: string,
     status: string,
     sections?: Section[],
