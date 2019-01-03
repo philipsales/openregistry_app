@@ -158,7 +158,8 @@
                       id="e2e-question-content-spec-{{i}}"
                       [(ngModel)]="specimen.specimen"
                       name="specname-{{i}}"
-                      (selectionChange)="onChangeSpec($event)" required>
+                      required>
+                      <!-- (selectionChange)="onChangeSpec($event)" -->
                       <mat-option *ngFor="let spec of specimens" 
                         [value]="spec.name">
                           {{ spec.name }} 
@@ -171,7 +172,8 @@
                       id="e2e-question-content-type-{{i}}"
                       [(ngModel)]="specimen.type"
                       name="spectype-{{i}}"
-                      (selectionChange)="onChangeSpecType($event)" required>
+                      required>
+                      <!-- (selectionChange)="onChangeSpecType($event)" -->
                         <mat-option *ngFor="let specimen_type of specimen_types" 
                           [value]="specimen_type.name">
                           {{ specimen_type.name }}

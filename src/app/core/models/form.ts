@@ -17,7 +17,7 @@ export class Form {
   date_created?: Date;
   is_deleted?: boolean;
   is_table?: boolean;
-  table_section: TableSection[];
+  table_section: TableSection[] = [];
   sections?: Section[];
 
   static fromJSON(json: FormJSON): Form {
