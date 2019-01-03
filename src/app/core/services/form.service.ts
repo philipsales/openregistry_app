@@ -102,7 +102,9 @@ export class FormService {
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response: Response) => {
       return response['data'].filter((all_forms: FormJSON) => {
-        return all_forms.type === medical_form_type && all_forms.department === user['department']
+        return all_forms.type === medical_form_type 
+        && (<string[]>user['departments']).some(
+          dept => all_forms.department.indexOf(dept) != -1)
         && all_forms.status === 'Approved'
         && moment().isSameOrBefore(all_forms.validity_date, 'day');
       }).map(Form.fromJSON);
@@ -115,7 +117,9 @@ export class FormService {
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response) => {
       return response['data'].filter((all_forms: FormJSON) => {
-        return all_forms.type === biobank_form_type && all_forms.department === user['department']
+        return all_forms.type === biobank_form_type 
+          && (<string[]>user['departments']).some(
+            dept => all_forms.department.indexOf(dept) != -1)
           && all_forms.status === 'Approved'
           && moment().isSameOrBefore(all_forms.validity_date, 'day');
       }).map(Form.fromJSON);
