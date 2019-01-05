@@ -75,7 +75,7 @@ export class FormService {
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response) => {
       return response['data'].filter((all_forms: FormJSON) => {
-        return all_forms.type == biobank_form_type &&
+        return all_forms.type.indexOf(biobank_form_type) != -1 &&
         (<string[]>user['departments']).some(dept => all_forms.department.indexOf(dept) != -1);
       }).map(Form.fromJSON);
     }).catch(Helper.handleError);
@@ -89,7 +89,7 @@ export class FormService {
     return this.http.get(url).map((response: Response) => {
       return response['data'].filter((all_forms: FormJSON) => {
         console.log(all_forms, 'ALL');
-        return all_forms.type === medical_form_type 
+        return all_forms.type.indexOf(medical_form_type) != -1 
         && (<string[]>user['departments']).some(dept => all_forms.department.indexOf(dept) != -1);
       }).map(Form.fromJSON);
     }).catch(Helper.handleError);
@@ -102,7 +102,7 @@ export class FormService {
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response: Response) => {
       return response['data'].filter((all_forms: FormJSON) => {
-        return all_forms.type === medical_form_type 
+        return all_forms.type.indexOf(medical_form_type) != -1
         && (<string[]>user['departments']).some(
           dept => all_forms.department.indexOf(dept) != -1)
         && all_forms.status === 'Approved'
@@ -117,7 +117,7 @@ export class FormService {
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response) => {
       return response['data'].filter((all_forms: FormJSON) => {
-        return all_forms.type === biobank_form_type 
+        return all_forms.type.indexOf(biobank_form_type) != -1 
           && (<string[]>user['departments']).some(
             dept => all_forms.department.indexOf(dept) != -1)
           && all_forms.status === 'Approved'

@@ -49,9 +49,11 @@
             </mat-form-field>
             <mat-form-field class="material-form-control" >
               <mat-select placeholder="Registry Type"
-                          [disabled]="true"
                           [(ngModel)]="_form.type"
-                          #input_type="ngModel" name="input_type"
+                          #input_type="ngModel" 
+                          name="input_type"
+                          multiple
+                          disabled
                           required="required" >
                 <mat-option *ngFor="let type of registryTypes"
                             [id]="type.name" 
@@ -64,9 +66,10 @@
           <div class="material-form-group">
             <mat-form-field class="material-form-control" >
               <mat-select placeholder="Organization"
-                          [disabled]="true"
                           [(ngModel)]="_form.organization" 
-                          #input_org="ngModel" name="input_org"
+                          #input_org="ngModel" 
+                          name="input_org"
+                          multiple
                           required="required" >
                 <mat-option *ngFor="let org of organizations"
                             [id]="org.key" 
@@ -81,7 +84,6 @@
                           #input_department="ngModel" 
                           name="input_department"
                           multiple
-                          (selectionChange)="micool()"
                           required="required" >
                 <mat-option *ngFor="let dept of departments"
                             [id]="dept.key" 

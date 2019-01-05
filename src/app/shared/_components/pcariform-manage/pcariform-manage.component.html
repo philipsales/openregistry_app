@@ -41,6 +41,7 @@
                     <mat-select placeholder="Registry Type"
                                 formControlName="type"
                                 [disabled]="true"
+                                multiple
                                 [(ngModel)]="_form.type" >
                       <mat-option *ngFor="let type of registryTypes"
                                   [id]="type.name" 
@@ -57,7 +58,7 @@
                   <mat-form-field class="material-form-control" >
                     <mat-select placeholder="Organization"
                                 formControlName="organization"
-                                [disabled]="true"
+                                multiple
                                 [(ngModel)]="_form.organization" >
                       <mat-option *ngFor="let org of organizations"
                                   [id]="org.key" 
@@ -71,8 +72,8 @@
                   <mat-form-field class="material-form-control" >
                     <mat-select placeholder="Department"
                                 formControlName="department"
-                                [disabled]="true"
-                                [(ngModel)]="_form.department" >
+                                [(ngModel)]="_form.department"
+                                multiple >
                       <mat-option *ngFor="let dept of departments"
                                   [id]="dept.key" 
                                   [value]="dept.name">{{dept.name}}

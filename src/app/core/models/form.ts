@@ -5,9 +5,9 @@ import { FormJSON } from './../interfaces';
 export class Form {
   id: string;
   name: string;
-  organization: string;
+  organization: string[];
   department: string[];
-  type: string;
+  type: string[];
   approval?: string;
   validity_date?: Date;
   dir_path?: string;
@@ -101,9 +101,9 @@ export class Form {
 
   constructor(
     name: string,
-    organization: string,
+    organization: string[],
     department: string[],
-    type: string,
+    type: string[],
     status: string,
     sections?: Section[],
     validity_date?: Date,

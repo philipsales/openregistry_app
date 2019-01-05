@@ -48,11 +48,7 @@ export class BioformsFormComponent implements OnInit {
 
   errors: any = {};
   has_errors = false;
-  _form: Form = new Form('', '', [], '', '');;
-
-  micool() {
-    console.log(this._form.department, 'depts');
-  }
+  _form: Form = new Form('', [], [], [], '');;
 
   @Input() set form(value: Form) {
     if (value != null) {
