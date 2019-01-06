@@ -52,12 +52,14 @@ import { MtaPipe } from './_pipes/mta.pipe';
 import { FormPipe } from './_pipes/form.pipe';
 import { CasePipe } from './_pipes/case.pipe';
 
+import { MatPaginatorModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
+    MatPaginatorModule,
     ReactiveFormsModule,
     Ng2CompleterModule,
     InMemoryWebApiModule.forRoot(FormDummyApiResponse, {

@@ -5,52 +5,56 @@
       <input type="text"
         class="form-control"
         [(ngModel)]="searchText"
-			  (keyup.enter)="filter = searchText"
+			  (keyup.enter)="doSearch($event)"
         placeholder="Search for...">
       <span class="input-group-btn">
         <button class="btn btn-default"
-          (click)="filter = searchText"
+        (click)="doSearch($event)"
           type="button">
           Go!
         </button>
       </span> 
     </div>
   </div>
-  <!--<a [routerLink]="['/biobanking/questions/create']"-->
-  <a [routerLink]="[create_url]"
-  appPcariauth
-  [mustHavePermission]="['biobank_form_create', 'medical_form_create']"
-  [mustBeAll]="false" 
-      class="btn btn-default pull-right">
-    <i class="fa fa-plus e2e-create-form"></i> &nbsp; Create Form 
-  </a>
+  <mat-paginator #paginator 
+  [length]="pagelength" 
+  [pageIndex]="0"
+  [pageSize]="10" 
+  [pageSizeOptions]="[5, 10, 25, 100]"
+  class="pull-right"
+  (page)="getForms($event)">
+  </mat-paginator>
 </div>
 
 <div class="col-md-12">
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>#</th>
         <th>Form Name</th>
         <!-- <th>Type</th> -->
         <th style="text-align: left;">Department</th>
         <th style="text-align: center;">Validity</th>
-        <th style="text-align: center;">Approval</th>
+        <th (click)="doSort()" style="text-align: center;">
+          Approval <i class="fa fa-4"
+          [ngClass]="{
+          'fa-chevron-up': sort == 1, 
+          'fa-chevron-down': sort == -1}"
+          aria-hidden="true"></i>
+        </th>
         <th style="text-align: center;">Manage</th>
       </tr>
     </thead>
     <tbody>
-      <tr  *ngFor="let form of _forms | formfilter : filter; let i = index">
-        <th scope="row">{{ i + 1 }}</th>
+      <tr  *ngFor="let form of _forms; let i = index">
         <td class="e2e-newest-form"> {{ form.name }}</td>
         <td style="text-align: left;">
           <p *ngFor="let department of form.department">{{department}}</p>
         </td>
         <td  style="text-align: center;">
-          <span *ngIf='isValid(form.validity_date)'
+          <span *ngIf='form.isValid'
             class="badge badge--success" #valid> Valid 
           </span>
-          <span *ngIf='!isValid(form.validity_date)'
+          <span *ngIf='!form.isValid'
             class="badge badge--invalid" #invalid> Expired 
           </span>
         </td>
@@ -104,6 +108,18 @@
       </tr>
     </tbody>
   </table>
+
+  <div style="z-index:5; position : fixed;display : flex; 
+  align-self : flex-end;bottom : 10%; margin-bottom : 68px; right:5%;">
+    <button 
+    [routerLink]="[create_url]"
+    appPcariauth
+    [mustHavePermission]="['biobank_form_create', 'medical_form_create']"
+    [mustBeAll]="false" 
+      mat-fab color="primary">
+      <i class="fa fa-plus fa-3" aria-hidden="true"></i>
+    </button>
+  </div>
 </div>
 
 

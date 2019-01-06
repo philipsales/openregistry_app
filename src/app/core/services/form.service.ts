@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 
 // import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -24,6 +24,7 @@ import { Helper } from '../helper';
 import { Form, Question } from '../models';
 import { environment } from 'environments/environment';
 import { FormJSON } from 'app/core/interfaces';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class FormService {
@@ -67,6 +68,25 @@ export class FormService {
     return this.http.get(url).map((response: Response) => {
       return response['data'].map(Form.fromJSON);
     }).catch(Helper.handleError);
+  }
+
+  list(type: string = environment.FORM_TYPE_BIOBANK, 
+    index:number=0, skip:number=10, keywords:string='', sort:number=0): Observable<FormResultJSON> {
+    const url = environment.API_ENDPOINT + 'forms/list';
+    let params = new HttpParams()
+      .set('index', index.toString())
+      .set('limit', skip.toString())
+      .set('keywords', keywords)
+      .set('sort', sort.toString())
+      .set('type', type);
+    return this.http.get<{count:number; forms: FormJSON[]}>(url, {params}).pipe(
+      map(result => {
+        return {
+          count: result.count,
+          forms: result.forms.map(Form.fromJSON)
+        }
+      })
+    );
   }
 
   getBiobankForms(): Observable<Form[]> {
@@ -262,4 +282,9 @@ export class FormService {
       })
       .catch(Helper.handleError);
   }
+}
+
+export interface FormResultJSON {
+  count: number;
+  forms: Form[];
 }

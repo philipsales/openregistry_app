@@ -1,7 +1,8 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { Form } from 'app/core/models';
 import { FormService } from '../../../core/services';
 import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
 
 import * as moment from 'moment';
@@ -13,10 +14,17 @@ import * as moment from 'moment';
 })
 export class PcariformListComponent implements OnInit {
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() create_url: string;
   @Input() update_url: string;
   searchText = '';
   filter = '';
+
+  sort = 0; // desc == -1
+
+  @Input() type: string;
+
+  pagelength:number;
 
   _forms: Form[];
   @Input() set forms(value: Form[]) {
@@ -39,7 +47,40 @@ export class PcariformListComponent implements OnInit {
 
   ngOnInit() {
     this._date_today = Date.now();
-    console.log(this._date_today);
+    this.getForms({pageIndex: 0, pageSize: 10});
+  }
+
+  doSearch() {
+    let pageIndex = 0;
+    let pageSize = 10;
+    this.getForms({pageIndex, pageSize}, true);
+  }
+
+  doSort() {
+    if (this.sort == 0) { // sort asc
+      this.sort = 1;
+    }else if (this.sort == 1) { // sort desc
+      this.sort = -1;
+    } else if (this.sort == -1) { // sort by date created
+      this.sort = 0;
+    }
+    this.getForms(this.paginator);
+  }
+
+  getForms(paginator={
+    pageIndex: 0, 
+    pageSize: 10}, reset=false) {
+    this.formService.list(this.type, 
+      paginator.pageIndex, 
+      paginator.pageSize,
+      this.searchText,
+      this.sort).subscribe(result => {
+      this._forms = result.forms;
+      this.pagelength = result.count;
+      if (reset) {
+        this.paginator.pageIndex = 0;
+      }
+    });
   }
 
   setCurrentForm(form: Form) {

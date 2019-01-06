@@ -19,6 +19,7 @@ export class Form {
   is_table?: boolean;
   table_section: TableSection[] = [];
   sections?: Section[];
+  isValid: boolean;
 
   static fromJSON(json: FormJSON): Form {
     if (typeof json === 'string') {
@@ -45,7 +46,8 @@ export class Form {
         validity_date: json.validity_date,
         dir_path: json.dir_path,
         is_deleted: json.is_deleted,
-        is_table: json.is_table
+        is_table: json.is_table,
+        isValid: json.isValid
       });
 
       if (json.table_section) {

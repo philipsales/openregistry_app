@@ -18,4 +18,5 @@ export interface FormJSON {
     is_table?: boolean;
     table_section: TableSectionJSON[];
     sections?: SectionJSON[];
+    isValid: boolean;
 }
