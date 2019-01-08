@@ -15,7 +15,7 @@ import { DatabaseService } from 'app/core/services';
 import { DatabaseListComponent } from './database-list.component';
 import { DatabaseCreateComponent } from './database-create.component';
 
-import { KeysPipe } from 'app/core/utils';
+//import { KeysPipe } from 'app/core/utils';
 
 @NgModule({
   imports: [
@@ -27,7 +27,7 @@ import { KeysPipe } from 'app/core/utils';
     DatabaseRoutingModule
   ],
   declarations: [
-    KeysPipe,
+    //KeysPipe,
     DatabaseListComponent,
     DatabaseCreateComponent
   ],

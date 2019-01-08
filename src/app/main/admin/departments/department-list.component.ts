@@ -22,7 +22,7 @@ export class DepartmentListComponent implements OnInit {
     this.getDepartments();
   }
 
-  doSearch() {
+  doSearch(newObject: any) {
     let pageIndex = 0;
     let pageSize = 10;
     this.getDepartments({pageIndex, pageSize}, true);

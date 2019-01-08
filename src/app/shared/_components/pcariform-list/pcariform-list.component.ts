@@ -50,7 +50,7 @@ export class PcariformListComponent implements OnInit {
     this.getForms({pageIndex: 0, pageSize: 10});
   }
 
-  doSearch() {
+  doSearch(newObject: any) {
     let pageIndex = 0;
     let pageSize = 10;
     this.getForms({pageIndex, pageSize}, true);
