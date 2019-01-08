@@ -13,7 +13,7 @@ export class UsersCreateComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.new_user = new User('', false, '', '', '', '', '', '', '', '', false);
+    this.new_user = new User('', false, '', '', '', '', '', '', '', false);
   }
 
 }

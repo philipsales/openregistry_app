@@ -14,6 +14,7 @@ export class User {
     verification_status: string;
     department: string;
     roles: string[];
+    departments: string[];
     // organizations: { organization: number, position: number }[];
     organizations: string;
     position: string;
@@ -36,6 +37,7 @@ export class User {
                 mobile_number: json.mobile_number,
                 verification_status: json.verification_status,
                 roles: json.roles,
+                departments: json.departments,
                 position: json.position,
                 organizations: json.organizations,
                 isActive: json.isActive,
@@ -55,7 +57,6 @@ export class User {
         middle_name: string,
         gender: string,
         mobile_number: string,
-        organizations: string,
         position: string,
         verification_status: string,
         isActive: boolean,
@@ -69,6 +70,7 @@ export class User {
         this.email = username;
         this.mobile_number = mobile_number;
         this.roles = [];
+        this.departments = [];
         this.position = position;
         this.verification_status = verification_status;
         this.isActive = isActive;
@@ -88,6 +90,7 @@ export class User {
             email: this.email,
             mobile_number: this.mobile_number,
             verification_status: this.verification_status,
+            departments: this.departments,
             roles: this.roles,
             position: this.position
         });

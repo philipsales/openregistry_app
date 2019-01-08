@@ -15,6 +15,10 @@ const routes: Routes = [
         loadChildren: './roles/roles.module#RolesModule'
       },
       {
+        path: 'departments',
+        loadChildren: './departments/departments.module#DepartmentsModule'
+      },
+      {
         path: 'database',
         loadChildren: './databases/database.module#DatabaseModule'
       },

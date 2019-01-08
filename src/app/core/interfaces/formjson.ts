@@ -5,9 +5,9 @@ export interface FormJSON {
     _id?: string;
     id?: string;
     name: string;
-    organization: string;
-    department: string;
-    type: string;
+    organization: string[];
+    department: string[];
+    type: string[];
     approval?: string;
     status?: string;
     created_by?: string;
@@ -18,4 +18,5 @@ export interface FormJSON {
     is_table?: boolean;
     table_section: TableSectionJSON[];
     sections?: SectionJSON[];
+    isValid: boolean;
 }

@@ -49,9 +49,11 @@
             </mat-form-field>
             <mat-form-field class="material-form-control" >
               <mat-select placeholder="Registry Type"
-                          [disabled]="true"
                           [(ngModel)]="_form.type"
-                          #input_type="ngModel" name="input_type"
+                          #input_type="ngModel" 
+                          name="input_type"
+                          multiple
+                          disabled
                           required="required" >
                 <mat-option *ngFor="let type of registryTypes"
                             [id]="type.name" 
@@ -64,9 +66,10 @@
           <div class="material-form-group">
             <mat-form-field class="material-form-control" >
               <mat-select placeholder="Organization"
-                          [disabled]="true"
                           [(ngModel)]="_form.organization" 
-                          #input_org="ngModel" name="input_org"
+                          #input_org="ngModel" 
+                          name="input_org"
+                          multiple
                           required="required" >
                 <mat-option *ngFor="let org of organizations"
                             [id]="org.key" 
@@ -77,9 +80,10 @@
 
             <mat-form-field class="material-form-control" >
               <mat-select placeholder="Department"
-                          [disabled]="true"
                           [(ngModel)]="_form.department" 
-                          #input_department="ngModel" name="input_department"
+                          #input_department="ngModel" 
+                          name="input_department"
+                          multiple
                           required="required" >
                 <mat-option *ngFor="let dept of departments"
                             [id]="dept.key" 
@@ -158,7 +162,8 @@
                       id="e2e-question-content-spec-{{i}}"
                       [(ngModel)]="specimen.specimen"
                       name="specname-{{i}}"
-                      (selectionChange)="onChangeSpec($event)" required>
+                      required>
+                      <!-- (selectionChange)="onChangeSpec($event)" -->
                       <mat-option *ngFor="let spec of specimens" 
                         [value]="spec.name">
                           {{ spec.name }} 
@@ -171,7 +176,8 @@
                       id="e2e-question-content-type-{{i}}"
                       [(ngModel)]="specimen.type"
                       name="spectype-{{i}}"
-                      (selectionChange)="onChangeSpecType($event)" required>
+                      required>
+                      <!-- (selectionChange)="onChangeSpecType($event)" -->
                         <mat-option *ngFor="let specimen_type of specimen_types" 
                           [value]="specimen_type.name">
                           {{ specimen_type.name }}

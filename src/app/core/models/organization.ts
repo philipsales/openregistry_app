@@ -13,7 +13,7 @@ export class Organization {
             return JSON.parse(json, Organization.reviver);
         } else {
             const organization = Object.create(Organization.prototype);
-            return Object.assign(organization, json, {
+            return Object.assign(organization, {
                 id: json._id,
                 name: json.name,
             });

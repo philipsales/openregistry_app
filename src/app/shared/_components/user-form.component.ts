@@ -38,9 +38,12 @@ export class UserFormComponent implements OnInit {
     _resetuser: UserJSON;
     _user: User;
 
+    resetuser: User;
+
 
     @Input() set user(value: User) {
         this._user = value;
+        this.resetuser = Object.assign({}, value);
         if (this._user.organizations) {
             this.organization_search = this._user.organizations;
             this.is_organization_ok = true;
@@ -49,19 +52,12 @@ export class UserFormComponent implements OnInit {
             this.position_search = this._user.position;
             this.is_position_ok = true;
         }
-        this._resetuser = this._user.toJSON();
-        if (this._user.department) {
-            this.department_search = this._user.department;
-            this.is_department_ok = true;
-        } else {
-            this.department_search = '';
-        }
-        console.warn(this.department_search, 'HELLO!');
-        this.departmentService.getDepartments().subscribe(
-            (dept) => {
-                this.departmentCompleterData = this.departmentCompleterService.local(dept, 'name', 'name');
-            }
-        );
+        // this.departmentService.getDepartments().subscribe(
+        //     (dept) => {
+        //         this.departments = dept;
+        //         // this.departmentCompleterData = this.departmentCompleterService.local(dept, 'name', 'name');
+        //     }
+        // );
     }// -- _reinit setter
 
     @Input() method: string;
@@ -79,9 +75,8 @@ export class UserFormComponent implements OnInit {
     roles: Role[];
     @ViewChild('sel_roles') sel_roles: MatSelectionList;
 
-    department_search;
-    departmentCompleterData: CompleterData;
-    @ViewChild('departmentCompleter') departmentCompleter: CompleterCmp;
+    departments: Department[];
+    @ViewChild('sel_departments') sel_departments: MatSelectionList;
 
     errors: any = {};
 
@@ -89,9 +84,7 @@ export class UserFormComponent implements OnInit {
     is_processing = false;
     is_organization_ok = false;
     is_position_ok = false;
-    is_department_ok = false;
     approval_status = [];
-    departments: Department[];
 
     constructor(
         private userService: UserService,
@@ -105,7 +98,8 @@ export class UserFormComponent implements OnInit {
         private _notificationsService: NotificationsService
     ) {
 
-        this._user = new User('', false, '', '', '', '', '', '', '', '', false);
+        this._user = new User('', false, '', '', '', '', '', '', '', false);
+        this.resetuser = Object.assign({}, this._user);
         this._user.gender = 'M';
         this.confirmation_password = '';
         const position = [
@@ -128,6 +122,13 @@ export class UserFormComponent implements OnInit {
                 console.warn(roles, 'Roles ON service');
                 this.roles = roles;
             },
+            error => {
+                console.log(error);
+            }
+        );
+
+        this.departmentService.getDepartments().subscribe(
+            departments => this.departments = departments,
             error => {
                 console.log(error);
             }
@@ -183,37 +184,17 @@ export class UserFormComponent implements OnInit {
         console.log(this._user.roles, 'SELECTED');
     }
 
+    onDepartmentListChanged(cur_departments: MatSelectionList) {
+        this._user.departments = this.sel_departments.selectedOptions.
+            selected.map(item => item.value);
+        console.log(this._user.departments, 'SELECTED');
+    }
+
     onOrganizationSearchClick() {
         if (this.organizationCompleter.isOpen()) {
             this.organizationCompleter.close();
         } else {
             this.organizationCompleter.open();
-        }
-    }
-
-    onSelectDepartment(data: CompleterItem) {
-        if (data && data.originalObject) {
-            console.log(data, 'COMPLETER');
-            this._user.department = data.originalObject.name;
-            this.is_department_ok = true;
-        }
-        console.log(this.department_search, 'COMPLETER');
-        console.log(this._user.department, 'COMPLETER');
-        this.is_department_ok = (this._user.department) ? true : false;
-    }
-
-    isDepartmentOpen(isOpen: boolean) {
-        if (isOpen) {
-            this.department_search = "";
-            this.is_department_ok = false;
-        }
-    }
-
-    onDepartmentSearchClick() {
-        if (this.departmentCompleter.isOpen()) {
-            this.departmentCompleter.close();
-        } else {
-            this.departmentCompleter.open();
         }
     }
 
@@ -226,7 +207,7 @@ export class UserFormComponent implements OnInit {
     }
 
     onResetUserClick() {
-        this._user = User.fromJSON(this._resetuser);
+        this._user = User.fromJSON(this.resetuser);
     }
 
     onSaveClick(input_user: User) {
@@ -247,6 +228,7 @@ export class UserFormComponent implements OnInit {
         this.userService.create(input_user).subscribe(
             created_user => {
                 this.is_processing = false;
+                this.resetuser = Object.assign({}, input_user);
                 this._notificationsService.success(
                     'New User : ' + input_user.username,
                     'Successfully Created',
@@ -271,6 +253,7 @@ export class UserFormComponent implements OnInit {
         this.userService.update(input_user).subscribe(
             created_user => {
                 this.is_processing = false;
+                this.resetuser = Object.assign({}, input_user);
                 this._notificationsService.success(
                     'User : ' + input_user.username,
                     'Successfully Updated',
@@ -295,8 +278,10 @@ export class UserFormComponent implements OnInit {
         this.userService.updateMyAccount(input_user).subscribe(
             created_user => {
                 this.is_processing = false;
+                this.resetuser = Object.assign({}, input_user);
                 this._notificationsService.success(
-                    'Successfully Updated Account',
+                    'Account',
+                    'Successfully Updated!',
                     {
                         timeOut: 10000,
                         showProgressBar: true,
