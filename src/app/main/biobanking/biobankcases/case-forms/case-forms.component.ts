@@ -24,7 +24,7 @@ export class CaseFormsComponent implements OnInit {
     private formAnswerService: FormAnswerService,
     private formService: FormService
   ) {
-    this.caseform = new Form('', [], [], [], '');
+    this.caseform = new Form('', [], [], '', '');
   }
 
   ngOnInit() {

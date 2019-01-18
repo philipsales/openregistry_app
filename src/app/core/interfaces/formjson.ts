@@ -1,5 +1,6 @@
 import { SectionJSON } from './sectionjson';
 import { TableSectionJSON } from './tablesectionjson';
+import { PrincipalInvestigator } from '../models/principalinvestigator';
 
 export interface FormJSON {
     _id?: string;
@@ -7,7 +8,7 @@ export interface FormJSON {
     name: string;
     organization: string[];
     department: string[];
-    type: string[];
+    type: string;
     approval?: string;
     status?: string;
     created_by?: string;
@@ -19,4 +20,6 @@ export interface FormJSON {
     table_section: TableSectionJSON[];
     sections?: SectionJSON[];
     isValid: boolean;
+    coinvestigator: string;
+    principalinvestigator: PrincipalInvestigator[];
 }

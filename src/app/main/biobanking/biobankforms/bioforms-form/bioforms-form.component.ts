@@ -12,7 +12,7 @@ declare var jquery: any;
 declare var $: any;
 
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
-import { Form, Section, Question, RegType, Department, Organization, TableSection, Spec, SpecType } from 'app/core/models';
+import { Form, Section, Question, RegType, Department, Organization, TableSection, Spec, SpecType, PrincipalInvestigator } from 'app/core/models';
 import {
   OrganizationService,
   DepartmentService,
@@ -34,6 +34,11 @@ import { MatSelectChange } from '@angular/material';
 })
 export class BioformsFormComponent implements OnInit {
 
+  public principalinvestigators: PrincipalInvestigator[] = [
+    {id: "a1", name: "Dr. Rodney Dofitas"},
+    {id: "a2", name: "Dr. Maria Antonia Habana"}
+  ];
+
   @Output() onResetTrigger: EventEmitter<Form> = new EventEmitter();
   @Output() onSubmitTrigger: EventEmitter<Form> = new EventEmitter();
 
@@ -48,7 +53,7 @@ export class BioformsFormComponent implements OnInit {
 
   errors: any = {};
   has_errors = false;
-  _form: Form = new Form('', [], [], [], '');;
+  _form: Form = new Form('', [], [], '', '');;
 
   @Input() set form(value: Form) {
     if (value != null) {
@@ -123,6 +128,10 @@ export class BioformsFormComponent implements OnInit {
     if (this._form.table_section.length !== 1) {
       this._form.table_section.splice(index, 1);
     }
+  }
+
+  comparePrincipalSelectValue(selected, comparator) {
+    return comparator != null && selected.id == comparator.id;
   }
 
   /*

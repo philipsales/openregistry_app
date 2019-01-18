@@ -26,3 +26,4 @@ export * from './models/spec';
 export * from './models/spectype';
 export * from './models/search';
 export * from './models/searchcriteria';
+export * from './models/principalinvestigator'

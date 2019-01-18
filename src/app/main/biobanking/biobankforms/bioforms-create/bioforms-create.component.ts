@@ -64,9 +64,9 @@ export class BioformsCreateComponent implements OnInit {
   resetForm() {
     this.new_form = new Form(
       '',
-      [environment.ORG_BIOBANK],
-      [environment.DEPT_BIOBANK],
-      [environment.FORM_TYPE_BIOBANK],
+      [],
+      [],
+      environment.FORM_TYPE_BIOBANK,
       'Pending',
       [],
       new Date(),

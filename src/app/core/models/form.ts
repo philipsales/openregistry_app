@@ -1,13 +1,14 @@
 import { Section } from './section';
 import { TableSection } from './tablesection';
 import { FormJSON } from './../interfaces';
+import { PrincipalInvestigator } from './principalinvestigator';
 
 export class Form {
   id: string;
   name: string;
   organization: string[];
   department: string[];
-  type: string[];
+  type: string;
   approval?: string;
   validity_date?: Date;
   dir_path?: string;
@@ -20,6 +21,8 @@ export class Form {
   table_section: TableSection[] = [];
   sections?: Section[];
   isValid: boolean;
+  coinvestigator: string;
+  principalinvestigator: PrincipalInvestigator[] = [];
 
   static fromJSON(json: FormJSON): Form {
     if (typeof json === 'string') {
@@ -47,7 +50,9 @@ export class Form {
         dir_path: json.dir_path,
         is_deleted: json.is_deleted,
         is_table: json.is_table,
-        isValid: json.isValid
+        isValid: json.isValid,
+        coinvestigator: json.coinvestigator,
+        principalinvestigator: json.principalinvestigator
       });
 
       if (json.table_section) {
@@ -93,7 +98,9 @@ export class Form {
       is_deleted: json.is_deleted,
       is_table: json.is_table,
       table_section: table_section,
-      sections: sections
+      sections: sections,
+      coinvestigator: json.coinvestigator,
+      principalinvestigator: json.principalinvestigator
     });
   }
 
@@ -105,7 +112,7 @@ export class Form {
     name: string,
     organization: string[],
     department: string[],
-    type: string[],
+    type: string,
     status: string,
     sections?: Section[],
     validity_date?: Date,
@@ -156,7 +163,9 @@ export class Form {
       is_deleted: this.is_deleted,
       is_table: this.is_table,
       table_section: this.table_section,
-      sections: sections
+      sections: sections,
+      coinvestigator: this.coinvestigator,
+      principalinvestigator: this.principalinvestigator
     });
   }
 }

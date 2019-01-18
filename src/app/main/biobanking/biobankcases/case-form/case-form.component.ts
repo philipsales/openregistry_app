@@ -50,7 +50,7 @@ export class CaseFormComponent implements OnInit {
   medcases: string[];
   answers: FormAnswer[];
   filteredOptions: Observable<string[]>;
-  methods = ['MTA', 'Discard', 'Transfer To'];
+  methods = ['Discard', 'New Consent Form', 'New Institution'];
   mtas: MTA[];
 
   show_selected_forms = true;
@@ -189,7 +189,7 @@ export class CaseFormComponent implements OnInit {
      let specimens : Specimen[] = [];
      for (const x of form.table_section){
        let history : SpecimenHistory[] = [];
-       history.push(new SpecimenHistory(0, (new Date), 'MTA', 'recipient', 'somefile.pdf'));
+       history.push(new SpecimenHistory(0, new Date(), '', 'recipient', ''));
        // history.push(new SpecimenHistory(0, (new Date), 'Discard', 'recipient', 'Case number: 121212'));
       specimens.push(new Specimen(0, x.specimen, x.type, '', '', 0, history));
      }
@@ -211,7 +211,7 @@ export class CaseFormComponent implements OnInit {
   }
 
   onAddMTARow(h: number, i: number, j: number) {
-    const newhistoryrow = new SpecimenHistory(0, (new Date), 'MTA', 'recipient', 'somefile.pdf');
+    const newhistoryrow = new SpecimenHistory(0, (new Date), '', 'recipient', '');
     this._case.specforms[h].specimen[i].history.push(newhistoryrow);
     this.historyChanged(this._case.specforms[h].specimen[i]);
   }

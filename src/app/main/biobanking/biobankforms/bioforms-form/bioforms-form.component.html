@@ -52,7 +52,6 @@
                           [(ngModel)]="_form.type"
                           #input_type="ngModel" 
                           name="input_type"
-                          multiple
                           disabled
                           required="required" >
                 <mat-option *ngFor="let type of registryTypes"
@@ -64,8 +63,35 @@
           </div> <!-- material-form-group -->
 
           <div class="material-form-group">
+            <mat-form-field class="material-form-control">
+                  <input matInput 
+                        id="coinvestigator"
+                        placeholder="Co-investigator"
+                        [(ngModel)]="_form.coinvestigator"
+                        #coinvestigator="ngModel" 
+                        name="coinvestigator">
+            </mat-form-field>
             <mat-form-field class="material-form-control" >
-              <mat-select placeholder="Organization"
+                <mat-select placeholder="Principal Investigator(s)"
+                            [(ngModel)]="_form.principalinvestigator" 
+                            #principalinvestigator="ngModel"
+                            [compareWith]="comparePrincipalSelectValue" 
+                            name="principalinvestigator"
+                            multiple
+                            required="required" >
+                  <mat-option *ngFor="let principal of principalinvestigators"
+                              [value]="principal">{{principal.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error>
+                    Please choose at least one! 
+                </mat-error>
+              </mat-form-field>
+          </div>
+
+          <div class="material-form-group">
+            <mat-form-field class="material-form-control" >
+              <mat-select placeholder="Organization(s)"
                           [(ngModel)]="_form.organization" 
                           #input_org="ngModel" 
                           name="input_org"
@@ -79,7 +105,7 @@
             </mat-form-field>
 
             <mat-form-field class="material-form-control" >
-              <mat-select placeholder="Department"
+              <mat-select placeholder="Department(s)"
                           [(ngModel)]="_form.department" 
                           #input_department="ngModel" 
                           name="input_department"

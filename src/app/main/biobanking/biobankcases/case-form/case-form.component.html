@@ -113,7 +113,7 @@
 
         <mat-form-field style="width: 20%">
             <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"
-            name="specimenqtyavail-{{h}}-{{i}}"
+            name="specimenqtyavail-{{h}}-{{i}}" style="-webkit-text-fill-color:#880000"
             readonly disabled>
         </mat-form-field>
     </div>
@@ -138,7 +138,7 @@
                     <mat-form-field>
                         <input matInput [matDatepicker]="picker" 
                         [value]="history.date_done"
-                        placeholder="Choose a date">
+                        placeholder="Transaction date">
                         <mat-datepicker-toggle matSuffix [for]="picker">
                           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
                         </mat-datepicker-toggle>
@@ -146,7 +146,7 @@
                     </mat-form-field>
                       
                       <mat-form-field>
-                          <mat-select placeholder="Method"  [(ngModel)]="history.type" name="type-{{j}}" >
+                          <mat-select placeholder="Transfer to"  [(ngModel)]="history.type" name="type-{{j}}" >
                               <mat-option *ngFor="let method of methods" [value]="method">
                                 {{ method }}
                               </mat-option>
@@ -154,16 +154,16 @@
                       </mat-form-field>
         
 
-                      <mat-form-field *ngIf="history.type == 'MTA'">
+                      <mat-form-field *ngIf="history.type == 'New Consent Form'">
                           <mat-select placeholder="Method"  [(ngModel)]="history.reference" name="reference-mta-{{j}}">
-                              <mat-option *ngFor="let mta of mtas" [value]="mta.name">
-                                {{ mta.name }}
+                              <mat-option *ngFor="let form of forms" [value]="form.name">
+                                {{ form.name }}
                               </mat-option>
                           </mat-select>
                       </mat-form-field>
 
-                      <mat-form-field *ngIf="history.type == 'Transfer To'">
-                          <mat-select placeholder="Case Number"  [(ngModel)]="history.reference" name="reference-mta-{{j}}">
+                      <mat-form-field *ngIf="history.type == 'New Institution'">
+                          <mat-select placeholder="Institution"  [(ngModel)]="history.reference" name="reference-mta-{{j}}">
                               <mat-option *ngFor="let biobankcase of biobankcases" 
                                 [value]="biobankcase">
                                 {{ biobankcase }}
@@ -173,7 +173,7 @@
 
 
                       <mat-form-field *ngIf="history.type == 'Discard'">
-                          <input matInput placeholder="Reference" [(ngModel)]="history.reference" name="reference-disposal-{{j}}">
+                          <input matInput placeholder="Note" [(ngModel)]="history.reference" name="reference-disposal-{{j}}">
                       </mat-form-field>
 
                       <button mat-button style="width: 5%; padding: 2px;"
