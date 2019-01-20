@@ -110,6 +110,7 @@ export class MedformsCreateComponent implements OnInit {
             });
         this.router.navigate(['/medical/medforms']);
       }, errors => {
+        console.error(errors, 'micool error');
         this.is_processing = false;
         console.warn('error');
         throw errors;

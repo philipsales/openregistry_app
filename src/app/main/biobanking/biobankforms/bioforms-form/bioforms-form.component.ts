@@ -49,8 +49,6 @@ export class BioformsFormComponent implements OnInit {
   
   @ViewChild('userSaveFormAccount') bioform: NgForm;
 
-  @ViewChild('fileInput') fileInput;
-
   errors: any = {};
   has_errors = false;
   _form: Form = new Form('', [], [], '', '');;
@@ -147,6 +145,9 @@ export class BioformsFormComponent implements OnInit {
     this._form.table_section[index].type = $event.value;
   }
   */
+
+ @ViewChild('fileInput') fileInput;
+
   onSaveForm() {
     console.log(this._form, 'FORM');
     this.is_processing = true;
@@ -154,20 +155,30 @@ export class BioformsFormComponent implements OnInit {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this._form.created_by = currentUser.username;
 
-    const data = this._form.toJSON();
-    this.formService
-      .submitForm(data)
-      .subscribe(
-        created_question => {
-          console.warn(created_question, 'AYUS');
-          this.onSubmitTrigger.emit(created_question);
-          this.is_processing = false;
-        }, errors => {
-          this.is_processing = false;
-          this.has_errors = true;
-          this.errors = errors;
-          console.warn('error');
-          throw errors;
-        });
+    let fi = this.fileInput.nativeElement;
+    let formModel = new FormData();
+    
+    if (fi.files && fi.files[0]) {
+      formModel = fi.files[0];
+      this._form.file = formModel;
+    }
+    
+    this.onSubmitTrigger.emit(this._form);
+
+  //   const data = this._form.toJSON();
+  //   this.formService
+  //     .submitForm(data)
+  //     .subscribe(
+  //       created_question => {
+  //         console.warn(created_question, 'AYUS');
+  //         this.onSubmitTrigger.emit(created_question);
+  //         this.is_processing = false;
+  //       }, errors => {
+  //         this.is_processing = false;
+  //         this.has_errors = true;
+  //         this.errors = errors;
+  //         console.warn('error');
+  //         throw errors;
+  //       });
   }
 }

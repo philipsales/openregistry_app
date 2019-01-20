@@ -200,6 +200,7 @@ export class PcariformManageComponent implements OnInit {
         this.loading = false;
       },
         errors => {
+          alert('pcari form error');
           this.errors = errors;
           this.has_errors = true;
           this.is_processing = false;

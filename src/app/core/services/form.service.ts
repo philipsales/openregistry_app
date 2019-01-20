@@ -251,7 +251,11 @@ export class FormService {
         return Form.fromJSON(response);
       })
 
-      .catch(Helper.handleError);
+      // .catch(Helper.handleError);
+      .catch(error => {
+        console.error(error, 'micool error');
+        return Observable.throw(error);
+      });
   }
 
   upload(fileToUpload: any): Observable<any> {
