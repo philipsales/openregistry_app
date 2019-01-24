@@ -13,7 +13,7 @@ export class SpecimenHistory {
       return JSON.parse(json, SpecimenHistory.reviver);
     } else {
       const section = Object.create(SpecimenHistory.prototype);
-      let output = Object.assign(section, json, {
+      const output = Object.assign(section, json, {
         qty: json.qty,
         date_done: new Date(json.date_done),
         type: json.type,

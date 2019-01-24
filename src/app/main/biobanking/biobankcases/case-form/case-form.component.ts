@@ -189,7 +189,9 @@ export class CaseFormComponent implements OnInit {
      let specimens : Specimen[] = [];
      for (const x of form.table_section){
        let history : SpecimenHistory[] = [];
-       history.push(new SpecimenHistory(0, new Date(), '', 'recipient', ''));
+       //history.push(new SpecimenHistory(0, new Date(), '', 'recipient', ''));
+       //history.push(new SpecimenHistory(0, new Date('0/0/0'), '', 'recipient', ''));
+       history.push(new SpecimenHistory(0, new Date('0/0/0000'), '', 'recipient', ''));
        // history.push(new SpecimenHistory(0, (new Date), 'Discard', 'recipient', 'Case number: 121212'));
       specimens.push(new Specimen(0, x.specimen, x.type, '', '', 0, history));
      }
