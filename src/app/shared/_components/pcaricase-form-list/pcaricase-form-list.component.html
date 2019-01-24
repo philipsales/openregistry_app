@@ -106,10 +106,8 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<div class="col-md-offset-3 col-md-6"
-style="margin-top: 15px;"
-[hidden]="!_show"> 
-  <button class="btn btn-default" style="width: 100%;"
+<div class="col-md-offset-5 col-md-10" style="margin-top: 15px;" [hidden]="!_show"> 
+  <button class="btn btn-warning" 
       *ngIf="method == 'UPDATE' || method == 'CREATE'"
       (click)="onAddForm()">
       <i class="fa fa-plus e2e-add-form"></i> Add Form

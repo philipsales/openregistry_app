@@ -176,10 +176,15 @@
                           <input matInput placeholder="Note" [(ngModel)]="history.reference" name="reference-disposal-{{j}}">
                       </mat-form-field>
 
-                      <button mat-button style="width: 5%; padding: 2px;"
+                      <!-- <mat-button style="width: 5%; padding: 2px;"
                         (click)="onRemoveMTARow(h,i,j)">
-                        Remove
-                      </button> 
+                        <mat-icon class="material-option-clear-btn">clear</mat-icon>
+                      </button>  -->
+                      <span matTooltip="Delete row"
+                        style="padding: 10px"
+                        (click)="onRemoveMTARow(h,i,j)">
+                        <mat-icon class="material-option-clear-btn">clear</mat-icon>
+                      </span> 
                 </div>
 
                 <div class="row">
@@ -213,9 +218,9 @@
 <div class="col-md-12 col-sm-12 col-xs-12"          
 style="margin-top: 15px;" 
 [hidden]="!show_selected_forms"> 
-<div class="col-md-offset-4 col-md-6"> 
-  <button class="btn btn-default"
-    style="width: 48%;"
+<!-- <div class="col-md-offset-4 col-md-6">  -->
+<div class="col-md-offset-5 col-md-10"> 
+  <button class="btn btn-warning"
     (click)="show_selected_forms = false">
     <i class="fa fa-plus e2e-add-form"></i> Add Form
   </button>
