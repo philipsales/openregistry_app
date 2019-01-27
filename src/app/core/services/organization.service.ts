@@ -17,6 +17,11 @@ export class OrganizationService {
     constructor(private http: HttpClient) {
     }// --constructor
 
+    list() {
+        const url = environment.API_ENDPOINT + 'organizations/list';
+        return this.http.get<{id:string, name:string}[]>(url);
+    }
+
     getAll(): Observable<Organization[]> {
       const url = environment.API_ENDPOINT + 'organizations/';
       return this.http

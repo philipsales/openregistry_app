@@ -79,6 +79,12 @@ export class DepartmentService {
     return this.http.get<boolean>(url, {params});
   }
 
+  getAllDepartments() {
+    const url = environment.API_ENDPOINT + 'departments/all';
+    return this.http.get<Department[]>(url)
+                    .catch(Helper.handleError);
+  }
+
   getDepartments(): Observable<Department[]> {
     const url = environment.API_ENDPOINT + 'departments/';
     return this.http

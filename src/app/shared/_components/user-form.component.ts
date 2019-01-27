@@ -44,12 +44,8 @@ export class UserFormComponent implements OnInit {
     @Input() set user(value: User) {
         this._user = value;
         this.resetuser = Object.assign({}, value);
-        if (this._user.organizations) {
-            this.organization_search = this._user.organizations;
-            this.is_organization_ok = true;
-        }
         if (this._user.position) {
-            this.position_search = this._user.position;
+            // this.position_search = this._user.position;
             this.is_position_ok = true;
         }
         // this.departmentService.getDepartments().subscribe(
@@ -68,10 +64,6 @@ export class UserFormComponent implements OnInit {
     positionCompleterData: CompleterData;
     @ViewChild('positionCompleter') positionCompleter: CompleterCmp;
 
-    organization_search = '';
-    organizationCompleterData: CompleterData;
-    @ViewChild('organizationCompleter') organizationCompleter: CompleterCmp;
-
     roles: Role[];
     @ViewChild('sel_roles') sel_roles: MatSelectionList;
 
@@ -79,6 +71,13 @@ export class UserFormComponent implements OnInit {
     @ViewChild('sel_departments') sel_departments: MatSelectionList;
 
     errors: any = {};
+
+    organizationList = [];
+    departmentList = [];
+    positions = [
+      new Position('Researcher'),
+      new Position('Physician')
+    ];
 
     has_errors = false;
     is_processing = false;
@@ -98,7 +97,7 @@ export class UserFormComponent implements OnInit {
         private _notificationsService: NotificationsService
     ) {
 
-        this._user = new User('', false, '', '', '', '', '', '', '', false);
+        this._user = new User('', false, '', '', '', '', '', [], '', false);
         this.resetuser = Object.assign({}, this._user);
         this._user.gender = 'M';
         this.confirmation_password = '';
@@ -112,8 +111,14 @@ export class UserFormComponent implements OnInit {
         ];
 
         this.positionCompleterData = positionCompleterService.local(position, 'name', 'name');
-        this.organizationCompleterData = organizationCompleterService.local(
-            this.organizationService.getAll(), 'name', 'name');
+
+        this.organizationService.list().subscribe(organizations => {
+            this.organizationList = organizations;
+        });
+
+        this.departmentService.getAllDepartments().subscribe(departments => {
+            this.departmentList = departments;
+        });
     }
 
     ngOnInit() {
@@ -143,71 +148,6 @@ export class UserFormComponent implements OnInit {
     onToggleGender(input_gender: string) {
         console.log(input_gender);
         this._user.gender = input_gender;
-    }
-
-    onSelectOrganization(data: CompleterItem) {
-        if (data) {
-            this._user.organizations = this.organization_search;
-            this.is_organization_ok = true;
-        } else {
-            this.is_organization_ok = false;
-        }
-
-        console.log(this.organization_search, 'organization');
-    }
-
-    isOrganizationsOpen(isOpen: boolean) {
-        if (isOpen) {
-            this.organization_search = "";
-            this.is_organization_ok = false;
-        }
-    }
-
-    onSelectPosition(data: CompleterItem) {
-        if (data) {
-            this._user.position = data.title;
-            this.is_position_ok = true;
-        } else {
-            this.is_position_ok = false;
-        }
-    }
-
-    isPositionOpen(isOpen: boolean) {
-        if (isOpen) {
-            this.position_search = "";
-            this.is_position_ok = false;
-        }
-    }
-
-    onRolesListChanged(cur_roles: MatSelectionList) {
-        this._user.roles = this.sel_roles.selectedOptions.selected.map(item => item.value);
-        console.log(this._user.roles, 'SELECTED');
-    }
-
-    onDepartmentListChanged(cur_departments: MatSelectionList) {
-        this._user.departments = this.sel_departments.selectedOptions.
-            selected.map(item => item.value);
-        console.log(this._user.departments, 'SELECTED');
-    }
-
-    onOrganizationSearchClick() {
-        if (this.organizationCompleter.isOpen()) {
-            this.organizationCompleter.close();
-        } else {
-            this.organizationCompleter.open();
-        }
-    }
-
-    onPositionSearchClick() {
-        if (this.positionCompleter.isOpen()) {
-            this.positionCompleter.close();
-        } else {
-            this.positionCompleter.open();
-        }
-    }
-
-    onResetUserClick() {
-        this._user = User.fromJSON(this.resetuser);
     }
 
     onSaveClick(input_user: User) {
@@ -294,5 +234,17 @@ export class UserFormComponent implements OnInit {
                 this.has_errors = true;
                 this.is_processing = false;
             });
+    }
+
+    compareWithId(selected, comparator) {
+        return comparator != null && selected._id == comparator._id;
+    }
+
+    compareDepartmentId(selected, comparator) {
+        console.log(comparator, 'micool comparator');
+        console.log(selected, 'micool selected');
+        console.log('\n');
+        console.log(comparator != null && selected._id == comparator.id, 'matched');
+        return comparator != null && selected._id == comparator.id;
     }
 }

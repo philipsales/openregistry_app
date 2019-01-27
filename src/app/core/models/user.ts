@@ -12,12 +12,11 @@ export class User {
     email: string;
     mobile_number: string;
     verification_status: string;
-    department: string;
     roles: string[];
-    departments: string[];
+    departments: any[];
     // organizations: { organization: number, position: number }[];
-    organizations: string;
-    position: string;
+    organizations: {_id:string, name: string}[];
+    position: string[];
     isActive: boolean;
 
     static fromJSON(json: UserJSON): User {
@@ -57,7 +56,7 @@ export class User {
         middle_name: string,
         gender: string,
         mobile_number: string,
-        position: string,
+        position: string[],
         verification_status: string,
         isActive: boolean,
     ) {
@@ -78,7 +77,8 @@ export class User {
 
     toJSON(): UserJSON {
         console.log('foo', this.isActive);
-        return Object.assign({}, this, {
+        return Object.assign({}, {
+            _id: this.id,
             username: this.username,
             password: this.password,
             isDeleted: this.isDeleted,
@@ -90,6 +90,7 @@ export class User {
             email: this.email,
             mobile_number: this.mobile_number,
             verification_status: this.verification_status,
+            organizations: this.organizations,
             departments: this.departments,
             roles: this.roles,
             position: this.position

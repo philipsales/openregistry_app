@@ -9,12 +9,17 @@ import { SignupComponent } from './signup.component';
 import { AboutComponent } from './about.component';
 import { ForgotpasswordComponent } from './forgotpassword.component';
 
+import { MaterialModule } from 'app/shared/_material/material.module';
+import { DepartmentService } from 'app/core/services';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    MaterialModule,
     AuthRoutingModule
   ],
-  declarations: [LoginComponent, SigninComponent, SignupComponent, AboutComponent, ForgotpasswordComponent]
+  declarations: [LoginComponent, SigninComponent, SignupComponent, AboutComponent, ForgotpasswordComponent],
+  providers: [DepartmentService]
 })
 export class AuthModule { }

@@ -22,7 +22,7 @@ export class UsersUpdateComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService
   ) {
-    this.user = new User('', true, '', '', '', 'M', '', '', '', false);
+    this.user = new User('', true, '', '', '', 'M', '', [], '', false);
   }
 
   ngOnInit() {

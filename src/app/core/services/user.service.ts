@@ -35,7 +35,9 @@ export class UserService {
 
     create(user: User): Observable<User> {
         const url = environment.API_ENDPOINT + 'users/';
-        return this.http.post(url, user.toJSON())
+        let json = user.toJSON();
+        console.log(json, 'json');
+        return this.http.post(url, json)
             .map((response: UserJSON) => {
                 return User.fromJSON(response);
             })

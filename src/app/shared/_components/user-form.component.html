@@ -343,7 +343,7 @@
 <div class="col-md-12 col-sm-12 col-xs-12"> 
   <div class="x_panel">
     <div class="x_title">
-      <h2>Organization</h2>
+      <h2>Status</h2>
       <ul class="nav navbar-right panel_toolbox">
 	<li>
 	  <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -355,42 +355,67 @@
       <br>
       <form data-parsley-validate=""
 	    class="form-horizontal form-label-left"
-	    #userSaveFormOrganization="ngForm" novalidate>
-	<div class="form-group"
-		 [ngClass]="{'has-error': _user.organizations && !is_organization_ok }">
-	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="organization">
-			Organization 
-			<span class="required" *ngIf="method == 'CREATE'">*</span>
-	  </label>
-	  <div class="col-md-6 col-sm-6 col-xs-12">
-	    <div class="input-group">
-	      <ng2-completer #organizationCompleter
-			     name="input_organization_search"
-					 [(ngModel)]="organization_search" 
-					 [datasource]="organizationCompleterData"
-			     [minSearchLength]="0"
-			     (selected)="onSelectOrganization($event)" 
-			     [inputClass]="'form-control'"
-					 [openOnClick]="true"
-					 (opened)="isOrganizationsOpen($event)"
-					 [required]="method == 'CREATE'"
-			     [inputName]="'input_organization_search'">
-	      </ng2-completer>
-	      <div class="input-group-btn">
-		<button type="button"
-			class="btn btn-default dropdown-toggle"
-			data-toggle="dropdown"
-			aria-haspopup="true"
-			aria-expanded="false"
-			(click)="onOrganizationSearchClick()">
-		  <span class="caret"></span>
-		</button>
-	      </div>
-	    </div> <!-- input-group -->
-	  </div>
-	</div>
+			#userSaveFormOrganization="ngForm" novalidate>
+			<div class="row">
+				<div class="col-md-3">&nbsp;</div>
+				<div class="col-md-6 col-sm-6 col-xs-12" style="display:block">
+						<mat-form-field class="material-form-control" style="width: 100%;">
+							<mat-select placeholder="Organizations"
+							[disabled]="method == 'VIEW' || method == 'MYACCOUNT'"
+							[compareWith]="compareWithId"
+													[(ngModel)]="_user.organizations"
+													#organizations="ngModel"
+													name="organizations"
+													multiple
+													required>
+								<mat-option *ngFor="let item of organizationList"
+														[value]="item">
+									{{item.name}}
+								</mat-option>
+							</mat-select>
+						</mat-form-field>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">&nbsp;</div>
+				<div class="col-md-6 col-sm-6 col-xs-12" style="display:block">
+					<mat-form-field class="material-form-control" style="width:100%">
+						<mat-select placeholder="Positions"
+						[disabled]="method == 'VIEW' || method == 'MYACCOUNT'"
+						[(ngModel)]="_user.position"
+						#input_position="ngModel"
+												name="positions"
+												multiple
+												required>
+							<mat-option *ngFor="let item of positions"
+													[value]="item.name">
+								{{item.name}}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-3">&nbsp;</div>
+				<div class="col-md-6 col-sm-6 col-xs-12" style="display:block">
+					<mat-form-field class="material-form-control" style="width:100%">
+						<mat-select placeholder="Departments"
+												[disabled]="method == 'VIEW' || method == 'MYACCOUNT'"
+												[(ngModel)]="_user.departments"
+												#input_departments="ngModel"
+												name="departments"
+												[compareWith]="compareWithId"
+												multiple
+												required>
+							<mat-option *ngFor="let item of departmentList"
+													[value]="item">{{item.name}}</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</div>
+			</div>
 	
-	<div class="form-group"
+	<!-- <div class="form-group"
 		 [ngClass]="{'has-error': _user.position && !is_position_ok }">
 	  <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
 			Position 
@@ -423,9 +448,9 @@
 		  <span class="caret"></span>
 		</button>
 	      </div>
-			</div> <!-- input-group -->
+			</div> inupt-group
 	  </div>
-	</div>
+	</div> -->
 	
       </form>
     </div>
@@ -434,7 +459,7 @@
 
 
 
-<div class="col-md-12 col-sm-12 col-xs-12">
+<!-- <div class="col-md-12 col-sm-12 col-xs-12">
 	<div class="x_panel">
 		<div class="x_title">
 			<h2>Departments</h2>
@@ -453,7 +478,7 @@
 			</mat-list-option>
 		</mat-selection-list>
 	</div>
-</div>
+</div> -->
 
 <!-- Approval-->
 <div class="col-md-12 col-sm-12 col-xs-12"> 

@@ -1,13 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService, UserService } from 'app/core/services';
-import { User } from 'app/core/models';
+import { AuthService, UserService, OrganizationService, DepartmentService } from 'app/core/services';
+import { User, Organization, Position } from 'app/core/models';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SignupComponent implements OnInit {
 
@@ -28,14 +29,36 @@ export class SignupComponent implements OnInit {
   confirm_password = '';
   valid_email = false;
 
+  organizationList = [];
+  departmentList = [];
+  positions = [
+    new Position('Researcher'),
+    new Position('Physician')
+  ];
+
   constructor(
     private router: Router,
     private userService: UserService,
+    private departmentService: DepartmentService,
+    private organizationService: OrganizationService,
     private authService: AuthService) {
   }
 
   ngOnInit() {
     this.model['password'] = '';
+    this.model['organizations'] = [];
+    this.model['positions'] = [];
+    this.model['departments'] = [];
+
+    this.organizationService.getAll().subscribe(organizations => {
+      this.organizationList = organizations;
+      console.log(this.organizationList, 'micool');
+    });
+
+    this.departmentService.getAllDepartments().subscribe(departments => {
+      this.departmentList = departments;
+    });
+
     console.log(this.model, 'hello world');
   }// --ngOnInit
 
@@ -59,7 +82,8 @@ export class SignupComponent implements OnInit {
     this.is_successful = false;
     this.loading = true;
     const user = User.fromJSON(this.model);
-    console.log(user);
+    console.log(user, 'user');
+    // if (true) return
     this.userService.create(user).subscribe(
       created_user => {
         this.loading = false;

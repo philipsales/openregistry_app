@@ -22,12 +22,12 @@ export class MyInfoComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService
   ) {
-    this.user = new User('', true, '', '', '', 'M', '', '', '', false);
+    this.user = new User('', true, '', '', '', 'M', '', [], '', false);
   }
 
   ngOnInit() {
-    const user: User = JSON.parse(localStorage.getItem('user'));
-    console.log(user, 'USER');
+    const userJson = <UserJSON> JSON.parse(localStorage.getItem('user'));
+    const user = User.fromJSON(userJson);
     this.user_id = user.id;
     this.userService.getMyAccount(this.user_id).subscribe((response: User) => {
       delete this.user;

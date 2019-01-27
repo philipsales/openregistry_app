@@ -131,6 +131,56 @@
             placeholder="" style="text-align: left;" >
         </div>
 
+        <label class="form-label">Organizations</label>
+        <mat-form-field class="material-form-control" style="width: 100%;">
+          <mat-select name="organizations"
+                      [(ngModel)]="model.organizations"
+                      #organizations="ngModel"
+                      multiple
+                      required>
+            <mat-option *ngFor="let item of organizationList"
+                        [value]="item">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="organizations.touched && organizations.errors" style="color:#a94442;">
+          Please choose at least one organization
+        </div>
+
+        <label class="form-label">Positions</label>
+        <mat-form-field class="material-form-control" style="width:100%">
+          <mat-select name="positions"
+                      [(ngModel)]="model.position"
+                      #position="ngModel"
+                      multiple
+                      required>
+            <mat-option *ngFor="let item of positions"
+                        [value]="item.name">
+              {{item.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="position.touched && position.errors" style="color:#a94442;">
+            Please choose at least one position
+          </div>
+
+        <label class="form-label">Departments</label>
+        <mat-form-field class="material-form-control" style="width:100%">
+          <mat-select name="departments"
+                      [(ngModel)]="model.departments"
+                      #departments="ngModel"
+                      multiple
+                      required>
+            <mat-option *ngFor="let item of departmentList"
+                        [value]="item">{{item.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div *ngIf="departments.touched && departments.errors" style="color:#a94442;">
+          Please choose at least one department
+        </div>
+        
+
       <!-- Login button -->
       <button id="signup_btn" type="submit"
         class="btn btn-primary center-block"
