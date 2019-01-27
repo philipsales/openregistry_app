@@ -59,7 +59,7 @@ export class MedformsUpdateComponent implements OnInit {
     console.log(form_to_submit, 'SUBMITTING');
     const data = form_to_submit.toJSON();
 
-    this.formService.updateForm(data).subscribe(
+    this.formService.medicalUpdateForm(data).subscribe(
       created_question => {
         console.warn(created_question, 'AYUS');
         this.is_processing = false;
