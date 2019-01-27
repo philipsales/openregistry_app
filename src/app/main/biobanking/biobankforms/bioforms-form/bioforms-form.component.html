@@ -35,6 +35,22 @@
         <div id="formcreatecontainer">
           <input type="hidden" class="form-control"
                   placeholder="id">
+          <div class="material-form-control" 
+            style="width: 100%; margin: 0; padding: 0;">
+            <mat-form-field class="material-form-control" 
+            style="width: 96%;">
+              <input matInput
+                    id="formtitle"
+                    placeholder="Form Title"
+                    [(ngModel)]="_form.title"
+                    #input_title="ngModel"
+                    name="input_title"
+                    required>
+                <mat-error>
+                  Form Title is required
+                </mat-error>
+            </mat-form-field>
+          </div>
           <div class="material-form-group">
             <mat-form-field class="material-form-control">
                   <input matInput 
@@ -43,9 +59,9 @@
                         [(ngModel)]="_form.name"
                         #input_name="ngModel" name="input_name"
                         required="required">
-                        <mat-error *ngIf="(input_name.errors && (input_name.dirty || input_name.touched))">
-                            Form Name is required 
-                        </mat-error>
+                  <mat-error *ngIf="(input_name.errors && (input_name.dirty || input_name.touched))">
+                      Form Name is required 
+                  </mat-error>
             </mat-form-field>
             <mat-form-field class="material-form-control" >
               <mat-select placeholder="Registry Type"
@@ -63,14 +79,6 @@
           </div> <!-- material-form-group -->
 
           <div class="material-form-group">
-            <mat-form-field class="material-form-control">
-                  <input matInput 
-                        id="coinvestigator"
-                        placeholder="Co-investigator"
-                        [(ngModel)]="_form.coinvestigator"
-                        #coinvestigator="ngModel" 
-                        name="coinvestigator">
-            </mat-form-field>
             <mat-form-field class="material-form-control" >
                 <mat-select placeholder="Principal Investigator(s)"
                             [(ngModel)]="_form.principalinvestigator" 
@@ -87,6 +95,14 @@
                     Please choose at least one! 
                 </mat-error>
               </mat-form-field>
+            <mat-form-field class="material-form-control">
+                <input matInput 
+                      id="coinvestigator"
+                      placeholder="Co-investigator"
+                      [(ngModel)]="_form.coinvestigator"
+                      #coinvestigator="ngModel" 
+                      name="coinvestigator">
+            </mat-form-field>
           </div>
 
           <div class="material-form-group">

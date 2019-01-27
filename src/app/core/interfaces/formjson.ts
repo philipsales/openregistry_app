@@ -5,6 +5,7 @@ import { PrincipalInvestigator } from '../models/principalinvestigator';
 export interface FormJSON {
     _id?: string;
     id?: string;
+    title: string;
     name: string;
     organization: string[];
     department: string[];

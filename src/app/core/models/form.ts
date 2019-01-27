@@ -5,6 +5,7 @@ import { PrincipalInvestigator } from './principalinvestigator';
 
 export class Form {
   id: string;
+  title: string;
   name: string;
   organization: string[];
   department: string[];
@@ -25,6 +26,7 @@ export class Form {
   principalinvestigator: PrincipalInvestigator[] = [];
 
   static fromJSON(json: FormJSON): Form {
+    console.log(json, 'micool json');
     if (typeof json === 'string') {
       return JSON.parse(json, Form.reviver);
     } else {
@@ -38,6 +40,7 @@ export class Form {
 
       let output = Object.assign(section, json, {
         id: id,
+        title: json.title,
         name: json.name,
         organization: json.organization,
         department: json.department,
@@ -85,6 +88,7 @@ export class Form {
     }
     return Object.assign({}, json, {
       _id: json.id,
+      title: json.title,
       name: json.name,
       organization: json.organization,
       department: json.department,
@@ -110,6 +114,7 @@ export class Form {
 
   constructor(
     name: string,
+    title: string,
     organization: string[],
     department: string[],
     type: string,
@@ -121,6 +126,7 @@ export class Form {
     date_created?: Date
   ) {
     this.name = name;
+    this.title = title;
     this.organization = organization;
     this.department = department;
     this.type = type;
@@ -150,6 +156,7 @@ export class Form {
     }
     return Object.assign({}, this, {
       _id: this.id,
+      title: this.title,
       name: this.name,
       organization: this.organization,
       department: this.department,

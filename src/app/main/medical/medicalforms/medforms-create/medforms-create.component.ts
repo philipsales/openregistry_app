@@ -44,6 +44,7 @@ export class MedformsCreateComponent implements OnInit {
       console.log('COMPLETELY NEW');
       this.new_form = new Form(
         '',
+        '',
         [],
         [],
         environment.FORM_TYPE_MEDICAL,

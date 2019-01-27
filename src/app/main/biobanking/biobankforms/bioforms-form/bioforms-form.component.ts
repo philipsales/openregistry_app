@@ -51,7 +51,7 @@ export class BioformsFormComponent implements OnInit {
 
   errors: any = {};
   has_errors = false;
-  _form: Form = new Form('', [], [], '', '');;
+  _form: Form = new Form('', '', [], [], '', '');;
 
   @Input() set form(value: Form) {
     if (value != null) {
