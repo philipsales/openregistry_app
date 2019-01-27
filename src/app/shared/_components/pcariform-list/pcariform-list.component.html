@@ -16,6 +16,15 @@
       </span> 
     </div>
   </div>
+  <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left">
+    <a class="btn btn-default"
+      [routerLink]="[create_url]"
+      appPcariauth
+      [mustHavePermission]="['biobank_form_create', 'medical_form_create']"
+      [mustBeAll]="false" >
+      <i class="fa fa-plus"></i> &nbsp; Create Form
+    </a>
+  </div>
   <mat-paginator #paginator 
   [length]="pagelength" 
   [pageIndex]="0"
@@ -109,7 +118,7 @@
     </tbody>
   </table>
 
-  <div style="z-index:5; position : fixed;display : flex; 
+  <!-- <div style="z-index:5; position : fixed;display : flex; 
   align-self : flex-end;bottom : 10%; margin-bottom : 68px; right:5%;">
     <button 
     [routerLink]="[create_url]"
@@ -119,7 +128,7 @@
       mat-fab color="primary">
       <i class="fa fa-plus fa-3" aria-hidden="true"></i>
     </button>
-  </div>
+  </div> -->
 </div>
 
 
