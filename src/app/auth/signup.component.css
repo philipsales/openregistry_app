@@ -1,19 +1,19 @@
 /* To display a border for the input */
-.mat-input-flex.mat-form-field-flex{
+#signup .mat-input-flex.mat-form-field-flex{
     border:1px solid #cbcbcb;
- }
- .mat-select-value-text {
-     padding: 10px;
- }
- /* To remove the default underline */
- .mat-input-underline.mat-form-field-underline {
-    background: transparent;
- }
- 
- /* To remove the underline ripple */
- .mat-input-ripple.mat-form-field-ripple{
-    background-color: transparent; 
- }
+}
+#signup .mat-select-value-text {
+    padding: 10px;
+}
+/* To remove the default underline */
+#signup .mat-input-underline.mat-form-field-underline {
+background: transparent;
+}
+
+/* To remove the underline ripple */
+#signup .mat-input-ripple.mat-form-field-ripple{
+background-color: transparent; 
+}
  
 #login-sidebar {
     position: fixed;
