@@ -108,7 +108,7 @@ export class CaseService {
     console.log('CALLED!');
     const url = environment.API_ENDPOINT + 'cases/' + mycase.id;
     const case_json = mycase.toJSON();
-    console.log(case_json);
+    console.log(case_json, 'micool json');
 
     return this.httpclient.patch(url, case_json)
       .map((response: CaseJSON) => {

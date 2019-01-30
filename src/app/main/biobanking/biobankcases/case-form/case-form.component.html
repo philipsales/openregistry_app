@@ -137,7 +137,7 @@
       
                     <mat-form-field>
                         <input matInput [matDatepicker]="picker" 
-                        [value]="history.date_done"
+                        [(ngModel)]="history.date_done"
                         placeholder="Transaction date">
                         <mat-datepicker-toggle matSuffix [for]="picker">
                           <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>

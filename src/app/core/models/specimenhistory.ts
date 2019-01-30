@@ -46,7 +46,7 @@ export class SpecimenHistory {
   toJSON(): SpecimenHistoryJSON {
     return Object.assign({}, this, {
         qty: this.qty,
-        date_done: this.date_done.getTime(),
+        date_done: this.date_done.toISOString(),
         type: this.type,
         recipient: this.recipient,
         reference: this.reference
