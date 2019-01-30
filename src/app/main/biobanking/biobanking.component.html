@@ -47,7 +47,7 @@
 				</li>
 				<li routerLinkActive="active">
 					<a  [routerLink]="['./mtas']">
-						<i class="fa fa-file-text e2e-biobank-case"></i>&nbsp;Agreement Form</a>
+						<i class="fa fa-file-text e2e-biobank-case"></i>&nbsp;Agreement Forms</a>
 				</li>
 				<li routerLinkActive="active"
 				appPcariauth
@@ -67,15 +67,15 @@
 				appPcariauth
 				[mustHavePermission]="['biobank_report_view']"
 				[mustBeAll]="false">
-					<a  [routerLink]="['./specs']">
-						<i class="fa fa-flask e2e-biobank-report"></i>Specimen</a>
+				<a  [routerLink]="['./specs']">
+					<i class="fa fa-flask e2e-biobank-report"></i>Specimens</a>
 				</li>
 				<li routerLinkActive="active"
 				appPcariauth
 				[mustHavePermission]="['biobank_report_view']"
 				[mustBeAll]="false">
-					<a  [routerLink]="['./spectypes']">
-						<i class="fa fa-object-group e2e-biobank-report"></i>Specimen Types</a>
+				<a  [routerLink]="['./spectypes']">
+					<i class="fa fa-object-group e2e-biobank-report"></i>Specimen Types</a>
 				</li>
       </ul>
     </div>

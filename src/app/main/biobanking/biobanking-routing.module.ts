@@ -31,7 +31,7 @@ const routes: Routes = [
         path: 'spectypes',
         loadChildren: './spectypes/spectypes.module#SpectypesModule'
       },
-      { path: '', redirectTo: 'forms' }
+      { path: '', redirectTo: 'cases' }
     ]
   }
 ];
