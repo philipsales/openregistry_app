@@ -129,6 +129,10 @@ export class CaseFormComponent implements OnInit {
     }
   }
 
+  compareId(val1:MTA, val2:MTA) {
+    return val1 != null && val1['_id'] == val2['_id'];
+  }
+
   private createNewCase() {
     this.caseService.create(this._case).subscribe((created_case: Case) => {
       this.is_processing = false;
