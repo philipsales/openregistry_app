@@ -44,7 +44,11 @@
           </div>
           </div>
           <a
-            [routerLink]="['/biobanking/spectypes/create']" class="btn btn-default pull-right">
+            appPcariauth
+            [mustHavePermission]="['biobank_specimentype_create']"
+            [mustBeAll]="false" 
+            [routerLink]="['/biobanking/spectypes/create']" 
+             class="btn btn-default pull-right">
             <i class="fa fa-plus"></i> &nbsp; Create Specimen Type
           </a>
       </div>
@@ -64,8 +68,19 @@
               <td>{{ spectype.name }}</td>
               <td style="text-align: right">
                   <button 
-                  class="btn btn-sm btn-warning"
-                  [routerLink]="['/biobanking/spectypes/update', spectype.id]">
+                    appPcariauth
+                    [mustHavePermission]="['biobank_specimentype_delete']"
+                    [mustBeAll]="false" 
+                    class="btn btn-sm btn-danger">
+                  <i class="fa fa-trash"></i> 
+                  Delete 
+                </button>
+                  <button 
+                    appPcariauth
+                    [mustHavePermission]="['biobank_specimentype_update']"
+                    [mustBeAll]="false" 
+                    class="btn btn-sm btn-warning"
+                    [routerLink]="['/biobanking/spectypes/update', spectype.id]">
                   <i class="fa fa-edit"></i> 
                   Update
                 </button>

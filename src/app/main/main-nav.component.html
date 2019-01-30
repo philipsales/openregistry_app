@@ -28,7 +28,27 @@
 	<ul class="nav side-menu" style="">
     <li  routerLinkActive="active"
     appPcariauth
-       [mustHavePermission]="['biobank_form_create', 'biobank_form_approve', 'biobank_form_view', 'biobank_form_update', 'biobank_form_delete', 'biobank_case_create', 'biobank_case_view', 'biobank_case_update', 'biobank_report_view']"
+       [mustHavePermission]="['biobank_form_create', 
+       'biobank_form_approve', 
+       'biobank_form_view', 
+       'biobank_form_update', 
+       'biobank_form_delete', 
+       'biobank_mta_create', 
+       'biobank_mta_view', 
+       'biobank_mta_update', 
+       'biobank_mta_delete', 
+       'biobank_specimen_create', 
+       'biobank_specimen_view', 
+       'biobank_specimen_update', 
+       'biobank_specimen_delete', 
+       'biobank_specimentype_create', 
+       'biobank_specimentype_view', 
+       'biobank_specimentype_update', 
+       'biobank_specimentype_delete', 
+       'biobank_case_create', 
+       'biobank_case_view', 
+       'biobank_case_update', 
+       'biobank_report_view' ]" 
        [mustBeAll]="false">
 	    <a  [routerLink]="['/biobanking']">
 	      <i class="fa fa-flask e2e-biobank"></i>

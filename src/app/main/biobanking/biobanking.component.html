@@ -45,7 +45,10 @@
 					<a  [routerLink]="['./cases']">
 						<i class="fa fa-stethoscope e2e-biobank-case"></i>&nbsp;Cases</a>
 				</li>
-				<li routerLinkActive="active">
+				<li routerLinkActive="active"
+				appPcariauth
+				[mustHavePermission]="['biobank_mta_create', 'biobank_mta_delete', 'biobank_mta_view', 'biobank_mta_update']"
+				[mustBeAll]="false">
 					<a  [routerLink]="['./mtas']">
 						<i class="fa fa-file-text e2e-biobank-case"></i>&nbsp;Agreement Forms</a>
 				</li>
@@ -65,14 +68,14 @@
 				</li> -->
 				<li routerLinkActive="active"
 				appPcariauth
-				[mustHavePermission]="['biobank_report_view']"
+				[mustHavePermission]="['biobank_specimen_create', 'biobank_specimen_update', 'biobank_specimen_view', 'biobank_specimen_delete']"
 				[mustBeAll]="false">
 				<a  [routerLink]="['./specs']">
 					<i class="fa fa-flask e2e-biobank-report"></i>Specimens</a>
 				</li>
 				<li routerLinkActive="active"
 				appPcariauth
-				[mustHavePermission]="['biobank_report_view']"
+				[mustHavePermission]="['biobank_specimentype_create', 'biobank_specimentype_update', 'biobank_specimentype_view', 'biobank_specimentype_delete']"
 				[mustBeAll]="false">
 				<a  [routerLink]="['./spectypes']">
 					<i class="fa fa-object-group e2e-biobank-report"></i>Specimen Types</a>

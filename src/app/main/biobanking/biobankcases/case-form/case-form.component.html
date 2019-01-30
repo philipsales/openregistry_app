@@ -14,9 +14,10 @@
     </div>
     
   <div class="col-sm-3 save-wrapper">
-    <button class="btn btn-success pull-right"
+    <button 
+      class="btn btn-success pull-right"
       (click)="onSaveCase()">
-      <i class="fa fa-save e2e-save-case"></i> &nbsp; Save Case
+      <i class="fa fa-save e2e-save-case"></i> &nbsp; Save Case 
     </button>
   </div>
 </div>
@@ -185,14 +186,28 @@
                       <span matTooltip=""
                         style="padding: 10px; cursor: pointer"
                         (click)="onRemoveMTARow(h,i,j)">
-                        <mat-icon class="material-option-clear-btn">clear</mat-icon>
+                        <mat-icon 
+                            appPcariauth
+                            [mustHavePermission]="[ 'biobank_case_create', 
+                            'biobank_case_update', 
+                            'medical_case_create', 
+                            'medical_case_update' ]" 
+                            [mustBeAll]="false"
+                            class="material-option-clear-btn">clear</mat-icon>
                       </span> 
                 </div>
 
                 <div class="row">
                     <div class="col-sm-12 col-md-12">
                       <mat-card-actions style="float: right; margin-right: 0;">
-                        <button mat-raised-button color="primary"
+                        <button 
+                                appPcariauth
+                                [mustHavePermission]="[ 'biobank_case_create', 
+                                'biobank_case_update', 
+                                'medical_case_create', 
+                                'medical_case_update' ]" 
+                                [mustBeAll]="false"
+                                mat-raised-button color="primary"
                                 class="e2e-add-question"
                                 (click)="onAddMTARow(h,i,j)">
                             Add Row
@@ -222,7 +237,14 @@ style="margin-top: 15px;"
 [hidden]="!show_selected_forms"> 
 <!-- <div class="col-md-offset-4 col-md-6">  -->
 <div class="col-md-offset-5 col-md-10"> 
-  <button class="btn btn-warning"
+  <button 
+    appPcariauth
+    [mustHavePermission]="[ 'biobank_case_create', 
+    'biobank_case_update', 
+    'medical_case_create', 
+    'medical_case_update' ]" 
+    [mustBeAll]="false"
+    class="btn btn-warning"
     (click)="show_selected_forms = false">
     <i class="fa fa-plus e2e-add-form"></i> Add Form
   </button>

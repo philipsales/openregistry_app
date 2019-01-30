@@ -75,6 +75,8 @@ export class UserFormComponent implements OnInit {
     organizationList = [];
     departmentList = [];
     positions = [
+      new Position('Administrator'),
+      new Position('Encoder'),
       new Position('Researcher'),
       new Position('Physician')
     ];
@@ -102,6 +104,8 @@ export class UserFormComponent implements OnInit {
         this._user.gender = 'M';
         this.confirmation_password = '';
         const position = [
+            new Position('Administrator'),
+            new Position('Encoder'),
             new Position('Researcher'),
             new Position('Physician')
         ];

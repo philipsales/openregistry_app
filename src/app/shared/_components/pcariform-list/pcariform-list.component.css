@@ -79,7 +79,7 @@ li {
 }
 
 .badge--failed {
-    background-color: #C8CDCF;
+    background-color: #42526E;
     width: 80px;
     padding: 5px;
 }
@@ -92,6 +92,12 @@ li {
 
 .badge--danger {
     background-color: #d9534f;
+    width: 80px;
+    padding: 5px;
+}
+
+.badge--warning {
+    background-color: #F0AD4E ;
     width: 80px;
     padding: 5px;
 }

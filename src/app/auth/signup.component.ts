@@ -32,8 +32,10 @@ export class SignupComponent implements OnInit {
   organizationList = [];
   departmentList = [];
   positions = [
+    new Position('Administrator'),
+    new Position('Encoder'),
     new Position('Researcher'),
-    new Position('Physician')
+    new Position('Physician'),
   ];
 
   constructor(

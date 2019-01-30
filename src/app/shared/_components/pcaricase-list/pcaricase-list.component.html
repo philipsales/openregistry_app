@@ -50,19 +50,30 @@
 						<td style="text-align: right">
 							<button 
 							appPcariauth
-							  [mustHavePermission]="['biobank_case_view', 'medical_case_view']"
-							  [mustBeAll]="false" 
-							*ngIf="false"
-							class="btn btn-sm btn-default"
-							[routerLink]="[view_url, case.id]">
-							<i class="fa fa-eye"></i> View</button>
+								[mustHavePermission]="['biobank_case_view', 
+								'medical_case_view']"
+								[mustBeAll]="false" 
+								*ngIf="false"
+								class="btn btn-sm btn-default"
+								[routerLink]="[view_url, case.id]">
+								<i class="fa fa-eye"></i> View
+							</button>
 							<button 
-							appPcariauth
-							  [mustHavePermission]="['biobank_case_update', 'medical_case_update']"
+								appPcariauth
+								[mustHavePermission]="['biobank_case_view']"
 							  [mustBeAll]="false" 
-							class="btn btn-sm btn-warning e2e-update-newest-case"
-							[routerLink]="[update_url, case.id]">
-							<i class="fa fa-edit"></i> Data Entry</button>
+								class="btn btn-sm btn-default e2e-update-newest-case"
+								[routerLink]="[update_url, case.id]">
+								<i class="fa fa-eye"></i> View
+							</button>
+							<button 
+								appPcariauth
+								[mustHavePermission]="['biobank_case_update', 'medical_case_update']"
+							  [mustBeAll]="false" 
+								class="btn btn-sm btn-warning e2e-update-newest-case"
+								[routerLink]="[update_url, case.id]">
+								<i class="fa fa-edit"></i> Data Entry
+							</button>
 						</td>
 					</tr>
 				</tbody>

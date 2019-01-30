@@ -42,7 +42,11 @@
           'fa-chevron-down': sort == -1}"
           aria-hidden="true"></i>
         </th>
-        <th style="text-align: center;">Manage</th>
+        <th 
+          appPcariauth
+          [mustHavePermission]="['biobank_form_approve', 'medical_form_approve' ]"
+          [mustBeAll]="false" 
+        style="text-align: center;">Manage</th>
       </tr>
     </thead>
     <tbody>
@@ -60,7 +64,7 @@
           </span>
         </td>
         <td style="text-align: center;" >
-          <span *ngIf="form.status ==='Pending'" class="badge badge--failed" #pending> {{form.status }}</span>
+          <span *ngIf="form.status ==='Pending'" class="badge badge--warning" #pending> {{form.status }}</span>
           <span *ngIf="form.status ==='Approved'" class="badge badge--success" #active> {{form.status }}</span>
           <span *ngIf="form.status ==='Rejected'" class="badge badge--danger" #rejected> {{form.status }}</span>
         </td>
@@ -80,7 +84,7 @@
           [mustBeAll]="false" 
           [disabled]="form.status !=='Pending'"
             (click)="approveForm(form, false)"
-            class="btn btn-sm btn-warning" >
+            class="btn btn-sm btn-default" >
             <i class="fa fa-times-circle"></i>
           </button>
           <button 
@@ -88,7 +92,7 @@
           [mustHavePermission]="['biobank_form_update', 'medical_form_update']"
           [mustBeAll]="false" 
               (click)="setCurrentForm(form)"
-              class="btn btn-sm btn-info">
+              class="btn btn-sm btn-warning">
             <i class="fa fa-edit"></i>
           </button>
           <button 
