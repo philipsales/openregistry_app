@@ -42,11 +42,16 @@
               [(ngModel)]="specimen.qty_avail">
         </mat-form-field>
         
-          <button mat-button style="width: 5%; padding: 2px;"
+          <!-- <button mat-button style="width: 5%; padding: 2px;"
             (click)="removeTableQuestion(i)">
             Remove 
-          </button>
-        
+          </button> -->
+        <span matTooltip="Delete row"
+          style="padding: 10px; cursor: pointer"
+          (click)="removeTableQuestion(i)">
+          <mat-icon class="material-option-clear-btn">clear</mat-icon>
+        </span> 
+
         
       </div>
       <div class="row">

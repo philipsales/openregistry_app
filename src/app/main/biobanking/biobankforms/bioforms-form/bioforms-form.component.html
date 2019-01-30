@@ -80,33 +80,6 @@
 
           <div class="material-form-group">
             <mat-form-field class="material-form-control" >
-                <mat-select placeholder="Principal Investigator(s)"
-                            [(ngModel)]="_form.principalinvestigator" 
-                            #principalinvestigator="ngModel"
-                            [compareWith]="comparePrincipalSelectValue" 
-                            name="principalinvestigator"
-                            multiple
-                            required="required" >
-                  <mat-option *ngFor="let principal of principalinvestigators"
-                              [value]="principal">{{principal.name}}
-                  </mat-option>
-                </mat-select>
-                <mat-error>
-                    Please choose at least one! 
-                </mat-error>
-              </mat-form-field>
-            <mat-form-field class="material-form-control">
-                <input matInput 
-                      id="coinvestigator"
-                      placeholder="Co-investigator"
-                      [(ngModel)]="_form.coinvestigator"
-                      #coinvestigator="ngModel" 
-                      name="coinvestigator">
-            </mat-form-field>
-          </div>
-
-          <div class="material-form-group">
-            <mat-form-field class="material-form-control" >
               <mat-select placeholder="Organization(s)"
                           [(ngModel)]="_form.organization" 
                           #input_org="ngModel" 
@@ -134,6 +107,34 @@
               </mat-select>
             </mat-form-field>
           </div> <!-- material-form-group -->
+
+          <div class="material-form-group">
+            <mat-form-field class="material-form-control" >
+                <mat-select placeholder="Principal Investigator(s)"
+                            [(ngModel)]="_form.principalinvestigator" 
+                            #principalinvestigator="ngModel"
+                            [compareWith]="comparePrincipalSelectValue" 
+                            name="principalinvestigator"
+                            multiple
+                            required="required" >
+                  <mat-option *ngFor="let principal of principalinvestigators"
+                              [value]="principal">{{principal.name}}
+                  </mat-option>
+                </mat-select>
+                <mat-error>
+                    Please choose at least one! 
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="material-form-control">
+                <input matInput 
+                      id="coinvestigator"
+                      placeholder="Co-investigator(s)"
+                      [(ngModel)]="_form.coinvestigator"
+                      #coinvestigator="ngModel" 
+                      name="coinvestigator">
+            </mat-form-field>
+          </div>
+
 
 
           <div class="material-form-group">
@@ -229,10 +230,15 @@
                     </mat-select>
                   </mat-form-field>
                 
-                  <button mat-button style="width: 5%; padding: 2px;"
+                  <!-- <button mat-button style="width: 5%; padding: 2px;"
                     (click)="removeTableQuestion(i)">
                     Remove 
-                  </button>  
+                  </button>   -->
+                  <span matTooltip="Delete row"
+                    style="padding: 10px; cursor: pointer"
+                    (click)="removeTableQuestion(i)">
+                    <mat-icon class="material-option-clear-btn">clear</mat-icon>
+                  </span> 
                 </div>
 
                 <div class="row">

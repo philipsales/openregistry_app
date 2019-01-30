@@ -1,5 +1,5 @@
 
-<div class="col-md-12 table-nav">
+<div class="col-md-12 table-nav"> 
   <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
     <div class="input-group">
       <input type="text"
@@ -16,7 +16,7 @@
       </span> 
     </div>
   </div>
-  <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left">
+  <div class="pull-right">
     <a class="btn btn-default"
       [routerLink]="[create_url]"
       appPcariauth
@@ -25,14 +25,6 @@
       <i class="fa fa-plus"></i> &nbsp; Create Form
     </a>
   </div>
-  <mat-paginator #paginator 
-  [length]="pagelength" 
-  [pageIndex]="0"
-  [pageSize]="10" 
-  [pageSizeOptions]="[5, 10, 25, 100]"
-  class="pull-right"
-  (page)="getForms($event)">
-  </mat-paginator>
 </div>
 
 <div class="col-md-12">
@@ -136,3 +128,14 @@
     [show]="for_delete"
     (confirmedEvent)="onConfirmDeleteForm($event)"> 
 </app-delete-modal>
+
+<div class="col-md-12 table-nav">
+    <mat-paginator #paginator 
+      [length]="pagelength" 
+      [pageIndex]="0"
+      [pageSize]="10" 
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      class="pull-right"
+      (page)="getForms($event)">
+    </mat-paginator>
+</div>
