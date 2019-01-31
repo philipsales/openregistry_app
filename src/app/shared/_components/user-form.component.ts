@@ -144,6 +144,11 @@ export class UserFormComponent implements OnInit {
         );
     }
 
+    onRolesListChanged(cur_roles: MatSelectionList) {
+        this._user.roles = this.sel_roles.selectedOptions.selected.map(item => item.value);
+        console.log(this._user.roles, 'SELECTED');
+    }
+
     onToggleIsActive(input_is_active: boolean) {
         console.log(input_is_active);
         this._user.isActive = input_is_active;
