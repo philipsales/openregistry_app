@@ -210,8 +210,10 @@ export class CaseFormComponent implements OnInit {
   }
 
   onRemoveMTARow(h: number, i: number, j: number) {
-    this._case.specforms[h].specimen[i].history.splice(j, 1);
-    this.historyChanged(this._case.specforms[h].specimen[i]);
+    if (this._case.specforms[h].specimen[i].history.length > 1) {
+      this._case.specforms[h].specimen[i].history.splice(j, 1);
+      this.historyChanged(this._case.specforms[h].specimen[i]);
+    }
   }
 
   onAddMTARow(h: number, i: number, j: number) {

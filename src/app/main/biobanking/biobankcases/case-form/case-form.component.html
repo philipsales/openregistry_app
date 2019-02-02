@@ -12,9 +12,9 @@
         <em>Please see details below: </em>
       </div>
     </div>
-    
   <div class="col-sm-3 save-wrapper">
     <button 
+      [disabled]="!caseCreateForm.valid || _case.specforms.length == 0"
       class="btn btn-success pull-right"
       (click)="onSaveCase()">
       <i class="fa fa-save e2e-save-case"></i> &nbsp; Save Case 
@@ -42,7 +42,8 @@
                         name="input_casenumber"
                         [(ngModel)]="_case.case_nbr"
                         [matAutocomplete]="auto"
-                        placeholder="Case Number">
+                        placeholder="Case Number"
+                        required>
               </mat-form-field>	
               <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
@@ -53,210 +54,214 @@
               <br/><br/>
           </div> <br/><br/>
 
-        </form>
-      </div>
-
-      
-    </div> <!-- x panel -->     
-  </div> <!--Case --> 
-
-
   <!-- SECTION PORTION -->
   <div class="col-md-12 col-sm-12 col-xs-12">
 
-<!-- ULTIMATE -->
-
-<!-- Selected Forms  -->
-<mat-accordion>  
-<mat-expansion-panel [expanded]="true"
-*ngFor="let form of _case.specforms; let h = index">
-<mat-expansion-panel-header>
-  <mat-panel-title>
-      <em>{{ form.form_name }} </em>
-  </mat-panel-title>
-</mat-expansion-panel-header>
-<div>
-    <div *ngFor="let specimen of form.specimen; let i = index" 
-    style="width: 100%;">
+    <!-- ULTIMATE -->
+    
+    <!-- Selected Forms  -->
+    <mat-accordion>  
+    <mat-expansion-panel [expanded]="true"
+    *ngFor="let form of _case.specforms; let h = index">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+          <em>{{ form.form_name }} </em>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
     <div>
-      <!-- specimen -->
-      <mat-form-field style="width: 20%">
-          <input matInput placeholder="Qty" 
-            [(ngModel)]="specimen.qty"
-            name="specimenqty-{{h}}-{{i}}"
-            (change)="historyChanged(specimen)">
-        </mat-form-field>
-
-        <mat-form-field style="width: 18%">
-            <input matInput placeholder="Specimen" [(ngModel)]="specimen.spec"
-              name="specimenspec-{{h}}-{{i}}"
-              readonly disabled>
-        </mat-form-field>
-
-        <mat-form-field style="width: 20%">
-            <input matInput placeholder="Type" [(ngModel)]="specimen.spec_type"
-              name="specimentype-{{h}}-{{i}}"
-              readonly disabled>
-        </mat-form-field>
-
-        <mat-form-field style="width: 20%">
-            <input matInput placeholder="Notes" [(ngModel)]="specimen.characteristic"
-            name="specimennotes-{{h}}-{{i}}">
-        </mat-form-field>
-
-        <mat-form-field style="width:20%">
-          <input matInput placeholder="Collected Date" 
-          [(ngModel)]="specimen.collectedDate" 
-          [matDatepicker]="myDatepicker">
-          <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-          <mat-datepicker #myDatepicker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field style="width: 20%">
-            <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"
-            name="specimenqtyavail-{{h}}-{{i}}" style="-webkit-text-fill-color:#880000"
-            readonly disabled>
-        </mat-form-field>
-    </div>
-
-    <div style="margin-top: -15px; margin-bottom: 25px">
-        <mat-accordion>  
-            <mat-expansion-panel [expanded]="i == 0">
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                      <strong>MTA : </strong> &nbsp; <em>{{ specimen.spec }} - {{ specimen.spec_type }} </em>
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                <div style="text-align: center"  
-                    *ngFor="let history of specimen.history; let j = index">
-                    <mat-form-field>
-                      <input matInput placeholder="Qty" 
-                        (change)="historyChanged(specimen)"
-                        [(ngModel)]="history.qty" 
-                        name="qty-{{i}}-{{j}}" >
-                    </mat-form-field>
-      
-                    <mat-form-field>
-                        <input matInput [matDatepicker]="picker" 
-                        [(ngModel)]="history.date_done"
-                        placeholder="Transaction date">
-                        <mat-datepicker-toggle matSuffix [for]="picker">
-                          <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
-                        </mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                      
-                      <mat-form-field>
-                          <mat-select placeholder="Transfer to"  [(ngModel)]="history.type" name="type-{{j}}" >
-                              <mat-option *ngFor="let method of methods" [value]="method">
-                                {{ method }}
-                              </mat-option>
-                          </mat-select>
-                      </mat-form-field>
-        
-
-                      <mat-form-field *ngIf="history.type == 'New Consent Form'">
-                          <mat-select placeholder="Method"  [(ngModel)]="history.reference" name="reference-mta-{{j}}">
-                              <mat-option *ngFor="let form of forms" [value]="form.name">
-                                {{ form.name }}
-                              </mat-option>
-                          </mat-select>
-                      </mat-form-field>
-
-                      <mat-form-field *ngIf="history.type == 'New Institution'">
-                          <mat-select placeholder="Institution"  
-                          [(ngModel)]="history.reference" name="reference-mta-{{j}}"
-                          [compareWith]="compareId">
-                              <mat-option *ngFor="let mta of mtas" 
-                                [value]="mta._id">
-                                {{ mta.name }}
-                              </mat-option>
-                          </mat-select>
-                      </mat-form-field>
-
-
-                      <mat-form-field *ngIf="history.type == 'Discard'">
-                          <input matInput placeholder="Note" [(ngModel)]="history.reference" name="reference-disposal-{{j}}">
-                      </mat-form-field>
-
-                      <!-- <mat-button style="width: 5%; padding: 2px;"
-                        (click)="onRemoveMTARow(h,i,j)">
-                        <mat-icon class="material-option-clear-btn">clear</mat-icon>
-                      </button>  -->
-                      <span matTooltip=""
-                        style="padding: 10px; cursor: pointer"
-                        (click)="onRemoveMTARow(h,i,j)">
-                        <mat-icon 
-                            appPcariauth
-                            [mustHavePermission]="[ 'biobank_case_create', 
-                            'biobank_case_update', 
-                            'medical_case_create', 
-                            'medical_case_update' ]" 
-                            [mustBeAll]="false"
-                            class="material-option-clear-btn">clear</mat-icon>
-                      </span> 
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-12 col-md-12">
-                      <mat-card-actions style="float: right; margin-right: 0;">
-                        <button 
+        <div *ngFor="let specimen of form.specimen; let i = index" 
+        style="width: 100%;">
+        <div>
+          <!-- specimen -->
+          <mat-form-field style="width: 20%">
+              <input matInput placeholder="Qty" 
+                [(ngModel)]="specimen.qty"
+                name="specimenqty-{{h}}-{{i}}"
+                (change)="historyChanged(specimen)"
+                required>
+            </mat-form-field>
+    
+            <mat-form-field style="width: 18%">
+                <input matInput placeholder="Specimen" [(ngModel)]="specimen.spec"
+                  name="specimenspec-{{h}}-{{i}}"
+                  readonly disabled>
+            </mat-form-field>
+    
+            <mat-form-field style="width: 20%">
+                <input matInput placeholder="Type" [(ngModel)]="specimen.spec_type"
+                  name="specimentype-{{h}}-{{i}}"
+                  readonly disabled>
+            </mat-form-field>
+    
+            <mat-form-field style="width: 20%">
+                <input matInput placeholder="Notes" [(ngModel)]="specimen.characteristic"
+                name="specimennotes-{{h}}-{{i}}">
+            </mat-form-field>
+    
+            <mat-form-field style="width:20%">
+              <input matInput placeholder="Collected Date" 
+              [(ngModel)]="specimen.collectedDate" 
+              [matDatepicker]="myDatepicker"
+              required>
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+            </mat-form-field>
+    
+            <mat-form-field style="width: 20%">
+                <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"
+                name="specimenqtyavail-{{h}}-{{i}}" style="-webkit-text-fill-color:#880000"
+                readonly disabled>
+            </mat-form-field>
+        </div>
+    
+        <div style="margin-top: -15px; margin-bottom: 25px">
+            <mat-accordion>  
+                <mat-expansion-panel [expanded]="i == 0">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                          <strong>MTA : </strong> &nbsp; <em>{{ specimen.spec }} - {{ specimen.spec_type }} </em>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div style="text-align: center"  
+                        *ngFor="let history of specimen.history; let j = index">
+                        <mat-form-field>
+                          <input matInput placeholder="Qty" 
+                            (change)="historyChanged(specimen)"
+                            [(ngModel)]="history.qty" 
+                            name="qty-{{i}}-{{j}}"
+                            required>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput 
+                            [matDatepicker]="picker" 
+                            [(ngModel)]="history.date_done"
+                            name="transaction-date-{{i}}-{{j}}"
+                            placeholder="Transaction date" 
+                            required>
+                            <mat-datepicker-toggle matSuffix [for]="picker">
+                              <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                            </mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                          
+                          <mat-form-field>
+                              <mat-select placeholder="Transfer to" required  [(ngModel)]="history.type" name="type-{{j}}" >
+                                  <mat-option *ngFor="let method of methods" [value]="method">
+                                    {{ method }}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+            
+    
+                          <mat-form-field *ngIf="history.type == 'New Consent Form'">
+                              <mat-select placeholder="Method"  [(ngModel)]="history.reference" name="reference-mta-{{j}}" required>
+                                  <mat-option *ngFor="let form of forms" [value]="form.name">
+                                    {{ form.name }}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+    
+                          <mat-form-field *ngIf="history.type == 'New Institution'">
+                              <mat-select placeholder="Institution"  
+                              [(ngModel)]="history.reference" name="reference-mta-{{j}}"
+                              [compareWith]="compareId" required>
+                                  <mat-option *ngFor="let mta of mtas" 
+                                    [value]="mta._id">
+                                    {{ mta.name }}
+                                  </mat-option>
+                              </mat-select>
+                          </mat-form-field>
+    
+    
+                          <mat-form-field *ngIf="history.type == 'Discard'">
+                              <input matInput placeholder="Note" [(ngModel)]="history.reference" name="reference-disposal-{{j}}" required>
+                          </mat-form-field>
+    
+                          <!-- <mat-button style="width: 5%; padding: 2px;"
+                            (click)="onRemoveMTARow(h,i,j)">
+                            <mat-icon class="material-option-clear-btn">clear</mat-icon>
+                          </button>  -->
+                          <span matTooltip=""
+                            style="padding: 10px; cursor: pointer"
+                            [hidden]="_case.specforms[h].specimen[i].history.length <= 1"
+                            (click)="onRemoveMTARow(h,i,j)">
+                            <mat-icon 
                                 appPcariauth
                                 [mustHavePermission]="[ 'biobank_case_create', 
                                 'biobank_case_update', 
                                 'medical_case_create', 
                                 'medical_case_update' ]" 
                                 [mustBeAll]="false"
-                                mat-raised-button color="primary"
-                                class="e2e-add-question"
-                                (click)="onAddMTARow(h,i,j)">
-                            Add Row
-                        </button>
-                      </mat-card-actions>
+                                class="material-option-clear-btn">clear</mat-icon>
+                          </span> 
                     </div>
-                </div>
-
-            </mat-expansion-panel>
-        </mat-accordion>  
+    
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                          <mat-card-actions style="float: right; margin-right: 0;">
+                            <button 
+                                    appPcariauth
+                                    [mustHavePermission]="[ 'biobank_case_create', 
+                                    'biobank_case_update', 
+                                    'medical_case_create', 
+                                    'medical_case_update' ]" 
+                                    [mustBeAll]="false"
+                                    mat-raised-button color="primary"
+                                    class="e2e-add-question"
+                                    (click)="onAddMTARow(h,i,j)">
+                                Add Row
+                            </button>
+                          </mat-card-actions>
+                        </div>
+                    </div>
+    
+                </mat-expansion-panel>
+            </mat-accordion>  
+        </div>
+        
+      </div>
+      <!-- end of specimen -->
     </div>
     
-  </div>
-  <!-- end of specimen -->
-</div>
-
-<!-- <p *ngIf="!is_ok"> Please wait...</p> -->
-
-</mat-expansion-panel>
-</mat-accordion>
-
-
-<!-- end of ULTIMATE -->
+    <!-- <p *ngIf="!is_ok"> Please wait...</p> -->
     
-<div class="col-md-12 col-sm-12 col-xs-12"          
-style="margin-top: 15px;" 
-[hidden]="!show_selected_forms"> 
-<!-- <div class="col-md-offset-4 col-md-6">  -->
-<div class="col-md-offset-5 col-md-10"> 
-  <button 
-    appPcariauth
-    [mustHavePermission]="[ 'biobank_case_create', 
-    'biobank_case_update', 
-    'medical_case_create', 
-    'medical_case_update' ]" 
-    [mustBeAll]="false"
-    class="btn btn-warning"
-    (click)="show_selected_forms = false">
-    <i class="fa fa-plus e2e-add-form"></i> Add Form
-  </button>
-</div>
-</div>
-  <app-pcaricase-form-add
-  (onSaveFormAddTrigger)="onAddSelectedForm($event)"
-  (onCancelFormAddTrigger)="onCancelAddForm()"
-  [forms]="forms"
-  [show]="!show_selected_forms">
-  </app-pcaricase-form-add>
-</div> <!-- x-panel -->
+    </mat-expansion-panel>
+    </mat-accordion>
+    
+    
+    <!-- end of ULTIMATE -->
+        
+    <div class="col-md-12 col-sm-12 col-xs-12"          
+    style="margin-top: 15px;" 
+    [hidden]="!show_selected_forms"> 
+    <!-- <div class="col-md-offset-4 col-md-6">  -->
+    <div class="col-md-offset-5 col-md-10"> 
+      <button 
+        appPcariauth
+        [mustHavePermission]="[ 'biobank_case_create', 
+        'biobank_case_update', 
+        'medical_case_create', 
+        'medical_case_update' ]" 
+        [mustBeAll]="false"
+        class="btn btn-warning"
+        (click)="show_selected_forms = false">
+        <i class="fa fa-plus e2e-add-form"></i> Add Form
+      </button>
+    </div>
+    </div>
+      <app-pcaricase-form-add
+      (onSaveFormAddTrigger)="onAddSelectedForm($event)"
+      (onCancelFormAddTrigger)="onCancelAddForm()"
+      [forms]="forms"
+      [show]="!show_selected_forms">
+      </app-pcaricase-form-add>
+    </div> <!-- x-panel -->
+        </form>
+      </div>
+
+      
+    </div> <!-- x panel -->     
+  </div> <!--Case --> 
 
 
   <!-- end of SECTION PORTION -->
