@@ -1,10 +1,11 @@
 
 <div class="col-md-12 table-nav" [hidden]="method == 'VIEW'">
   <div class="col-sm-3 reset-wrapper">
-    <button class="btn btn-default pull-left">
+		<button class="btn btn-default pull-left"
+		(click)="onResetUserClick();">
       <i class="fa fa-refresh"></i> &nbsp; Reset
     </button>
-  </div>
+	</div>
   
   <div class="col-sm-6">
     <div class="alert alert-danger"
@@ -480,7 +481,8 @@
 </div> -->
 
 <!-- Approval-->
-<div class="col-md-12 col-sm-12 col-xs-12"> 
+<div class="col-md-12 col-sm-12 col-xs-12"
+[hidden]="method == 'VIEW' || method == 'MYACCOUNT'"> 
   <div class="x_panel">
     <div class="x_title">
       <h2>Approval</h2>
@@ -510,7 +512,8 @@
   </div>
 </div> <!-- Approval -->
 
-<div class="col-md-12 col-sm-12 col-xs-12">
+<div class="col-md-12 col-sm-12 col-xs-12" 
+[hidden]="method == 'VIEW' || method == 'MYACCOUNT'">
 		<div class="x_panel">
 			<div class="x_title">
 				<h2>Roles</h2>

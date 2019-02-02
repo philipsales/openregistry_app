@@ -43,7 +43,7 @@ export class UserFormComponent implements OnInit {
 
     @Input() set user(value: User) {
         this._user = value;
-        this.resetuser = Object.assign({}, value);
+        this._resetuser = value.toJSON();
         if (this._user.position) {
             // this.position_search = this._user.position;
             this.is_position_ok = true;
@@ -144,6 +144,11 @@ export class UserFormComponent implements OnInit {
         );
     }
 
+    onResetUserClick() {
+        console.log(this._resetuser, 'reset');
+        this._user = User.fromJSON(this._resetuser);
+    }
+
     onRolesListChanged(cur_roles: MatSelectionList) {
         this._user.roles = this.sel_roles.selectedOptions.selected.map(item => item.value);
         console.log(this._user.roles, 'SELECTED');
@@ -161,6 +166,7 @@ export class UserFormComponent implements OnInit {
 
     onSaveClick(input_user: User) {
         console.log(input_user, 'ONSAVECLICK');
+        this._resetuser = input_user.toJSON();
         if (this.method === 'CREATE') {
             this.createUser(input_user);
         } else if (this.method === 'UPDATE') {
