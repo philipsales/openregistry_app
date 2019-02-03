@@ -93,6 +93,7 @@ export class CaseService {
     console.log('CASE SEVICE', mycase);
     const url = environment.API_ENDPOINT + 'cases/';
     const case_json = mycase.toJSON();
+    case_json['origin'] = 'biobank';
     console.log(case_json);
 
     return this.httpclient.post(url, case_json)

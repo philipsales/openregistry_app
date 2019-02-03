@@ -14,6 +14,7 @@ import * as moment from 'moment';
 })
 export class PcariformListComponent implements OnInit {
 
+  @Input() dontDisplayValidity = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() create_url: string;
   @Input() update_url: string;

@@ -7,6 +7,7 @@ export class SpecForm {
     form_id: string;
     form_name: string;
     specimen: Specimen[];
+    dir_path?: string;
 
   static fromJSON(json: SpecFormJSON): SpecForm {
     if (typeof json === 'string') {
@@ -33,10 +34,12 @@ export class SpecForm {
   constructor(
     form_id: string,
     form_name: string,
+    dir_path: string,
     specimen: Specimen[]
   ) {
     this.form_id = form_id;
     this.form_name = form_name;
+    this.dir_path = dir_path;
     this.specimen = specimen;
   }
 

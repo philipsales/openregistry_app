@@ -139,14 +139,14 @@ export class PcariformManageComponent implements OnInit {
 
   onSaveForm(updated_form: Form) {
     console.log("new Update", updated_form);
-    // let fi = this.fileInput.nativeElement;
-    // let formModel = new FormData();
+    let fi = this.fileInput.nativeElement;
+    let formModel = new FormData();
 
-    // if (fi.files && fi.files[0]) {
-    //   formModel = fi.files[0];
-    //   updated_form.dir_path = (fi.files[0].name).split(' ').join('_');
-    //   updated_form.file = formModel;
-    // }
+    if (fi.files && fi.files[0]) {
+      formModel = fi.files[0];
+      updated_form.dir_path = (fi.files[0].name).split(' ').join('_');
+      updated_form.file = formModel;
+    }
 
     console.log(updated_form, 'FORM!!');
     this.onSubmitTrigger.emit(updated_form);

@@ -198,10 +198,25 @@ export class CaseFormComponent implements OnInit {
       specimens.push(new Specimen(0, x.specimen, x.type, '', '', 0, history));
      }
 
-     this._case.specforms.push(new SpecForm(form.id, form.name, specimens));
+     this._case.specforms.push(new SpecForm(form.id, form.name, form.dir_path, specimens));
     }
     // this.onSubmitCaseTrigger.emit(this._case);
     console.log(this._case, 'CASE');
+  }
+
+  onClickAttachment(e:Event, dirpath: string) {
+    this.caseService
+      .downloadAttachment(dirpath)
+      .subscribe(
+        file => {
+          var url = window.URL.createObjectURL(file);
+          window.open(url);
+        },
+        errors => {
+          console.log('attachment error');
+        }
+      );
+    e.preventDefault();
   }
 
   onCancelAddForm() {

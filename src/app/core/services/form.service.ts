@@ -234,12 +234,6 @@ export class FormService {
     console.warn(form_json, 'IN STRING');
   }
 
-  medicalSubmitForm(form: FormJSON): Observable<Form> {
-    const url = environment.API_ENDPOINT + 'forms/v0';
-    return this.http.post<Form>(url, form)
-                .catch(Helper.handleError);
-  }
-
   medicalUpdateForm(form: FormJSON): Observable<Form> {
     const url = environment.API_ENDPOINT + 'forms/medical';
     let params = new HttpParams()

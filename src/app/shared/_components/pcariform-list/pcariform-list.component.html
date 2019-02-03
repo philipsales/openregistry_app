@@ -34,7 +34,7 @@
         <th>Form Name</th>
         <!-- <th>Type</th> -->
         <th style="text-align: left;">Department</th>
-        <th style="text-align: center;">Validity</th>
+        <th style="text-align: center;" [hidden]="dontDisplayValidity">Validity</th>
         <th (click)="doSort()" style="text-align: center;">
           Approval <i class="fa fa-4"
           [ngClass]="{
@@ -55,7 +55,7 @@
         <td style="text-align: left;">
           <p *ngFor="let department of form.department">{{department}}</p>
         </td>
-        <td  style="text-align: center;">
+        <td  style="text-align: center;" [hidden]="dontDisplayValidity">
           <span *ngIf='form.isValid'
             class="badge badge--success" #valid> Valid 
           </span>
