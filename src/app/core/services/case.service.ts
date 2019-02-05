@@ -89,6 +89,22 @@ export class CaseService {
     }).catch(Helper.handleError);
   }
 
+  createMedical(mycase: Case): Observable<Case> {
+    console.log('CASE SEVICE', mycase);
+    const url = environment.API_ENDPOINT + 'cases/';
+    const case_json = mycase.toJSON();
+    case_json['origin'] = 'medical';
+    console.log(case_json);
+
+    return this.httpclient.post(url, case_json)
+      .map((response: CaseJSON) => {
+        // return (response.json().data as Form[])
+        console.log(response, 'CASE CREATED from /cases');
+        return Case.fromJSON(response);
+      // }).catch(Helper.handleError);
+      }).catch(error => Observable.throw(error));
+  }
+
   create(mycase: Case): Observable<Case> {
     console.log('CASE SEVICE', mycase);
     const url = environment.API_ENDPOINT + 'cases/';
