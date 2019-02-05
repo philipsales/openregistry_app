@@ -109,6 +109,7 @@
               <input matInput placeholder="Collected Date" 
               [(ngModel)]="specimen.collectedDate" 
               [matDatepicker]="myDatepicker"
+              name="datecollected-{{h}}-{{i}}"
               required>
               <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
               <mat-datepicker #myDatepicker></mat-datepicker>
@@ -163,30 +164,40 @@
                               </mat-select>
                           </mat-form-field>
             
+                          <span [hidden]="history.type != 'New Consent Form'">
+                            <mat-form-field>
+                                <mat-select placeholder="Method" 
+                                [(ngModel)]="history.reference" 
+                                name="reference-mta-consent-{{j}}" 
+                                [required]="history.type == 'New Consent Form'">
+                                    <mat-option *ngFor="let form of forms" [value]="form.name">
+                                      {{ form.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                          </span>
     
-                          <mat-form-field *ngIf="history.type == 'New Consent Form'">
-                              <mat-select placeholder="Method"  [(ngModel)]="history.reference" name="reference-mta-{{j}}" required>
-                                  <mat-option *ngFor="let form of forms" [value]="form.name">
-                                    {{ form.name }}
-                                  </mat-option>
-                              </mat-select>
-                          </mat-form-field>
+                          <span [hidden]="history.type != 'New Institution'">
+                            <mat-form-field>
+                                <mat-select placeholder="Institution"  
+                                [(ngModel)]="history.reference" name="reference-mta-{{j}}"
+                                [compareWith]="compareId" [required]="history.type == 'New Institution'">
+                                    <mat-option *ngFor="let mta of mtas" 
+                                      [value]="mta._id">
+                                      {{ mta.name }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                          </span>
     
-                          <mat-form-field *ngIf="history.type == 'New Institution'">
-                              <mat-select placeholder="Institution"  
-                              [(ngModel)]="history.reference" name="reference-mta-{{j}}"
-                              [compareWith]="compareId" required>
-                                  <mat-option *ngFor="let mta of mtas" 
-                                    [value]="mta._id">
-                                    {{ mta.name }}
-                                  </mat-option>
-                              </mat-select>
-                          </mat-form-field>
-    
-    
-                          <mat-form-field *ngIf="history.type == 'Discard'">
-                              <input matInput placeholder="Note" [(ngModel)]="history.reference" name="reference-disposal-{{j}}" required>
-                          </mat-form-field>
+                          <span [hidden]="history.type != 'Discard'">
+                            <mat-form-field>
+                                <input matInput placeholder="Note" 
+                                [(ngModel)]="history.reference" 
+                                name="reference-disposal-{{j}}" 
+                                [required]="history.type == 'Discard'">
+                            </mat-form-field>
+                          </span>
     
                           <!-- <mat-button style="width: 5%; padding: 2px;"
                             (click)="onRemoveMTARow(h,i,j)">
