@@ -160,7 +160,7 @@ export class CaseFormComponent implements OnInit {
   private updateCase() {
     this.caseService.update(this._case).subscribe((updated_case: Case) => {
       this.is_processing = false;
-      this._case = updated_case;
+      // this._case = updated_case;
       console.log(updated_case, 'CASE UPDATED : case-update.component');
       this._notificationsService.success(
         'Case : ' + updated_case.case_nbr,

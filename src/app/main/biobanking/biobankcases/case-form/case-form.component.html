@@ -135,15 +135,17 @@
                           <input matInput placeholder="Qty" 
                             (change)="historyChanged(specimen)"
                             [(ngModel)]="history.qty" 
-                            name="qty-{{i}}-{{j}}"
-                            required>
+                            name="qty-{{i}}-{{j}}">
                         </mat-form-field>
-                        <mat-form-field>
+                        <mat-form-field *ngIf="history.qty < 1">
+                          <input matInput placeholder="Transaction date" disabled>
+                        </mat-form-field>
+                        <mat-form-field *ngIf="history.qty > 0">
                             <input matInput 
                             [matDatepicker]="picker" 
                             [(ngModel)]="history.date_done"
                             name="transaction-date-{{i}}-{{j}}"
-                            placeholder="Transaction date" 
+                            placeholder="Transaction date"
                             required>
                             <mat-datepicker-toggle matSuffix [for]="picker">
                               <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
@@ -152,7 +154,9 @@
                         </mat-form-field>
                           
                           <mat-form-field>
-                              <mat-select placeholder="Transfer to" required  [(ngModel)]="history.type" name="type-{{j}}" >
+                              <mat-select placeholder="Transfer to" 
+                              [(ngModel)]="history.type" name="type-{{j}}"
+                              [required]="history.qty > 0">
                                   <mat-option *ngFor="let method of methods" [value]="method">
                                     {{ method }}
                                   </mat-option>
