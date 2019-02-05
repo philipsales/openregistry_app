@@ -134,14 +134,12 @@
             </mat-form-field>
           </div>
 
-
-
           <div class="material-form-group">
             <mat-form-field class="material-form-control" >
               <input placeholder="Consent Form Validity Date"
                       [(ngModel)]="_form.validity_date"
                       #input_validity_date="ngModel" 
-                      [disabled]="!_form.isValid"
+                      [disabled]="method != 'CREATE' && !_form.isValid"
                       name="input_validity_date"
                       required="required" 
                       matInput [matDatepicker]="i" >
