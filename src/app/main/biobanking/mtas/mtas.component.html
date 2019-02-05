@@ -68,25 +68,38 @@
             <tr *ngFor="let mta of mtas | mtafilter : filter; let i = index">
               <th scope="row">{{ i+1 }}</th>
               <td>{{ mta.name }}</td>
-              <td></td>
-              <td></td>
+              <td>{{ mta.type }}</td>
+              <td>{{ mta.description }}</td>
               <td style="text-align: right">
                 <a 
                   appPcariauth
                   [mustHavePermission]="['biobank_mta_view']"
                   [mustBeAll]="false" 
+                  [routerLink]="['/biobanking/mtas/view', mta.id]"
+                  class="btn btn-sm btn-default">
+                <!-- <a 
+                  appPcariauth
+                  [mustHavePermission]="['biobank_mta_view']"
+                  [mustBeAll]="false" 
                   class="btn btn-sm btn-default"
-                  target="_blank"
-                  href="{{this.download_url + mta.id + '/download'}}">
-                  <i class="fa fa-eye"></i> View 
+                  href="{{this.download_url + mta.id + '/download'}}"> -->
+                  <i class="fa fa-eye"></i>
                 </a>
                 <a 
                   appPcariauth
                   [mustHavePermission]="['biobank_mta_update']"
-                  [mustBeAll]="false" 
-                  class="btn btn-sm btn-warning"
-                  target="_blank" >
-                  <i class="fa fa-edit"></i> Update 
+                  [mustBeAll]="false"
+                  [routerLink]="['/biobanking/mtas/update', mta.id]" 
+                  class="btn btn-sm btn-warning">
+                  <i class="fa fa-edit"></i>
+                </a>
+                <a 
+                appPcariauth
+                [mustHavePermission]="['biobank_mta_delete']"
+                [mustBeAll]="false"
+                (click)="delete(mta)"
+                class="btn btn-sm btn-danger">
+                  <i class="fa fa-trash"></i>
                 </a>
               </td>
             </tr>

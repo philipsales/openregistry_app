@@ -7,6 +7,9 @@ import { SharedModule } from 'app/shared/shared.module';
 import { MtasRoutingModule } from './mtas-routing.module';
 import { MtasComponent } from './mtas.component';
 import { MtasCreateComponent } from './mtas-create/mtas-create.component';
+import { MtaFormComponent } from './mta-form/mta-form.component';
+import { MtsUpdateComponent } from './mtas-update/mts-update.component';
+import { MtsViewComponent } from './mtas-view/mts-view/mts-view.component';
 
 @NgModule({
   imports: [
@@ -16,6 +19,6 @@ import { MtasCreateComponent } from './mtas-create/mtas-create.component';
     SharedModule,
     MtasRoutingModule
   ],
-  declarations: [MtasComponent, MtasCreateComponent]
+  declarations: [MtasComponent, MtasCreateComponent, MtaFormComponent, MtsUpdateComponent, MtsViewComponent]
 })
 export class MtasModule { }

@@ -1,0 +1,38 @@
+<div id="page-content" class="col-md-offset-3 col-md-9">
+  <header class="app-header row">
+    <div class="app-header--primary">
+      <div class="app-header--context">
+        <div class="app-header--breadcrumbs">
+          <ol class="aui-nav aui-nav-breadcrumbs" resolved="">
+            <li>
+              <a [routerLink]="['/biobanking/mtas']">Biobanking</a>
+            </li>
+            <li>
+                <a [routerLink]="['/biobanking/mtas/list']">
+                  Agreement Form List
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['/biobanking/mtas/view', mta_id]">
+                  <strong>View Agreement Form</strong>
+                </a>
+            </li>
+
+          </ol>
+        </div>
+        <h1 class="app-header--heading">
+          Update Agreement Form
+        </h1>
+      </div>
+    </div>  
+    <div class="app-header--secondary">
+    </div>
+  </header>
+  <br/> <br/>
+  <app-mta-form
+  [form]="_form"
+  [readonly]="readonly"
+  (onSubmitTrigger)="onSubmit($event)"></app-mta-form>
+</div>
+<p>
+</p>

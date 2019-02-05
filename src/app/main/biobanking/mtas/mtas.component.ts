@@ -4,6 +4,7 @@ import { MtaService } from 'app/core/services';
 import { MTA } from 'app/core/models';
 import { NoJWTError } from 'app/core/errors';
 import { environment } from 'environments/environment';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-mtas',
@@ -17,9 +18,40 @@ export class MtasComponent implements OnInit {
   searchText = '';
   filter = '';
 
-  constructor(private mtaService: MtaService) {
+  constructor(
+    private mtaService: MtaService,
+    private notificationService: NotificationsService) {
     this.download_url = environment.API_ENDPOINT + 'mtas/';
   }// --constructor
+
+  delete(mta: MTA) {
+    this.mtaService.delete(mta.id).subscribe(mta => {
+      this.mtas.forEach((_mta, index, object) => {
+        if (_mta.id == mta.id) {
+          object.splice(index, 1);
+        }
+      });
+      this.notificationService.success(
+        'Removed MTA : ' + mta.name,
+        'Successfully Deleted',
+        {
+          timeOut: 30*1000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: false,
+        });
+    }, error => {
+      this.notificationService.error(
+        'Removing MTA : ' + mta.name,
+        'Deletion Failed',
+        {
+          timeOut: 30*1000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: false,
+        });
+    });
+  }
 
   ngOnInit() {
     this.mtaService.getAll().subscribe(

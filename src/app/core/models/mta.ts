@@ -6,6 +6,7 @@ export class MTA {
   type: string;
   description: string;
   dir_path: string;
+  file?: FormData;
   is_deleted: boolean;
 
   static fromJSON(json: MTAJSON): MTA {

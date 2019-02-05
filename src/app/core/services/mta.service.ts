@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 
 import { Headers, RequestOptions, Response } from '@angular/http';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 // import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+
+import { map } from 'rxjs/operators';
 
 import { Helper } from '../helper';
 import { MTA } from '../models';
@@ -31,17 +32,49 @@ export class MtaService {
       .catch(Helper.handleError);
   }
 
-  create(this_mta: MTA): Observable<MTA> {
+  get(id: string): Observable<MTA> {
+    const url = environment.API_ENDPOINT + 'mtas/find';
+    let params = new HttpParams()
+      .set('id', id);
+    return this.http.get<MTAJSON>(url, {params}).pipe(
+      map(MTA.fromJSON)
+    )
+  }
+
+  delete(id: string): Observable<MTA> {
+    const url = environment.API_ENDPOINT + 'mtas';
+    let params = new HttpParams()
+      .set('id', id);
+    return this.http.delete<MTAJSON>(url, {params}).pipe(
+      map(MTA.fromJSON)
+    )
+  }
+
+  upsert(mta: MTA): Observable<MTA> {
     const url = environment.API_ENDPOINT + `mtas/`;
-    const consent_mta = this_mta.toJSON();
+
+    let input = new FormData();
+    let file = mta.file;
+    input.append("file", file as any);
+    const consent_mta = mta.toJSON();
+    input.append("data", JSON.stringify(consent_mta));
 
     return this.http
-      .post(url, consent_mta)
+      .post(url, input)
       .map((response: MTAJSON) => {
         console.log(response);
         return MTA.fromJSON(response);
       })
       .catch(Helper.handleError);
+  }
+
+  downloadAttachment(mta: MTA): Observable<Blob> {
+    const url = environment.API_ENDPOINT + 'mtas/download/' + mta.id;
+
+    return this.http.get(url, { responseType: 'blob' })
+    .map((response: any) => {
+      return response
+    }).catch(Helper.handleError);
   }
 
   save(this_mta: FormData): Observable<MTA> {
