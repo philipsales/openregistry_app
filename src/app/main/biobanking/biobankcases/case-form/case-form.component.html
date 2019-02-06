@@ -16,7 +16,7 @@
     </div>
   <div class="col-sm-3 save-wrapper">
     <button 
-      [disabled]="_readonly || !caseCreateForm.valid || _case.specforms.length == 0"
+      [disabled]="readonly || !caseCreateForm.valid || _case.specforms.length == 0"
       class="btn btn-success pull-right"
       (click)="onSaveCase()">
       <i class="fa fa-save e2e-save-case"></i> &nbsp; Save Case 

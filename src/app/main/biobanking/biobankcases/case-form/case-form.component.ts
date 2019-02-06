@@ -33,6 +33,10 @@ export class CaseFormComponent implements OnInit {
     this._readonly = readonly;
   }
 
+  get readonly() {
+    return this._readonly;
+  }
+
   _case: Case;
   @Input() set case(value: Case) {
     this._case = value;
