@@ -29,15 +29,10 @@
     </header>
 
     <div class="row" id="page-body">
-        <app-pcaricase-manage 
-        [case]="case" 
-        [forms]="forms"
-        [update_url]="'/biobanking/cases/update/'"
-        [view_url]="'/biobanking/cases/view/'"
-        [method]="'VIEW'"
-        [case_searchable]="true"
-        [medcases]="medcases">
-      </app-pcaricase-manage>
+      <app-case-form
+        [case]="case"
+        [readonly]="true">
+      </app-case-form>
     </div> <!-- page-body -->
     
 </div>  <!-- page-content -->

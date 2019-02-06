@@ -28,6 +28,10 @@ import { NoJWTError } from 'app/core/errors';
 export class CaseFormComponent implements OnInit {
 
   public notUnique: boolean;
+  private _readonly: boolean;
+  @Input() set readonly(readonly: boolean) {
+    this._readonly = readonly;
+  }
 
   _case: Case;
   @Input() set case(value: Case) {

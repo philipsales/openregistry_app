@@ -1,9 +1,11 @@
 <!-- START OF REFACTOR -->
 <div class="col-md-12 table-nav" >
     <div class="col-sm-3 reset-wrapper">
-      <button class="btn btn-default pull-left" >
-        <i class="fa fa-refresh"></i> &nbsp; Reset
-      </button>
+      <div [hidden]="true">
+          <button class="btn btn-default pull-left">
+            <i class="fa fa-refresh"></i> &nbsp; Reset
+          </button>
+      </div>
     </div>
     
     <div class="col-sm-6">
@@ -14,7 +16,7 @@
     </div>
   <div class="col-sm-3 save-wrapper">
     <button 
-      [disabled]="!caseCreateForm.valid || _case.specforms.length == 0"
+      [disabled]="_readonly || !caseCreateForm.valid || _case.specforms.length == 0"
       class="btn btn-success pull-right"
       (click)="onSaveCase()">
       <i class="fa fa-save e2e-save-case"></i> &nbsp; Save Case 
