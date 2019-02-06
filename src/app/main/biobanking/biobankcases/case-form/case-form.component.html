@@ -155,7 +155,6 @@
                             </mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
-                          
                           <mat-form-field>
                               <mat-select placeholder="Transfer to" 
                               [(ngModel)]="history.type" name="type-{{specimen._id}}-{{j}}"
@@ -166,18 +165,15 @@
                               </mat-select>
                           </mat-form-field>
             
-                          <span [hidden]="history.type != 'New Consent Form'">
-                            <mat-form-field>
+                            <mat-form-field *ngIf="history.type == 'New Consent Form'">
                                 <mat-select placeholder="Method" 
                                 [(ngModel)]="history.reference" 
-                                name="reference-mta-consent-{{specimen._id}}-{{j}}" 
-                                [required]="history.type == 'New Consent Form'">
+                                name="reference-mta-consent-{{specimen._id}}-{{j}}">
                                     <mat-option *ngFor="let form of forms" [value]="form.name">
                                       {{ form.name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                          </span>
 
                           <span [hidden]="history.type">
                             <mat-form-field>
@@ -186,27 +182,21 @@
                             </mat-form-field>
                           </span>
     
-                          <span [hidden]="history.type != 'New Institution'">
-                            <mat-form-field>
+                            <mat-form-field *ngIf="history.type == 'New Institution'">
                                 <mat-select placeholder="Institution"  
                                 [(ngModel)]="history.reference" name="reference-mta-{{specimen._id}}-{{j}}"
-                                [compareWith]="compareId" [required]="history.type == 'New Institution'">
+                                [compareWith]="compareId">
                                     <mat-option *ngFor="let mta of mtas" 
                                       [value]="mta._id">
                                       {{ mta.name }}
                                     </mat-option>
                                 </mat-select>
                             </mat-form-field>
-                          </span>
-    
-                          <span [hidden]="history.type != 'Discard'">
-                            <mat-form-field>
+                            <mat-form-field *ngIf="history.type == 'Discard'">
                                 <input matInput placeholder="Note" 
                                 [(ngModel)]="history.reference" 
-                                name="reference-disposal-{{specimen._id}}-{{j}}" 
-                                [required]="history.type == 'Discard'">
+                                name="reference-disposal-{{specimen._id}}-{{j}}">
                             </mat-form-field>
-                          </span>
     
                           <!-- <mat-button style="width: 5%; padding: 2px;"
                             (click)="onRemoveMTARow(h,i,j)">
