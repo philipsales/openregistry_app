@@ -81,7 +81,7 @@
         <div>
           <!-- specimen -->
           <mat-form-field style="width: 20%">
-              <input matInput placeholder="Qty" 
+              <input matInput placeholder="Quantity Collected" 
                 [(ngModel)]="specimen.qty"
                 name="specimenqty-{{specimen._id}}-{{h}}-{{i}}"
                 (change)="historyChanged(specimen)"
@@ -116,7 +116,7 @@
             </mat-form-field>
     
             <mat-form-field style="width: 20%">
-                <input matInput placeholder="Qty Available" [(ngModel)]="specimen.qty_avail"
+                <input matInput placeholder="Quantity Available" [(ngModel)]="specimen.qty_avail"
                 name="specimenqtyavail-{{specimen._id}}-{{h}}-{{i}}" style="-webkit-text-fill-color:#880000"
                 readonly disabled>
             </mat-form-field>
@@ -133,7 +133,7 @@
                     <div style="text-align: center"  
                         *ngFor="let history of specimen.history; let j = index">
                         <mat-form-field>
-                          <input matInput placeholder="Qty" 
+                          <input matInput placeholder="Quantity Transferred" 
                             (change)="historyChanged(specimen)"
                             [(ngModel)]="history.qty" 
                             name="qty-{{specimen._id}}-{{i}}-{{j}}">
