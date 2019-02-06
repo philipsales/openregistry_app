@@ -176,6 +176,13 @@
                                 </mat-select>
                             </mat-form-field>
                           </span>
+
+                          <span [hidden]="history.type">
+                            <mat-form-field>
+                                <input matInput
+                                  disabled>
+                            </mat-form-field>
+                          </span>
     
                           <span [hidden]="history.type != 'New Institution'">
                             <mat-form-field>
