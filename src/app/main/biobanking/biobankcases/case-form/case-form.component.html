@@ -112,7 +112,7 @@
               [(ngModel)]="specimen.collectedDate" 
               [matDatepicker]="myDatepicker"
               name="datecollected-{{specimen._id}}-{{h}}-{{i}}"
-              required>
+              [required]="specimen.qty > 0">
               <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
               <mat-datepicker #myDatepicker></mat-datepicker>
             </mat-form-field>
