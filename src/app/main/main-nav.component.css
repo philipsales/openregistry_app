@@ -18,6 +18,11 @@
     border-right: 1px solid #eee;
 }
 
+.side-nav-logo {
+    height: 60px;
+    margin: 10%;
+}
+
 .left_col {
     background: #6E0D1C;
 }
