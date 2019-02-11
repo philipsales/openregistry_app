@@ -16,5 +16,5 @@ export const environment = {
   DEPT_BIOBANK: 'Institute of Biology',
   FORM_TYPE_BIOBANK: 'Biobanking Repository',
   FORM_TYPE_MEDICAL: 'Patient Repository',
-  VERSION: 'v1.00.00'
+  VERSION: 'v1.00.02'
 };
