@@ -46,7 +46,7 @@ export class CaseCreateComponent implements OnInit {
   }
 
   onSubmitCase(case_for_create: Case) {
-    this.caseService.createMedical(case_for_create).subscribe((created_case: Case) => {
+    this.caseService.create(case_for_create).subscribe((created_case: Case) => {
       this.is_processing = false;
       console.log(created_case, 'CASE CREATED : case-manage.component');
       this._notificationsService.success(

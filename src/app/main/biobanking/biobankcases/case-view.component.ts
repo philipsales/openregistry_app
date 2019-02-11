@@ -24,7 +24,7 @@ export class CaseViewComponent implements OnInit {
   case: Case;
   forms: Form[];
   answers: FormAnswer[];
-  medcases: string[];
+  medcases: Case[];
 
   constructor(
     private formService: FormService,

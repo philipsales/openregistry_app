@@ -11,6 +11,7 @@ import { Helper } from '../helper';
 import { Case, SpecForm } from '../models';
 import { CaseJSON } from '../interfaces';
 import { environment } from 'environments/environment';
+import { map, filter } from 'rxjs/operators';
 
 @Injectable()
 export class CaseService {
@@ -24,9 +25,11 @@ export class CaseService {
 
   getAll(): Observable<Case[]> {
     const url = environment.API_ENDPOINT + 'cases/';
+
     return this.httpclient.get(url).map((response: Response) => {
-      console.log(response['data'], 'OUTPUT GET /cases all');
-      return response['data'].map(Case.fromJSON);
+      return response['data'].map((item: CaseJSON) => {
+        return Case.fromJSON(item);
+      });
     }).catch(Helper.handleError);
   }
 
@@ -60,23 +63,19 @@ export class CaseService {
       return response['data'].filter((all_cases: CaseJSON) => {
         return all_cases.organization === biobank_org;
       }).map((x) => {
-        console.log(x);
         return x['case_number'];
       });
     }).catch(Helper.handleError);
   }
 
-  getMedicalCaseNumbers(): Observable<string[]> {
+  getMedicalCaseNumbers(): Observable<Case[]> {
     const url = environment.API_ENDPOINT + 'cases/';
     const medical_org = environment.ORG_MEDICAL;
     return this.httpclient.get(url).map((response: Response) => {
-      console.log(response['data'], 'OUTPUT GET /cases all');
-      return response['data'].filter((all_cases: CaseJSON) => {
-        return all_cases.organization === medical_org;
-      }).map((x) => {
-        console.log(x);
-        return x['case_number'];
-      });
+      return response['data'].filter((item: CaseJSON) => 
+        item.organization == medical_org &&
+        (item.specforms.length == 0)
+      ).map(Case.fromJSON)
     }).catch(Helper.handleError);
   }
 
@@ -109,8 +108,6 @@ export class CaseService {
     console.log('CASE SEVICE', mycase);
     const url = environment.API_ENDPOINT + 'cases/';
     const case_json = mycase.toJSON();
-    case_json['origin'] = 'biobank';
-    console.log(case_json);
 
     return this.httpclient.post(url, case_json)
       .map((response: CaseJSON) => {

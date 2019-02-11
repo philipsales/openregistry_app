@@ -30,7 +30,18 @@ export class CaseFormComponent implements OnInit {
   public notUnique: boolean;
   private _readonly: boolean;
   @Input() set readonly(readonly: boolean) {
+    if (readonly) {
+      this.myControl.disable();
+    }
     this._readonly = readonly;
+  }
+
+  private _updateonly: boolean;
+  @Input() set updateonly(updateonly: boolean) {
+    if (updateonly) {
+      this.myControl.disable();
+    }
+    this._updateonly = updateonly;
   }
 
   get readonly() {
@@ -55,9 +66,9 @@ export class CaseFormComponent implements OnInit {
   forms: Form[];
   myControl: FormControl = new FormControl();
   biobankcases: string[];
-  medcases: string[];
+  medcases: Case[];
   answers: FormAnswer[];
-  filteredOptions: Observable<string[]>;
+  filteredOptions: Observable<Case[]>;
   methods = ['Discard', 'New Consent Form', 'New Institution'];
   mtas: MTA[];
 
@@ -73,7 +84,7 @@ export class CaseFormComponent implements OnInit {
     private router: Router
   ) {
     this.answers = [];
-    this._case = new Case('', environment.ORG_BIOBANK, '', this.answers);
+    this._case = new Case(null, environment.ORG_BIOBANK, '', this.answers);
     this._case.specforms = [];
   }
 
@@ -96,8 +107,9 @@ export class CaseFormComponent implements OnInit {
         this.medcases = casenbrs;
         this.filteredOptions = this.myControl.valueChanges
           .pipe(
-            startWith(''),
-            map(val => this.filter(val))
+            startWith<string | Case>(''),
+            map(val => typeof val === 'string' ? val : val.case_nbr),
+            map(case_nbr => case_nbr ? this.filter(case_nbr) : this.medcases)
           );
       }
     );
@@ -130,11 +142,7 @@ export class CaseFormComponent implements OnInit {
   }
 
   onSaveCase() {
-    if (this._case.id) {
-      this.updateCase();
-    } else {
-      this.createNewCase();
-    }
+    this.updateCase();
   }
 
   compareId(val1:MTA, val2:MTA) {
@@ -245,10 +253,15 @@ export class CaseFormComponent implements OnInit {
     this.historyChanged(this._case.specforms[h].specimen[i]);
   }
 
-  private filter(val: string): string[] {
-    console.log('ewan');
-    return this.medcases.filter(option =>
-      option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  private filter(val: string): Case[] {
+    return this.medcases.filter(option => {
+      return option.case_nbr.toLowerCase().indexOf(val.toLowerCase()) === 0
+    });
+  }
+
+  displayFn(val?: Case): string | undefined {
+    console.log(val, 'micool');
+    return val ? val.case_nbr : undefined;
   }
 
 }

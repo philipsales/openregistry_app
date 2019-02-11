@@ -16,7 +16,9 @@
     </div>
   <div class="col-sm-3 save-wrapper">
     <button 
-      [disabled]="readonly || !caseCreateForm.valid || _case.specforms.length == 0"
+      [disabled]="readonly || 
+      ((_case && _case.specforms && _case.specforms.length == 0) || !_case) ||
+      _case.id == null"
       class="btn btn-success pull-right"
       (click)="onSaveCase()">
       <i class="fa fa-save e2e-save-case"></i> &nbsp; Save Case 
@@ -42,14 +44,18 @@
                   <input matInput 
                         id="casenumber"
                         name="input_casenumber"
-                        [(ngModel)]="_case.case_nbr"
+                        [(ngModel)]="_case"
+                        [formControl]="myControl"
                         [matAutocomplete]="auto"
                         placeholder="Case Number"
                         required>
+                  <mat-hint>You must select only from the available cases</mat-hint>
               </mat-form-field>	
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{ option }}
+              <mat-autocomplete #auto="matAutocomplete" 
+              [displayWith]="displayFn">
+                <mat-option *ngFor="let option of filteredOptions | async" 
+                [value]="option">
+                  {{ option.case_nbr }}
                 </mat-option>
               </mat-autocomplete>
 
@@ -251,10 +257,9 @@
     
     
     <!-- end of ULTIMATE -->
-        
     <div class="col-md-12 col-sm-12 col-xs-12"          
     style="margin-top: 15px;" 
-    [hidden]="!show_selected_forms"> 
+    [hidden]="!show_selected_forms && _case.id != null"> 
     <!-- <div class="col-md-offset-4 col-md-6">  -->
     <div class="col-md-offset-5 col-md-10"> 
       <button 
@@ -265,6 +270,7 @@
         'medical_case_update' ]" 
         [mustBeAll]="false"
         class="btn btn-warning"
+        [disabled]="readonly || _case.id == null"
         (click)="show_selected_forms = false">
         <i class="fa fa-plus e2e-add-form"></i> Add Form
       </button>
@@ -274,7 +280,7 @@
       (onSaveFormAddTrigger)="onAddSelectedForm($event)"
       (onCancelFormAddTrigger)="onCancelAddForm()"
       [forms]="forms"
-      [show]="!show_selected_forms">
+      [show]="!show_selected_forms && _case.id != null">
       </app-pcaricase-form-add>
     </div> <!-- x-panel -->
         </form>
