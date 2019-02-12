@@ -46,10 +46,8 @@ export class BioformsCreateComponent implements OnInit {
     private router: Router
   ) {
     if (this.formService.currentForm) {
-      console.log('BACK TO CREATE');
       this.new_form = this.formService.currentForm;
     } else {
-      console.log('COMPLETELY NEW');
       this.resetForm();
       this.getRegistryTypes();
       this.getDepartments();

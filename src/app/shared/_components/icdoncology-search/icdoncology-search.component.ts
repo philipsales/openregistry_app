@@ -28,20 +28,15 @@ export class IcdoncologySearchComponent implements OnInit {
   }
 
   onSubmitICDSearch(params: any) {
-    console.log('params: ', params);
-    console.log('site: ', params.site);
 
     this.icdOncologyService
       .getDiagnoses(params)
       .subscribe(
         diagnosis => {
-          console.log('onSubmit: ', diagnosis);
-
           if (diagnosis['message']) {
             this.error = diagnosis['message'];
             this.dataSource = new MatTableDataSource();
-          }
-          else {
+          } else {
             this.error = '';
             this.dataSource = new MatTableDataSource(diagnosis);
           }
@@ -50,7 +45,6 @@ export class IcdoncologySearchComponent implements OnInit {
   }
 
   onSelectDiagnosis(selected) {
-    console.log("Console", selected);
     this.onSelectDiagnosisTrigger.emit(selected);
   }
 

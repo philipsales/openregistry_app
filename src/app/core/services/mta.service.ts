@@ -26,7 +26,6 @@ export class MtaService {
 
     return this.http.get(url)
       .map((response: Response) => {
-        console.log('SERVICE getCNOSENT', response['data'].map(MTA.fromJSON));
         return response['data'].map(MTA.fromJSON);
       })
       .catch(Helper.handleError);
@@ -62,7 +61,6 @@ export class MtaService {
     return this.http
       .post(url, input)
       .map((response: MTAJSON) => {
-        console.log(response);
         return MTA.fromJSON(response);
       })
       .catch(Helper.handleError);
@@ -85,7 +83,6 @@ export class MtaService {
     return this.http
       .post(url, this_mta)
       .map((response: MTAJSON) => {
-        console.log(response);
         return MTA.fromJSON(response);
       })
       .catch(Helper.handleError);

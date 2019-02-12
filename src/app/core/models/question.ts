@@ -22,9 +22,7 @@ export class Question {
         return JSON.parse(json, Question.reviver);
     } else {
         const question = Object.create(Question.prototype);
-        console.log(json.options);
         let options_array = json.options.split('|');
-        console.log('EWAN');
         let options_obj : Option[] = [];
         if (options_array) {
           options_array.forEach((element) => {

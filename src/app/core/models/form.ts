@@ -26,7 +26,6 @@ export class Form {
   principalinvestigator: PrincipalInvestigator[] = [];
 
   static fromJSON(json: FormJSON): Form {
-    console.log(json, 'micool json');
     if (typeof json === 'string') {
       return JSON.parse(json, Form.reviver);
     } else {

@@ -56,7 +56,6 @@ export class MedformsUpdateComponent implements OnInit {
 
   onSubmitTrigger(form_to_submit: Form) {
     this.is_processing = true;
-    console.log(form_to_submit, 'SUBMITTING');
     const data = form_to_submit.toJSON();
 
     this.formService.updateForm(data).subscribe(

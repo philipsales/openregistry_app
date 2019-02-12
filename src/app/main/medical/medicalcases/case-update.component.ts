@@ -40,7 +40,6 @@ export class CaseUpdateComponent implements OnInit {
     this.caseService.get(id).subscribe((response: Case) => {
       delete this.case;
       this.case = response;
-      console.log(response);
     }, error => {
       console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {
@@ -51,7 +50,6 @@ export class CaseUpdateComponent implements OnInit {
     this.formService.getValidMedicalForms().subscribe(
       forms => {
         this.forms = forms;
-        console.log(this.forms, 'filtered forms');
       }
     );
   }// --OnInit
@@ -60,7 +58,6 @@ export class CaseUpdateComponent implements OnInit {
     this.caseService.update(case_for_update).subscribe((updated_case: Case) => {
       this.is_processing = false;
       this.case = updated_case;
-      console.log(updated_case, 'CASE UPDATED : case-update.component');
       this._notificationsService.success(
         'Case : ' + updated_case.case_nbr,
         'Successfully Updated.',

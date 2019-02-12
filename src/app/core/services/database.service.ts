@@ -30,17 +30,6 @@ export class DatabaseService {
   ) {
   }//--constructor
 
-  /*
-  getAll(): Promise<Database[]> {
-    const url = environment.API_ENDPOINT + '/databases/';
-    console.log("--OnInit--Database.Service--");
-    console.log(url);
-    return this.http.get(url)
-                    .toPromise()
-                    .then(response => response.json().data as Database[])
-                    .catch(this.handleError);
-  }//--getAll
-  */
 
   create(database: Database): Observable<Database> {
     const url = environment.API_ENDPOINT + `databases/backup`;
@@ -49,7 +38,6 @@ export class DatabaseService {
     return this.http
       .post(url, database_json)
       .map((response: DatabaseJSON) => {
-        console.log(response);
         return Database.fromJSON(response);
       })
       .catch(Helper.handleError);
@@ -62,7 +50,6 @@ export class DatabaseService {
       .get(url)
       .map((response: Response) => {
         //return (response.json() as Database[]);
-        console.log('databases----', response['data']);
         return response['data'].map(Database.fromJSON);
         //return (JSON.parse(response['_body']) as Database[]);
         //return (response.json() as Database[])
@@ -88,7 +75,6 @@ export class DatabaseService {
     return this.http
       .patch(url, database_json)
       .map((response: DatabaseJSON) => {
-        console.log(response);
         return Database.fromJSON(response);
       })
       .catch(Helper.handleError);
@@ -100,7 +86,6 @@ export class DatabaseService {
     return this.http
       .post(url, '')
       .map((response: DatabaseJSON) => {
-        console.log(response);
         return Database.fromJSON(response);
       })
       .catch(Helper.handleError);

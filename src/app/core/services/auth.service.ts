@@ -23,7 +23,6 @@ export class AuthService {
   login(username: string, password: string): Observable<any> {
       const url = environment.API_HOST + '/users/token';
       return this.http.post(url, { username: username, password: password }).map((response: Response) => {
-            console.log(response.json());
             const token = response.json() && response.json().token;
             const permissions = response.json() && response.json().permissions;
             if (token) {
@@ -31,15 +30,12 @@ export class AuthService {
                 const user = response.json() && response.json().user;
                 this.current_user = User.fromJSON(user);
 
-                console.log(this.current_user, 'THE USER');
                 // store username and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token, user: this.current_user }));
                 localStorage.setItem('user', JSON.stringify(this.current_user));
                 localStorage.setItem('access_token', this.token);
                 localStorage.setItem('permissions', JSON.stringify(permissions));
 
-                console.warn(this.current_user, 'LOGIN : auth.service.ts');
-                console.warn(this.token, 'LOGIN : auth.service.ts');
                 return {
                     status: true,
                     user: user,
@@ -67,7 +63,6 @@ export class AuthService {
   checkPassword(username: string, password: string): Observable<any> {
         const url = environment.API_HOST + '/users/token';
         return this.http.post(url, { username: username, password: password }).map((response: Response) => {
-            console.log(response.json());
             const token = response.json() && response.json().token;
             if (token) {
                 return true;

@@ -30,7 +30,6 @@ export class ConsentService {
     return this.http
       .post(url, consent_json)
       .map((response: ConsentJSON) => {
-        console.log(response);
         return Consent.fromJSON(response);
       })
       .catch(Helper.handleError);
@@ -42,7 +41,6 @@ export class ConsentService {
     return this.http
       .get(url)
       .map((response: Response) => {
-        console.log('SERVICE getCNOSENT', response['data'].map(Consent.fromJSON));
         return response['data'].map(Consent.fromJSON);
       })
       .catch(Helper.handleError);
@@ -54,8 +52,6 @@ export class ConsentService {
     return this.http
       .get(url)
       .map((response: ConsentJSON) => {
-        console.log('getConsent', response);
-        console.log('getConsent MAP', Consent.fromJSON(response));
         return Consent.fromJSON(response);
       })
       .catch(Helper.handleError);
@@ -69,15 +65,12 @@ export class ConsentService {
     return this.http
       .patch(url, consent_json)
       .map((response: ConsentJSON) => {
-        console.log(response);
         return Consent.fromJSON(response);
       })
       .catch(Helper.handleError);
   }
 
   private handleError(error: any): Promise<any> {
-    console.log('An error occured');
-    console.log(error);
     return Promise.reject(error.message || error);
   }
 

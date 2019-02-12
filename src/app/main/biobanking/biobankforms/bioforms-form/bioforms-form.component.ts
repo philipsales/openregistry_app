@@ -112,7 +112,6 @@ export class BioformsFormComponent implements OnInit {
   }
 
   onChangeFile() {
-    console.log('new file');
     let fi = this.fileInput.nativeElement;
     let formModel = new FormData();
     this._form.dir_path = (fi.files[0].name).split(' ').join('_');
@@ -149,7 +148,6 @@ export class BioformsFormComponent implements OnInit {
  @ViewChild('fileInput') fileInput;
 
   onSaveForm() {
-    console.log(this._form, 'FORM');
     this.is_processing = true;
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));

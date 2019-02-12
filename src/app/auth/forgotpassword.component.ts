@@ -28,7 +28,6 @@ export class ForgotpasswordComponent implements OnInit {
   }
 
   submit(e) {
-    console.log(this.isPasswordSent, 'password');
     this.passwordService.forgotPassword(this.model).subscribe(result => {
       this.isPasswordSent = true;
       if (result['status'] == 200) {

@@ -29,7 +29,6 @@ export class SpectypesUpdateComponent implements OnInit {
     this.specTypeService.get(this.specimentype_id).subscribe((response: SpecType) => {
       delete this.specimentype;
       this.specimentype = response;
-      console.log(response);
     }, error => {
       console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {

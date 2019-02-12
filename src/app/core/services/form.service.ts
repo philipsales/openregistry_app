@@ -38,7 +38,6 @@ export class FormService {
   private _currentForm: Form;
 
   set currentForm(instance: Form) {
-    console.log(instance, 'RECEIVED FORM');
     this._currentForm = instance;
   }
 
@@ -104,11 +103,9 @@ export class FormService {
   getMedicalForms(): Observable<Form[]> {
     const medical_form_type = environment.FORM_TYPE_MEDICAL;
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response: Response) => {
       return response['data'].filter((all_forms: FormJSON) => {
-        console.log(all_forms, 'ALL');
         return all_forms.type == medical_form_type 
         && (<string[]>user['departments']).some(dept => all_forms.department.indexOf(dept) != -1);
       }).map(Form.fromJSON);
@@ -118,11 +115,9 @@ export class FormService {
   getMedicalReportForms(): Observable<Form[]> {
     const medical_form_type = environment.FORM_TYPE_MEDICAL;
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response: Response) => {
       return response['data'].filter((all_forms: FormJSON) => {
-        console.log(all_forms, 'ALL');
         return all_forms.type === medical_form_type;
       }).map(Form.fromJSON);
     }).catch(Helper.handleError);
@@ -131,7 +126,6 @@ export class FormService {
   getValidMedicalForms(): Observable<Form[]> {
     const medical_form_type = environment.FORM_TYPE_MEDICAL;
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user);
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response: Response) => {
       return response['data'].filter((all_forms: FormJSON) => {
@@ -150,7 +144,6 @@ export class FormService {
     const user = JSON.parse(localStorage.getItem('user'));
     const url = environment.API_ENDPOINT + 'forms/';
     return this.http.get(url).map((response) => {
-      console.log(response, 'response');
       return response['data'].filter((all_forms: FormJSON) => {
         return all_forms.type == biobank_form_type 
             && user['departments'].some(
@@ -262,15 +255,11 @@ export class FormService {
     let input = new FormData();
     var file = form.file;
     input.append("file", file);
-    console.log('FILE TO UPLOAD', file);
-    console.log('FORM BEFORE dirpath: ', form);
     input.append("data", JSON.stringify(Form.fromJSON(form)));
-    console.log('FORM AFTER dirpath: ', form);
 
     return this.http
       .post(url, input)
       .map((response: FormJSON) => {
-        console.log(response, 'FORM CREATED from /forms');
         return Form.fromJSON(response);
       })
 

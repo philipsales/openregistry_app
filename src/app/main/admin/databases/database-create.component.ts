@@ -111,7 +111,6 @@ export class DatabaseCreateComponent implements OnInit {
   }
 
   onRestoreClick(id) {
-    console.log(id);
     this.databaseService
       .restore(id)
       .subscribe(

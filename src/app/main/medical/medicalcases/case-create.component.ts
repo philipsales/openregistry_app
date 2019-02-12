@@ -48,7 +48,6 @@ export class CaseCreateComponent implements OnInit {
   onSubmitCase(case_for_create: Case) {
     this.caseService.create(case_for_create).subscribe((created_case: Case) => {
       this.is_processing = false;
-      console.log(created_case, 'CASE CREATED : case-manage.component');
       this._notificationsService.success(
         'New Case : ' + created_case.case_nbr,
         'Successfully Created',
@@ -67,7 +66,6 @@ export class CaseCreateComponent implements OnInit {
   }
 
   onShowICD(value) {
-    console.log("onSHOWICD CaseCreate");
     this.show_icd = true;
   }
 }

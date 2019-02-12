@@ -54,14 +54,12 @@ export class SignupComponent implements OnInit {
 
     this.organizationService.getAll().subscribe(organizations => {
       this.organizationList = organizations;
-      console.log(this.organizationList, 'micool');
     });
 
     this.departmentService.getAllDepartments().subscribe(departments => {
       this.departmentList = departments;
     });
 
-    console.log(this.model, 'hello world');
   }// --ngOnInit
 
   validateEmail() {
@@ -84,7 +82,6 @@ export class SignupComponent implements OnInit {
     this.is_successful = false;
     this.loading = true;
     const user = User.fromJSON(this.model);
-    console.log(user, 'user');
     // if (true) return
     this.userService.create(user).subscribe(
       created_user => {
@@ -94,26 +91,10 @@ export class SignupComponent implements OnInit {
       },
       errors => {
         this.error = errors;
-        console.log('PASWORD ERROR', errors);
         this.loading = false;
         this.is_error = true;
       });
-    /*
-    this.authService.login(this.model.username, this.model.password).subscribe(
-      result => {
-          console.log(result, 'RESULT');
-        if (result['status'] === true) {
-          this.router.navigate(['']);
-        } else {
-          this.error = 'Username or password is incorrect';
-              this.loading = false;
-        }
-      }, error => {
-          const error_message = JSON.parse(error).message;
-          this.error = error_message;
-          this.loading = false;
-        });
-        */
+   
   }// --login
 
   onUpdatedUserEvent(new_password: string) {

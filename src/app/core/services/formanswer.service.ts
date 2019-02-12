@@ -24,7 +24,6 @@ export class FormAnswerService {
   get(case_id: string, formanswer_id: string): Observable<FormAnswer> {
     const url = environment.API_ENDPOINT + 'cases/' + case_id + '/forms/' + formanswer_id;
     return this.httpclient.get(url).map((response: FormAnswerJSON) => {
-      console.log(response, 'OUTPUT GET /cases/forms one');
       return FormAnswer.fromJSON(response);
     }).catch(Helper.handleError);
   }
@@ -32,26 +31,21 @@ export class FormAnswerService {
   create(case_id: string, formanswer_id: string, formanswer: FormAnswer): Observable<FormAnswer> {
     const url = environment.API_ENDPOINT + 'cases/' + case_id + '/forms/' + formanswer_id;
     const formanswer_json = formanswer.toJSON();
-    console.log(formanswer_json);
 
     return this.httpclient.post(url, formanswer_json)
       .map((response: FormAnswerJSON) => {
         // return (response.json().data as Form[])
-        console.log(response, 'FORM CREATED from /cases');
         return FormAnswer.fromJSON(response);
     }).catch(Helper.handleError);
   }
 
   update(case_id: string, formanswer_id: string, form_answers: FormAnswer): Observable<FormAnswer> {
-    console.log('NATAWAG AKO!');
     const url = environment.API_ENDPOINT + 'cases/' + case_id + '/forms/' + formanswer_id;
     const formanswer_json = form_answers.toJSON();
-    console.log(formanswer_json);
 
     return this.httpclient.patch(url, {answers: formanswer_json.answers})
       .map((response: FormAnswerJSON) => {
         // return (response.json().data as Form[])
-        console.log(response, 'CASE UPDATED from /cases');
         return FormAnswer.fromJSON(response);
     }).catch(Helper.handleError);
   }

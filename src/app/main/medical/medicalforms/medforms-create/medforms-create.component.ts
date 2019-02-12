@@ -38,10 +38,8 @@ export class MedformsCreateComponent implements OnInit {
   ) {
 
     if (this.formService.currentForm) {
-      console.log('BACK TO CREATE');
       this.new_form = this.formService.currentForm;
     } else {
-      console.log('COMPLETELY NEW');
       this.new_form = new Form(
         '',
         '',
@@ -92,7 +90,6 @@ export class MedformsCreateComponent implements OnInit {
 
   onSubmitTrigger(form_to_submit: Form) {
     this.is_processing = true;
-    console.log(form_to_submit, '===SUBMITTING===');
     const data = form_to_submit.toJSON();
     this.formService.submitForm(data).subscribe(
       created_question => {

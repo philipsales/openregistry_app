@@ -17,12 +17,10 @@ export class SpectypesFormComponent implements OnInit {
   _resetspecimentype: SpecTypeJSON;
   _specimentype: SpecType;
   @Input() set specimentype(value: SpecType) {
-    console.log(value, 'OIST');
     if (value) {
       this._specimentype = value;
       this._resetspecimentype = this._specimentype.toJSON();
     }
-    console.warn('HELLO!');
   }// -- _reinit setter
 
   @Input() method: string;
@@ -56,13 +54,11 @@ export class SpectypesFormComponent implements OnInit {
   }// --onSaveClick
 
   createSpecimen(this_specimentype: SpecType) {
-    console.log(this_specimentype, 'My Specimen Type');
     this.errors = {};
     this.has_errors = false;
     this.is_processing = true;
     this.specTypeService.create(this_specimentype).subscribe((created_specimentype: SpecType) => {
         this.is_processing = false;
-        console.log(created_specimentype, 'Specimen Type CREATED : specs-form.component');
         this._notificationsService.success(
             'New Specimen Type : ' + created_specimentype.name,
             'Successfully Created',
@@ -84,13 +80,11 @@ export class SpectypesFormComponent implements OnInit {
   }
 
   updateSpecimen(this_specimentype: SpecType) {
-    console.log(this_specimentype, 'My Specimen Type');
     this.errors = {};
     this.has_errors = false;
     this.is_processing = true;
     this.specTypeService.update(this_specimentype).subscribe((updated_specimentype: SpecType) => {
         this.is_processing = false;
-        console.log(updated_specimentype, 'SPECIMEN TYPE UPDATED : spectypes-form.component');
         this._notificationsService.success(
             'Specimen : ' + this_specimentype.name,
             'Successfully Updated',
