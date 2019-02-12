@@ -19,7 +19,6 @@ export class DynamicTableFormComponent implements OnInit {
   @Input() set inquestionz(value: Question[]) {
     if (value) {
       this.questionz = value;
-      console.warn(this.questionz, 'HELLO questionz!');
     }
   }
 
@@ -35,15 +34,12 @@ export class DynamicTableFormComponent implements OnInit {
   @Input() set insectionz(value: Section[]) {
     if (value) {
       this.sectionz = value;
-      console.warn(this.sectionz, 'HELLO sectionz!');
-      console.log('yahooo!');
       this.specform.length = 0;
       /*
       REFACTOR
       this.sectionz.map(section => {
         section.questions.map(question => {
           let arvalue = question.value.split('|');
-          console.log(arvalue);
           if(arvalue.length > 3) {
             this.specform.push(new SpecForm('', arvalue[1], arvalue[2], '', '', '', '', ''));
           } else {
@@ -85,7 +81,7 @@ export class DynamicTableFormComponent implements OnInit {
           window.open(url);
         },
         errors => {
-          console.log('attachment error');
+          console.warn('attachment error');
         }
       );
   }

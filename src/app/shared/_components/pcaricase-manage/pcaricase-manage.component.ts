@@ -23,13 +23,11 @@ export class PcaricaseManageComponent implements OnInit {
     this._case = value;
     this._resetcase = this._case.toJSON();
     this.isBiobank = this._case.organization === environment.ORG_BIOBANK;
-    console.warn('HELLO!');
   }// -- _reinit setter
   private _medcases: string[];
   @Input() set medcases(value: string[]) {
     this._medcases = value;
     if (value) {
-      console.warn(this._medcases, 'HELLO medcases!');
     } else {
       this._medcases = [];
     }
@@ -68,7 +66,6 @@ export class PcaricaseManageComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.warn('halo!');
   }
 
   resetCase() {
@@ -81,7 +78,6 @@ export class PcaricaseManageComponent implements OnInit {
   }
 
   filter(val: string): string[] {
-    console.log('ewan');
     return this._medcases.filter(option =>
       option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
@@ -89,13 +85,11 @@ export class PcaricaseManageComponent implements OnInit {
   onAddSelectedForm(forms: Form[]) {
     this.show_selected_forms = true;
     this.is_adding_forms = false;
-    console.log(forms);
     for (const form of forms) {
       let answers: Answer[] = [];
       this._case.forms.push(new FormAnswer(form.id, form.name, false, answers));
     }
     this.onSubmitCaseTrigger.emit(this._case);
-    console.log(this._case, 'CASE');
   }
 
   onCancelAddForm() {
@@ -104,12 +98,10 @@ export class PcaricaseManageComponent implements OnInit {
   }
 
   onSubmitCase(case_for_save: Case) {
-    console.log(case_for_save, 'CASE');
     this.onSubmitCaseTrigger.emit(case_for_save);
   }
 
   onShowICD() {
-    console.log("ICD SHOW");
     this.onShowICDTrigger.emit();
     this.show_icd = true;
   }

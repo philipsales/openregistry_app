@@ -17,12 +17,10 @@ export class SpecsFormComponent implements OnInit {
   _resetspecimen: SpecJSON;
   _specimen: Spec;
   @Input() set specimen(value: Spec) {
-    console.log(value, 'OIST');
     if (value) {
       this._specimen = value;
       this._resetspecimen = this._specimen.toJSON();
     }
-    console.warn('HELLO!');
   }// -- _reinit setter
 
   @Input() method: string;
@@ -56,13 +54,11 @@ export class SpecsFormComponent implements OnInit {
   }// --onSaveClick
 
   createSpecimen(this_specimen: Spec) {
-    console.log(this_specimen, 'My Specimen');
     this.errors = {};
     this.has_errors = false;
     this.is_processing = true;
     this.specService.create(this_specimen).subscribe((created_specimen: Spec) => {
         this.is_processing = false;
-        console.log(created_specimen, 'Specimen CREATED : specs-form.component');
         this._notificationsService.success(
             'New Specimen : ' + created_specimen.name,
             'Successfully Created',
@@ -84,13 +80,11 @@ export class SpecsFormComponent implements OnInit {
   }
 
   updateSpecimen(this_specimen: Spec) {
-    console.log(this_specimen, 'My Specimen');
     this.errors = {};
     this.has_errors = false;
     this.is_processing = true;
     this.specService.update(this_specimen).subscribe((updated_specimen: Spec) => {
         this.is_processing = false;
-        console.log(updated_specimen, 'SPECIMEN UPDATED : spec-form.component');
         this._notificationsService.success(
             'Specimen : ' + this_specimen.name,
             'Successfully Updated',

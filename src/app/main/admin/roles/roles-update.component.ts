@@ -30,7 +30,6 @@ export class RolesUpdateComponent implements OnInit {
     this.roleService.get(this.role_id).subscribe((response: Role) => {
       delete this.role;
       this.role = response;
-      console.log(response);
     }, error => {
       console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {

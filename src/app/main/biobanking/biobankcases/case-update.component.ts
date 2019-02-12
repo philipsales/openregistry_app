@@ -36,7 +36,6 @@ export class CaseUpdateComponent implements OnInit {
     this.caseService.get(id).subscribe((response: Case) => {
       delete this.case;
       this.case = response;
-      console.log(response, 'THIS CASE');
     }, error => {
       console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {

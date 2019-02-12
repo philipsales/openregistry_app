@@ -53,7 +53,6 @@ export class PcariformManageComponent implements OnInit {
       this._form = value;
       this.templateForm = this.toFormGroup(this._form);
     }
-    console.warn(this._form, 'HELLO!');
   }// -- setter for forms
 
   @Output() onSubmitTrigger: EventEmitter<Form> = new EventEmitter();
@@ -138,7 +137,6 @@ export class PcariformManageComponent implements OnInit {
   @ViewChild("fileInput") fileInput;
 
   onSaveForm(updated_form: Form) {
-    console.log("new Update", updated_form);
     let fi = this.fileInput.nativeElement;
     let formModel = new FormData();
 
@@ -148,19 +146,16 @@ export class PcariformManageComponent implements OnInit {
       updated_form.file = formModel;
     }
 
-    console.log(updated_form, 'FORM!!');
     this.onSubmitTrigger.emit(updated_form);
   }
 
   onPreviewForm(preview_form: Form) {
-    console.log(preview_form, 'NEW UPDATES');
     this.formService.currentForm = preview_form;
     this.router.navigate([this.preview_url]);
   }
 
   //Template function for upload directory
   onChangeFile() {
-    console.log('new file');
     let fi = this.fileInput.nativeElement;
     let formModel = new FormData();
     this._form.dir_path = (fi.files[0].name).split(' ').join('_');
@@ -170,7 +165,6 @@ export class PcariformManageComponent implements OnInit {
     this.caseService
       .upload(path)
       .subscribe(upload => {
-        console.log(upload)
       },
         errors => {
           this.errors = errors;
@@ -182,21 +176,18 @@ export class PcariformManageComponent implements OnInit {
 
 
   onSubmit() {
-    console.log('this._name', this._name);
 
     let fi = this.fileInput.nativeElement;
     let formModel = new FormData();
 
     if (fi.files && fi.files[0]) {
       formModel = fi.files[0];
-      console.log('FOMR MODEL', formModel);
     }
 
     this.loading = true;
     this.caseService
       .upload(formModel)
       .subscribe(upload => {
-        console.log(upload)
         this.loading = false;
       },
         errors => {

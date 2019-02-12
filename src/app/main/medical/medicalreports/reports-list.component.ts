@@ -58,7 +58,6 @@ export class ReportListComponent implements OnInit {
 
   onClickReset() {
     this.searchCriteria = new SearchCriteria();
-    console.log(this.aggregated_data.length, 'count');
     this.aggregated_data = [];
 
   }

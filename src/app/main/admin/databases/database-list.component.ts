@@ -18,17 +18,7 @@ export class DatabaseListComponent implements OnInit {
   constructor(private databaseService: DatabaseService) { }
 
   ngOnInit() {
-    console.log("--OnInit--DatabaseList.component--");
-    /*
-    //PROMISE
-    this.databaseService
-        .getAll()
-        .then(databases => {
-          console.log("--database--");
-          console.log(databases);
-          this.databases = databases;
-        });
-    */
+   
 
     this.databaseService
       .getDatabases()

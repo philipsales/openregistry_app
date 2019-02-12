@@ -28,7 +28,6 @@ export class DynamicFormComponent implements OnInit {
   @Input() set inquestionz(value: Question[]) {
     if (value) {
       this.questionz = value;
-      console.warn(this.questionz, 'HELLO questionz!');
       this.initUI();
     }
   }
@@ -44,14 +43,12 @@ export class DynamicFormComponent implements OnInit {
   @Input() set insectionz(value: Section[]) {
     if (value) {
       this.sectionz = value;
-      console.warn(this.sectionz, 'HELLO sectionz!');
       this.initUI();
     }
   }
 
   private _initsave: boolean;
   @Input() set initsave(value: boolean) {
-    console.log(value, 'ON INITSAVE');
     this._initsave = value;
     if (value === true) {
       this.onSubmit();
@@ -90,7 +87,6 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit() {
     this.consentService.getConsents().subscribe(
       consents => {
-        console.log(consents);
         this.consents = consents;
       });
     this.initUI();
@@ -143,8 +139,6 @@ export class DynamicFormComponent implements OnInit {
             })
           );
         } else if (my_question.type === 'checkbox') {
-          console.log(my_question, '=====CHECKBOX.myquestion');
-          console.log(this.answers.get(my_question.key), '=====CHECKBOX.myquestion.key');
 
           let temp = '';
           if (this.answers.get(my_question.key)) {
@@ -254,8 +248,6 @@ export class DynamicFormComponent implements OnInit {
     }// --for
     // this.questions = this.questions.sort((a, b) => a.order - b.order);
     this.form = this.qcs.toFormGroup(this.questions);
-    console.log('--formARrayTest--', this.formArrayTest);
-    console.log('--this.form--', this.form);
   }
 
   onSubmit() {
@@ -339,7 +331,7 @@ export class DynamicFormComponent implements OnInit {
           window.open(url);
         },
         errors => {
-          console.log('attachment error');
+          console.warn('attachment error');
         }
       );
   }

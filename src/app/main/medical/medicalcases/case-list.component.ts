@@ -19,9 +19,8 @@ export class CaseListComponent implements OnInit {
     this.caseService.getAll().subscribe(
       cases => {
         this.cases = cases;
-        console.warn(cases, 'CASES');
       }, error => {
-        console.log(error); // get the error in error handler
+        console.warn(error); // get the error in error handler
         if (error instanceof NoJWTError) {
           console.warn('TO DO : handle JWT Expired');
         }

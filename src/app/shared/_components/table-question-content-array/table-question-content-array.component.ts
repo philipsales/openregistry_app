@@ -99,23 +99,17 @@ export class TableQuestionContentArrayComponent implements OnInit {
   onChangeSpec($event: MatSelectChange) {
     const ar_id = ($event.source.id.split('-'));
     const index = ar_id[ar_id.length - 1];
-    let curval = (this.questions[index].value).split('|');
+    const curval = (this.questions[index].value).split('|');
     curval[1] = $event.value;
     this.questions[index].value = curval.join('|');
-    console.log(this.questions[index]);
   }
 
   onChangeSpecType($event: MatSelectChange) {
-    console.log($event.source);
     const ar_id = ($event.source.id.split('-'));
     const index = ar_id[ar_id.length - 1];
-    console.log(index);
-    console.log($event.value);
-    console.log(this.questions[index]);
-    let curval = (this.questions[index].value).split('|');
+    const curval = (this.questions[index].value).split('|');
     curval[2] = $event.value;
     this.questions[index].value = curval.join('|');
-    console.log(this.questions[index]);
   }
 
   toFormGroup(question: Question) {
@@ -150,7 +144,6 @@ export class TableQuestionContentArrayComponent implements OnInit {
 
   refreshOrder() {
     const ctrl = <FormArray>this.parentForm.controls['questions'];
-    console.log('-CTRL--', ctrl);
     ctrl.controls.forEach((x, indexes) => {
       x.patchValue({ order: indexes });
     });

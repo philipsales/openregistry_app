@@ -46,11 +46,9 @@ export class ChangePasswordComponent implements OnInit {
     this.is_processing = true;
     this.authService.checkPassword(this.user.username, this.old_password).subscribe(
       result => {
-        console.log(result, 'RESULT');
         if (result) {
           this.changeMyPassword();
         } else {
-          console.log('WRONG!');
           this.errors = {
             'old_password': 'Incorrect Old Password'
           };
@@ -58,7 +56,6 @@ export class ChangePasswordComponent implements OnInit {
           this.is_processing = false;
         }
       }, error => {
-        console.log(error);
         this.errors = {
           'old_password': error
         };

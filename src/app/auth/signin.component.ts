@@ -39,7 +39,6 @@ export class SigninComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.model.username, this.model.password).subscribe(
       result => {
-        console.log(result, 'RESULT');
         if (result['status'] === true) {
           this.router.navigate(['my-account']);
         } else {

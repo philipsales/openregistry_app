@@ -37,7 +37,6 @@ export class CaseService {
     const url = environment.API_ENDPOINT + 'cases/';
     const medical_org = environment.ORG_MEDICAL;
     return this.httpclient.get(url).map((response: Response) => {
-      console.log(response['data'], 'OUTPUT GET /cases all');
       return response['data'].filter((all_cases: CaseJSON) => {
         return all_cases.organization === medical_org;
       }).map(Case.fromJSON);
@@ -48,7 +47,6 @@ export class CaseService {
     const url = environment.API_ENDPOINT + 'cases/';
     const biobank_org = environment.ORG_BIOBANK;
     return this.httpclient.get(url).map((response: Response) => {
-      console.log(response['data'], 'OUTPUT GET /cases all');
       return response['data'].filter((all_cases: CaseJSON) => {
         return all_cases.organization === biobank_org;
       }).map(Case.fromJSON);
@@ -59,7 +57,6 @@ export class CaseService {
     const url = environment.API_ENDPOINT + 'cases/';
     const biobank_org = environment.ORG_BIOBANK;
     return this.httpclient.get(url).map((response: Response) => {
-      console.log(response['data'], 'OUTPUT GET /cases all');
       return response['data'].filter((all_cases: CaseJSON) => {
         return all_cases.organization === biobank_org;
       }).map((x) => {
@@ -83,67 +80,55 @@ export class CaseService {
   get(case_id: string): Observable<Case> {
     const url = environment.API_ENDPOINT + 'cases/' + case_id;
     return this.httpclient.get(url).map((response: CaseJSON) => {
-      console.log(response, 'OUTPUT GET /cases one');
       return Case.fromJSON(response);
     }).catch(Helper.handleError);
   }
 
   createMedical(mycase: Case): Observable<Case> {
-    console.log('CASE SEVICE', mycase);
     const url = environment.API_ENDPOINT + 'cases/';
     const case_json = mycase.toJSON();
     case_json['origin'] = 'medical';
-    console.log(case_json);
 
     return this.httpclient.post(url, case_json)
       .map((response: CaseJSON) => {
         // return (response.json().data as Form[])
-        console.log(response, 'CASE CREATED from /cases');
         return Case.fromJSON(response);
       // }).catch(Helper.handleError);
       }).catch(error => Observable.throw(error));
   }
 
   create(mycase: Case): Observable<Case> {
-    console.log('CASE SEVICE', mycase);
     const url = environment.API_ENDPOINT + 'cases/';
     const case_json = mycase.toJSON();
 
     return this.httpclient.post(url, case_json)
       .map((response: CaseJSON) => {
         // return (response.json().data as Form[])
-        console.log(response, 'CASE CREATED from /cases');
         return Case.fromJSON(response);
       // }).catch(Helper.handleError);
       }).catch(error => Observable.throw(error));
   }
 
   update(mycase: Case): Observable<Case> {
-    console.log('CALLED!');
     const url = environment.API_ENDPOINT + 'cases/' + mycase.id;
     const case_json = mycase.toJSON();
-    console.log(case_json, 'micool json');
 
     return this.httpclient.patch(url, case_json)
       .map((response: CaseJSON) => {
         // return (response.json().data as Form[])
-        console.log(response, 'CASE UPDATED from /cases');
         return Case.fromJSON(response);
       }).catch(error => Observable.throw(error));
   }
 
   updateSpecForm(case_id: string, specform: SpecForm[]): Observable<Case> {
-    console.log('SPECFORM : NATAWAG AKO!', case_id);
     const url = environment.API_ENDPOINT + 'cases/' + case_id + '/specform';
     let specformjson = [];
     if (specform) {
       specformjson = specform.map((cur_specform) => cur_specform.toJSON());
     }
-    console.log(specformjson, 'FOR SAVING');
     return this.httpclient.patch(url, {specform: specformjson})
       .map((response: Case) => {
         // return (response.json().data as Form[])
-        console.log(response, 'CASE UPDATED from /cases');
         return Case.fromJSON(response);
     }).catch(Helper.handleError);
   }
@@ -157,12 +142,9 @@ export class CaseService {
   upload(fileToUpload: any): Observable<any> {
     let input = new FormData();
     input.append("file", fileToUpload);
-    console.log('filetoUpload', fileToUpload);
-    console.log('ipnut', input);
 
     const url = environment.API_ENDPOINT + 'cases/upload';
 
-    console.log(url);
 
     var headers = { 'Content-Disposition': 'multipart/form-data' };
     var header1 = { 'Content-Type': 'application/json' };
@@ -182,7 +164,6 @@ export class CaseService {
       }
     )
       .map((response: Response) => {
-        console.log('RESPONSE: ', response);
         return response;
       }).catch(Helper.handleError);
   }

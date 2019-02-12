@@ -29,9 +29,8 @@ export class SpecsListComponent implements OnInit {
     this.specService.getAll().subscribe(
       specs => {
         this.specs = specs;
-        console.warn(specs);
       }, error => {
-        console.log(error); // get the error in error handler
+        console.warn(error); // get the error in error handler
         if (error instanceof NoJWTError) {
           console.warn('TO DO : handle JWT Expired');
         }

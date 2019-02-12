@@ -21,34 +21,26 @@ export class IcdoncologyService {
 
   //getDiagnoses(params: any): Observable<Icdoncology[]> {
   getDiagnoses(params: any): Observable<any[]> {
-    console.log('SERVICE', params);
 
     let query = '';
 
     if (params.site && !params.histology) {
       query = `?site=${params.site}`;
-    }
-    else if (!params.site && params.histology) {
+    } else if (!params.site && params.histology) {
       query = `?histology=${params.histology}`
-    }
-    else {
+    } else {
       query = `?site=${params.site}&histology=${params.histology}`;
     }
 
     const url = environment.API_ENDPOINT + `icd/icdoncologies/` + query;
-    console.log('URL: ', query);
 
     return this.http
       .get(url)
       .map((response: Response) => {
-        console.log('diagnosis----', response);
-        console.log(!response['result']['error']);
 
         if (!response['result']['error']) {
           return response['result']['payload'].map(Icdoncology.fromJSON);
-        }
-        else {
-          console.log('diagnosis----', response);
+        } else {
           return response['result']['error'];
         }
       })

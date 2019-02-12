@@ -14,14 +14,12 @@ export class PcaricaseFormAddComponent implements OnInit {
   private _forms: Form[];
   @Input() set forms(value: Form[]) {
     this._forms = value;
-    console.warn(this._forms, 'HELLO!');
     this.dataSource = new MatTableDataSource(this._forms);
     this.selection = new SelectionModel<Form>(this.allowMultiSelect, this.initialSelection);
   }// -- setter for forms
 
   _show: boolean;
   @Input() set show(value: boolean) {
-    console.warn(this._show);
     this._show = value;
     if (this.selection) {
       this.selection.clear();
@@ -70,7 +68,6 @@ export class PcaricaseFormAddComponent implements OnInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    console.warn('HELLO');
     this.isAllSelected() ?
       this.selection.clear() :
       this.dataSource.data.forEach(row => this.selection.select(row));

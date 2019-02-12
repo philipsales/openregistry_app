@@ -26,7 +26,6 @@ export class PositionService {
 	const url = environment.API_ENDPOINT + '/positions/';
 	return this.http.get(url)
 	    .map((response: Response) => {
-		console.log(response.json())
 		return response.json().map(Position.fromJSON);
             })
 	    .catch(Helper.handleError);

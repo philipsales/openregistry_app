@@ -57,9 +57,8 @@ export class MtasComponent implements OnInit {
     this.mtaService.getAll().subscribe(
       mtas => {
         this.mtas = mtas;
-        console.warn(mtas);
       }, error => {
-        console.log(error); // get the error in error handler
+        console.warn(error); // get the error in error handler
         if (error instanceof NoJWTError) {
           console.warn('TO DO : handle JWT Expired');
         }

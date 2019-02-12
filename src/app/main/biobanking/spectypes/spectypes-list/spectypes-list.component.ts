@@ -30,7 +30,6 @@ export class SpectypesListComponent implements OnInit {
     this.specTypeService.getAll().subscribe(
       this_spectypes => {
         this.spectypes = this_spectypes;
-        console.warn(this_spectypes);
       }, error => {
         console.log(error); // get the error in error handler
         if (error instanceof NoJWTError) {

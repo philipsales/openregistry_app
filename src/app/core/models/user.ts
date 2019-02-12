@@ -76,7 +76,6 @@ export class User {
     }
 
     toJSON(): UserJSON {
-        console.log('foo', this.isActive);
         return Object.assign({}, {
             _id: this.id,
             username: this.username,

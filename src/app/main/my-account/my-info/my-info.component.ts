@@ -32,7 +32,6 @@ export class MyInfoComponent implements OnInit {
     this.userService.getMyAccount(this.user_id).subscribe((response: User) => {
       delete this.user;
       this.user = response;
-      console.log(response);
     }, error => {
       console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {

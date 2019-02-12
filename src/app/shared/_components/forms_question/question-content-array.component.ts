@@ -89,7 +89,6 @@ export class QuestionContentArrayComponent implements OnInit {
 
   refreshOrder() {
     const ctrl = <FormArray>this.parentForm.controls['questions'];
-    console.log('-CTRL--', ctrl);
     ctrl.controls.forEach((x, indexes) => {
       x.patchValue({ order: indexes });
     });

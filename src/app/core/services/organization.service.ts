@@ -27,7 +27,6 @@ export class OrganizationService {
       return this.http
                  .get(url)
                  .map((response: Response) => {
-                    console.log(response['data'], 'OUTPUT GET /organizations');
                     return response['data'].map(Organization.fromJSON);
                  })
                  .catch(Helper.handleError);

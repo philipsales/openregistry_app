@@ -29,9 +29,7 @@ export class BioformsPreviewComponent implements OnInit {
     this.casenumber = '';
     if (this.formService.currentForm) {
       this.caseform = this.formService.currentForm;
-      console.log(this.caseform, 'hello');
       this.origin = this.route.snapshot.paramMap.get('origin').toUpperCase();
-      console.log(this.origin, 'origin');
     } else {
       this.router.navigate(['biobanking/forms']);
     }

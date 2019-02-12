@@ -23,7 +23,6 @@ export class MainComponent implements OnInit {
   ngOnInit() {
     this.userIdle.startWatching();
     this.userIdle.onTimerStart().subscribe(count => {
-      console.log(count, 'count');
       if (this.firstTime) {
         this.firstTime = false;
         return;

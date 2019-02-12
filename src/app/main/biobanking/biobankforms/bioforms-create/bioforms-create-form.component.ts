@@ -47,7 +47,6 @@ export class BioformsCreateFormComponent implements OnInit {
   _form: Form;
   @Input() set form(value: Form) {
     this._form = value;
-    console.warn(this._form, 'HELLO!');
   }// -- setter for forms
 
   status: any[];
@@ -79,12 +78,10 @@ export class BioformsCreateFormComponent implements OnInit {
     this.table_section.push({specimen: '', type: ''});
 
     this.specService.getAll().subscribe(allspecs => {
-      console.log(allspecs);
       this.specimens = allspecs;
     });
 
     this.specTypeService.getAll().subscribe(allspectypes => {
-      console.log(allspectypes);
       this.specimen_types = allspectypes;
     });
   }
@@ -97,7 +94,6 @@ export class BioformsCreateFormComponent implements OnInit {
   }
 
   onChangeFile() {
-    console.log('new file');
     let fi = this.fileInput.nativeElement;
     let formModel = new FormData();
     this._form.dir_path = (fi.files[0].name).split(' ').join('_');
@@ -126,7 +122,6 @@ export class BioformsCreateFormComponent implements OnInit {
   }
 
   onSaveForm() {
-    console.log(this._form, 'FORM');
     this.is_processing = true;
 
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));

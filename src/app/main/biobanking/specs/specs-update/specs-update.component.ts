@@ -30,7 +30,6 @@ export class SpecsUpdateComponent implements OnInit {
     this.specService.get(this.specimen_id).subscribe((response: Spec) => {
       delete this.specimen;
       this.specimen = response;
-      console.log(response);
     }, error => {
       console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {

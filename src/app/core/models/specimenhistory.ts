@@ -44,7 +44,6 @@ export class SpecimenHistory {
   }
 
   toJSON(): SpecimenHistoryJSON {
-    console.log(isNaN(this.date_done.getTime()), 'date done');
     let dateISO = '';
     if (this.date_done != null && !isNaN(this.date_done.getTime())) {
       dateISO = this.date_done.toISOString();

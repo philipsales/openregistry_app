@@ -64,7 +64,6 @@ export class Specimen {
         return this_history.toJSON();
       });
     }
-    console.log(history, 'HISTORY');
     return Object.assign({}, this, {
         qty: this.qty,
         spec: this.spec,

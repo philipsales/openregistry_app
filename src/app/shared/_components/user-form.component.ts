@@ -128,7 +128,6 @@ export class UserFormComponent implements OnInit {
     ngOnInit() {
         this.roleService.getAll().subscribe(
             roles => {
-                console.warn(roles, 'Roles ON service');
                 this.roles = roles;
             },
             error => {
@@ -145,27 +144,22 @@ export class UserFormComponent implements OnInit {
     }
 
     onResetUserClick() {
-        console.log(this._resetuser, 'reset');
         this._user = User.fromJSON(this._resetuser);
     }
 
     onRolesListChanged(cur_roles: MatSelectionList) {
         this._user.roles = this.sel_roles.selectedOptions.selected.map(item => item.value);
-        console.log(this._user.roles, 'SELECTED');
     }
 
     onToggleIsActive(input_is_active: boolean) {
-        console.log(input_is_active);
         this._user.isActive = input_is_active;
     }
 
     onToggleGender(input_gender: string) {
-        console.log(input_gender);
         this._user.gender = input_gender;
     }
 
     onSaveClick(input_user: User) {
-        console.log(input_user, 'ONSAVECLICK');
         this._resetuser = input_user.toJSON();
         if (this.method === 'CREATE') {
             this.createUser(input_user);
@@ -256,10 +250,6 @@ export class UserFormComponent implements OnInit {
     }
 
     compareDepartmentId(selected, comparator) {
-        console.log(comparator, 'micool comparator');
-        console.log(selected, 'micool selected');
-        console.log('\n');
-        console.log(comparator != null && selected._id == comparator.id, 'matched');
         return comparator != null && selected._id == comparator.id;
     }
 }

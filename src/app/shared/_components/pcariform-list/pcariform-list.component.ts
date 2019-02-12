@@ -30,8 +30,6 @@ export class PcariformListComponent implements OnInit {
   _forms: Form[];
   @Input() set forms(value: Form[]) {
     this._forms = value;
-    console.log(this._forms);
-    console.warn('HELLO!');
   }// -- setter for forms
 
   for_delete: Form;
@@ -94,7 +92,6 @@ export class PcariformListComponent implements OnInit {
   }
 
   confirmDelete(event: Form) {
-    console.log('show please');
     this.for_delete = event;
   }
 
@@ -107,7 +104,6 @@ export class PcariformListComponent implements OnInit {
   }
 
   deleteForm(for_delete: Form) {
-    console.log(for_delete, 'FORM FOR DELETE');
     this.formService.delete(for_delete).subscribe(
       updated_form => {
         console.warn(updated_form, 'AYUS');
@@ -131,7 +127,6 @@ export class PcariformListComponent implements OnInit {
   }
 
   approveForm(for_approval: Form, is_approve: boolean) {
-    console.log(for_approval, 'FORM FOR DELETE');
 
     let getFormSubscription = this.formService.getForm(for_approval.id);
     getFormSubscription.subscribe((form: Form) => {

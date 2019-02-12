@@ -20,7 +20,6 @@ export class PermissionService {
       const url = environment.API_ENDPOINT + 'permissions/';
       return this.http .get(url)
                  .map((response: Response) => {
-                    console.log(response);
                     return response['data'].map(Permission.fromJSON);
                  })
                  .catch(Helper.handleError);

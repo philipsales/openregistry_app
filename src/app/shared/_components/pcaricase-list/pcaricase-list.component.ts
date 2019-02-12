@@ -20,7 +20,6 @@ export class PcaricaseListComponent implements OnInit {
 
   @Input() set cases(value: Case[]) {
     this._cases = value;
-    console.warn('HELLO!');
   }// -- setter for forms
 
   constructor() { }

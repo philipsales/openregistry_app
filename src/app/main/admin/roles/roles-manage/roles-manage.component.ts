@@ -21,7 +21,6 @@ export class RolesManageComponent implements OnInit {
             this._role.permissions = [];
         }
         this._resetrole = this._role.toJSON();
-        console.warn('HELLO!');
     }// -- _reinit setter
 
     @Input() method: string;
@@ -60,7 +59,6 @@ export class RolesManageComponent implements OnInit {
 
     onPermissionListChanged(list) {
         this._role.permissions = this.permission.selectedOptions.selected.map(item => item.value);
-        console.log(this._role.permissions, 'SELECTED');
     }
 
     onToggleIsActive(input_is_active: boolean) {
@@ -76,13 +74,11 @@ export class RolesManageComponent implements OnInit {
     }// --onSaveClick
 
     createRole(role: Role) {
-        console.log(role, 'My Role');
         this.errors = {};
         this.has_errors = false;
         this.is_processing = true;
         this.roleService.create(role).subscribe((created_role: Role) => {
             this.is_processing = false;
-            console.log(created_role, 'ROLE CREATED : roles-create.component');
             this._notificationsService.success(
                 'New Role : ' + role.name,
                 'Successfully Created',
@@ -103,13 +99,11 @@ export class RolesManageComponent implements OnInit {
     }
 
     updateRole(role: Role) {
-        console.log(role, 'My Role');
         this.errors = {};
         this.has_errors = false;
         this.is_processing = true;
         this.roleService.update(role).subscribe((updated_role: Role) => {
             this.is_processing = false;
-            console.log(updated_role, 'ROLE UPDATED : roles-manage.component');
             this._notificationsService.success(
                 'Role : ' + role.name,
                 'Successfully Updated',

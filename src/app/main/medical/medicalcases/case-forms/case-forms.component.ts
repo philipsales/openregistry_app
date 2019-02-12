@@ -31,9 +31,6 @@ export class CaseFormsComponent implements OnInit {
     this.caseid = this.route.snapshot.paramMap.get('id');
     this.form_answer_id = this.route.snapshot.paramMap.get('formid');
     this.casenumber = this.route.snapshot.queryParamMap.get('nbr');
-    console.log('PREVIEW', this.caseid);
-    console.log('PREVIEW', this.form_answer_id);
-    console.log('PREVIEW', this.casenumber);
 
     this.formAnswerService.get(this.caseid, this.form_answer_id).subscribe((response: FormAnswer) => {
       const form_answers = response;
@@ -44,13 +41,10 @@ export class CaseFormsComponent implements OnInit {
           this.answers.set(answer.key, answer.answer);
         });
       }
-      console.log(response, 'answers for caseform');
-      console.log(this.answers, 'answers for caseform');
 
       this.formService.getForm(this.form_id).subscribe((recv_form: Form) => {
         delete this.caseform;
         this.caseform = recv_form;
-        console.log(recv_form, 'nakuhang caseform');
       }, error => {
         console.log(error); // get the error in error handler
         if (error instanceof NoJWTError) {

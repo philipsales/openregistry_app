@@ -20,11 +20,8 @@ export class RoleService {
 
     getAll(): Observable<Role[]> {
       const url = environment.API_ENDPOINT + 'roles/';
-      console.log('url: ', url);
       return this.http.get(url)
                  .map((response: Response) => {
-                   console.log(response['data']);
-                   console.log(response);
                    return response['data'].map(Role.fromJSON);
                  })
                  .catch(Helper.handleError);
@@ -33,19 +30,15 @@ export class RoleService {
     get(role_id: string): Observable<Role> {
       const url = environment.API_ENDPOINT + 'roles/' + role_id;
       return this.http.get(url).map((response: RoleJSON) => {
-        console.log(response, 'OUTPUT GET /roles');
         return Role.fromJSON(response);
       }).catch(Helper.handleError);
     }
 
     create(role: Role): Observable<Role> {
-      console.log(role);
       const url = environment.API_ENDPOINT + 'roles/';
       const role_json = role.toJSON();
-      console.log(role_json);
       return this.http.post(url, role_json)
               .map((response: RoleJSON) => {
-                console.log(response);
                 return Role.fromJSON(response);
               })
               .catch(Helper.handleError);
@@ -54,12 +47,10 @@ export class RoleService {
       update(this_role: Role): Observable<Role> {
         const url = environment.API_ENDPOINT + 'roles/' + this_role.id;
         const role_json = this_role.toJSON();
-        console.log(role_json);
 
         return this.http.patch(url, role_json)
           .map((response: RoleJSON) => {
             // return (response.json().data as Form[])
-            console.log(response, 'ROLE UPDATED from /roles');
             return Role.fromJSON(response);
         }).catch(Helper.handleError);
       }

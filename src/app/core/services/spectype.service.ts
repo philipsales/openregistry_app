@@ -22,7 +22,6 @@ export class SpecTypeService {
     const url = environment.API_ENDPOINT + 'spectypes/';
     return this.http.get(url)
       .map((response: Response) => {
-        console.log('SERVICE get SpecType', response['data'].map(SpecType.fromJSON));
         return response['data'].map(SpecType.fromJSON);
       })
       .catch(Helper.handleError);
@@ -32,7 +31,6 @@ export class SpecTypeService {
   get(spectype_id: string): Observable<SpecType> {
     const url = environment.API_ENDPOINT + 'spectypes/' + spectype_id;
     return this.http.get(url).map((response: SpecTypeJSON) => {
-      console.log(response, 'OUTPUT GET /spectypes');
       return SpecType.fromJSON(response);
     }).catch(Helper.handleError);
   }// --get
@@ -44,7 +42,6 @@ export class SpecTypeService {
     return this.http
       .post(url, json_spectype)
       .map((response: SpecTypeJSON) => {
-        console.log(response);
         return SpecType.fromJSON(response);
       })
       .catch(Helper.handleError);
@@ -54,10 +51,8 @@ export class SpecTypeService {
   update(this_spectype: SpecType): Observable<SpecType> {
     const url = environment.API_ENDPOINT + 'spectypes/' + this_spectype.id;
     const spectype_json = this_spectype.toJSON();
-    console.log(spectype_json);
     return this.http.patch(url, spectype_json)
       .map((response: SpecTypeJSON) => {
-        console.log(response, 'SPEC UPDATED from /spectypes');
         return SpecType.fromJSON(response);
     }).catch(Helper.handleError);
   }

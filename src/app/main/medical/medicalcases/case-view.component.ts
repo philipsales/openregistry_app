@@ -39,7 +39,6 @@ export class CaseViewComponent implements OnInit {
     this.caseService.get(id).subscribe((response: Case) => {
       delete this.case;
       this.case = response;
-      console.log(response);
     }, error => {
       console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {
@@ -50,7 +49,6 @@ export class CaseViewComponent implements OnInit {
     this.formService.getMedicalForms().subscribe(
       forms => {
         this.forms = forms;
-        console.log(this.forms, 'filtered forms');
       }
     );
 

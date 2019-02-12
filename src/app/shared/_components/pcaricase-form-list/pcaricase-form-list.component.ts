@@ -48,7 +48,6 @@ export class PcaricaseFormListComponent implements OnInit {
 
   _forms: FormAnswer;
   @Input() set forms(value: FormAnswer) {
-    console.log('yahooo!');
     if (value) {
       this._forms = value;
       if (value.answers) {
@@ -61,7 +60,6 @@ export class PcaricaseFormListComponent implements OnInit {
 
   _show: boolean;
   @Input() set show(value: boolean) {
-    console.warn(this._show);
     this._show = value;
   }// -- _reinit setter
 
@@ -85,10 +83,8 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   onSaveClick() {
-    console.log(this.specform, 'SPECIMEN');
     this.caseService.updateSpecForm(this.caseid, this.specform).subscribe((updated_case: Case) => {
       //this.is_processing = false;
-      console.log(updated_case, 'CASE UPDATED : case-update.component');
       this._notificationsService.success(
         'Case : ' + updated_case.case_nbr,
         'Successfully Updated.',
@@ -100,7 +96,7 @@ export class PcaricaseFormListComponent implements OnInit {
         }
       );
     }, errors => {
-      console.log(errors, 'ERROR : case-update.component');
+      console.warn(errors, 'ERROR : case-update.component');
       // this.is_processing = false;
     });
   }
@@ -124,18 +120,14 @@ export class PcaricaseFormListComponent implements OnInit {
     const prev = this.openqueue.index;
     this.openqueue.save = false;
     if (this.openqueue.index !== index) {
-      console.log('new index');
       this.openqueue.queue = index;
       this.openqueue.form_id = form_id;
       this.openqueue.form_id_id = form_form_id;
       this.openqueue.savequeue = prev;
 
-      console.log(this.openqueue, 'yo');
       if (prev !== -1) {
-        console.log('confirm');
         $('#modal_confirmation').modal('show');
       } else {
-        console.log('reveal');
         this.setAll();
       }
     } else {
@@ -169,7 +161,6 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   onRevealForm(form_answer_id, form_id) {
-    console.warn('YO!');
     this.is_ok = false;
     this.form_answer_id = form_answer_id;
 
@@ -181,13 +172,10 @@ export class PcaricaseFormListComponent implements OnInit {
           this.answers.set(answer.key, answer.answer);
         });
       }
-      console.log(response, 'answers for caseform');
-      console.log(this.answers, 'answers for caseform');
 
       this.formService.getForm(form_id).subscribe((recv_form: Form) => {
         delete this.caseform;
         this.caseform = recv_form;
-        console.log(recv_form, 'nakuhang caseform');
         this.dirpath = recv_form.dir_path;
         this.is_ok = true;
       }, error => {
@@ -197,7 +185,6 @@ export class PcaricaseFormListComponent implements OnInit {
         }
       });
     }, error => {
-      console.log(error); // get the error in error handler
       if (error instanceof NoJWTError) {
         console.warn('TO DO : handle JWT Expired');
       }

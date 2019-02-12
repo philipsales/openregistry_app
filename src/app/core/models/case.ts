@@ -29,13 +29,11 @@ export class Case {
         is_deleted: json.isDeleted,
         created_by: json.created_by
       });
-      console.log(json.specforms);
       if (json.specforms) {
         output['specforms'] = json.specforms.map(SpecForm.fromJSON);
       } else {
         output['specforms'] = [];
       }
-      console.log(json.forms);
       if (json.forms) {
         output['forms'] = json.forms.map(FormAnswer.fromJSON);
       } else {

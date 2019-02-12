@@ -21,7 +21,6 @@ export class RolesListComponent implements OnInit {
   ngOnInit() {
     this.roleService.getAll().subscribe(roles => {
       this.roles = roles;
-      console.warn(roles);
     });
   }//--OnInit
 

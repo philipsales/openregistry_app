@@ -59,7 +59,6 @@ export class Section {
     this.name = name;
     this.order = order;
     this.questions = questions;
-    console.log(istable, 'TABLE');
     if (istable) {
       this.isTable = true;
     } else {

@@ -51,7 +51,6 @@ export class CaseFormComponent implements OnInit {
   _case: Case;
   @Input() set case(value: Case) {
     this._case = value;
-    console.warn(this._case, 'HELLO!');
     if (this._case.specforms) {
       const total_specforms = this._case.specforms.length;
       for (let h = 0; h < total_specforms; ++h) {
@@ -92,7 +91,6 @@ export class CaseFormComponent implements OnInit {
     this.formService.getValidBiobankForms().subscribe(
       forms => {
         this.forms = forms;
-        console.log(this.forms, 'filtered forms');
       }
     );
 
@@ -152,7 +150,6 @@ export class CaseFormComponent implements OnInit {
   private createNewCase() {
     this.caseService.create(this._case).subscribe((created_case: Case) => {
       this.is_processing = false;
-      console.log(created_case, 'CASE CREATED : case-manage.component');
       this._notificationsService.success(
         'New Case : ' + created_case.case_nbr,
         'Successfully Created',
@@ -177,7 +174,6 @@ export class CaseFormComponent implements OnInit {
     this.caseService.update(this._case).subscribe((updated_case: Case) => {
       this.is_processing = false;
       // this._case = updated_case;
-      console.log(updated_case, 'CASE UPDATED : case-update.component');
       this._notificationsService.success(
         'Case : ' + updated_case.case_nbr,
         'Successfully Updated.',
@@ -200,7 +196,6 @@ export class CaseFormComponent implements OnInit {
   onAddSelectedForm(forms: Form[]) {
     this.show_selected_forms = true;
     // this.is_adding_forms = false;
-    console.log(forms);
     for (const form of forms) {
       /*
       let answers: Answer[] = [];
@@ -217,7 +212,6 @@ export class CaseFormComponent implements OnInit {
      this._case.specforms.push(new SpecForm(form.id, form.name, form.dir_path, specimens));
     }
     // this.onSubmitCaseTrigger.emit(this._case);
-    console.log(this._case, 'CASE');
   }
 
   onClickAttachment(e:Event, dirpath: string) {
@@ -260,7 +254,6 @@ export class CaseFormComponent implements OnInit {
   }
 
   displayFn(val?: Case): string | undefined {
-    console.log(val, 'micool');
     return val ? val.case_nbr : undefined;
   }
 

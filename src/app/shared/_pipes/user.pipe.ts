@@ -10,7 +10,6 @@ export class UserPipe implements PipeTransform {
     if (!items) {
       return items;
     }
-    console.log(filter);
     /*
     if (!items || (filter.prop === 'description' && filter.value == '')) {
       return items;
@@ -22,10 +21,8 @@ export class UserPipe implements PipeTransform {
       let is_same = false;
       for (let prop of properties){
         const cur_value = item[prop];
-        console.log(cur_value);
         const regexp = new RegExp(filter, 'gi');
         is_same = (cur_value.match(regexp)) ?  true : false;
-        console.log(is_same);
         if (is_same) {
           break;
         }
@@ -42,7 +39,6 @@ export class UserPipe implements PipeTransform {
       */
     });
 
-    console.log(output);
     return output;
   } // -- transform
 

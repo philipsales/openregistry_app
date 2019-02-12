@@ -17,8 +17,6 @@ export class MainNavComponent implements OnInit {
     const user = JSON.parse(localStorage.getItem('user'));
     this.firstname = user.first_name;
     this.roles = user.roles;
-    console.warn(this.roles, 'ROLES!!!');
-    console.warn(this.firstname, 'USER!!!');
   }
 
 }
