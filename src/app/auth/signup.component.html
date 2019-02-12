@@ -183,7 +183,7 @@
 
       <!-- Login button -->
       <button id="signup_btn" type="submit"
-        class="btn btn-primary center-block"
+        class="btn btn-success center-block"
         *ngIf="!is_successful"
         [disabled]="!valid_email || !signupusername.valid || !signuppassword.valid || !signupfirstname.valid || loading"
         (click)="signup()">
