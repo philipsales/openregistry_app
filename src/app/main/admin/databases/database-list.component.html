@@ -38,7 +38,7 @@
 				 [mustHavePermission]="['admin_database_create']"
 				 [mustBeAll]="true" 
          class="btn btn-default pull-right">
-        <i class="fa fa-plus"></i> &nbsp; Create Backup 
+        <i class="fa fa-plus"></i> &nbsp; Create Database Backup
       </a>
     </div>
     <div class="col-md-12">
@@ -55,7 +55,7 @@
 				<tbody>
 					<!-- <tr  *ngFor='let database of databases | value:"key":true'> -->
 					<tr  *ngFor='let database of databases; let i = index;'>
-						<td>{{ i + 1 }}</td>
+						<th scope="row">{{ i+1 }}</th>
 						<td>{{ database.name }}</td>
 						<td>{{ database.description }}</td>
 						<td>{{ database.dateCreated | date: 'medium' }}</td>

@@ -1,40 +1,34 @@
-<div class="row">
-  <div class="col-md-12 table-nav">
-    <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
-      <div class="input-group">
-        <input type="text" class="form-control"
-          [(ngModel)]="searchText"
-          (keyup.enter)="doSearch($event)"
-          placeholder="search">
-        <span class="input-group-btn">
-          <button 
-            class="btn btn-default" 
-            type="button"
-            (click)="doSearch($event)">
-            Go!
-          </button>
-        </span>
-      </div> <!-- end of search group -->
-    </div>
-    <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left">
-      <a class="btn btn-default"
-      [routerLink]="['/admin/departments/create']">
+    <div class="col-md-12 table-nav">
+      <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
+        <div class="input-group">
+          <input type="text" class="form-control"
+            [(ngModel)]="searchText"
+            (keyup.enter)="doSearch($event)"
+            placeholder="Search for...">
+          <span class="input-group-btn">
+            <button 
+              class="btn btn-default" 
+              type="button"
+              (click)="doSearch($event)">
+              Go!
+            </button>
+          </span>
+        </div> <!-- end of search group -->
+      </div>
+			<a appPcariauth
+				[mustHavePermission]="['admin_user_create']"
+				[mustBeAll]="true" 
+        class="btn btn-default pull-right"
+        [routerLink]="['/admin/departments/create']">
         <i class="fa fa-plus"></i> &nbsp; Create Department
       </a>
     </div>
-    <mat-paginator #paginator 
-                  [length]="pagelength" 
-                  [pageIndex]="0"
-                  [pageSize]="10" 
-                  [pageSizeOptions]="[5, 10, 25, 100]"
-                  class="pull-right"
-                  (page)="getDepartments($event)">
-    </mat-paginator>
-  </div>
+ 
   <div class="col-md-12">
     <table class="table table-striped">
       <thead>
         <tr>
+          <th>#</th>
           <th (click)="doSort()">Name <i class="fa fa-4" 
                       aria-hidden="true"
                       [ngClass]="{
@@ -45,10 +39,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let department of departments">
+        <tr *ngFor="let department of departments; let i = index">
+          <th scope="row">{{ i+1 }}</th>
           <td>{{department.name}}</td>
           <td>{{department.description}}</td>
-          <td style="text-align: center">
+          <td style="text-align: right">
             <button appPcariauth
             [mustHavePermission]="['admin_role_view']"
             [mustBeAll]="true"
@@ -68,12 +63,11 @@
       </tbody>
     </table>
   </div>
-  <!-- <div style="z-index:5; position : fixed;display : flex; 
-  align-self : flex-end;bottom : 10%; margin-bottom : 68px; right:5%;">
-    <button 
-    [routerLink]="['/admin/departments/create']"
-      mat-fab color="primary">
-      <i class="fa fa-plus fa-3" aria-hidden="true"></i>
-    </button>
-  </div> -->
-</div>
+    <mat-paginator #paginator 
+                  [length]="pagelength" 
+                  [pageIndex]="0"
+                  [pageSize]="10" 
+                  [pageSizeOptions]="[5, 10, 25, 100]"
+                  class="pull-left"
+                  (page)="getDepartments($event)">
+    </mat-paginator>
