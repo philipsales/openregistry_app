@@ -31,33 +31,28 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>#</th>
         <th>Form Name</th>
         <th style="text-align: left;">Department</th>
-        <th style="text-align: center;" [hidden]="dontDisplayValidity">Validity</th>
+        <!-- <th style="text-align: center;" [hidden]="dontDisplayValidity">Validity</th> -->
+        <th style="text-align: center;" >Validity</th>
         <th (click)="doSort()" style="text-align: center;">
-          Approval Status <i class="fa fa-4"
+          Approval<i class="fa fa-4"
           [ngClass]="{
           'fa-chevron-up': sort == 1, 
           'fa-chevron-down': sort == -1}"
           aria-hidden="true"></i>
         </th>
-        <th 
-          appPcariauth
-          [mustHavePermission]="['biobank_form_approve', 'medical_form_approve' ]"
-          [mustBeAll]="false" 
-        style="text-align: center;"></th>
       </tr>
     </thead>
     <tbody>
       <tr  *ngFor="let form of _forms; let i = index">
-        <th scope="row">{{ i+1 }}</th>
-        <td class="e2e-newest-form"> {{ form.name }}</td>
-        <td >
+        <td class="e2e-newest-form col-sm-3 col-md-3"> {{ form.name }}</td>
+        <td class="col-sm-2 col-md-2">
           <p *ngFor="let department of form.department"
              style="text-align: left">{{department}}</p>
         </td>
-        <td  style="text-align: center;" [hidden]="dontDisplayValidity">
+        <td  style="text-align: center;" class="col-md-1 col-sm-1" 
+            [hidden]="dontDisplayValidity">
           <span *ngIf='form.isValid'
             class="badge badge--success" #valid> Valid 
           </span>
@@ -65,46 +60,64 @@
             class="badge badge--invalid" #invalid> Expired 
           </span>
         </td>
-        <td style="text-align: center;" >
+        <td style="text-align: center;" class="col-md-1 col-sm1" >
           <span *ngIf="form.status ==='Pending'" class="badge badge--warning" #pending> {{form.status }}</span>
           <span *ngIf="form.status ==='Approved'" class="badge badge--success" #active> {{form.status }}</span>
           <span *ngIf="form.status ==='Rejected'" class="badge badge--danger" #rejected> {{form.status }}</span>
         </td>
-        <td style="text-align: right;" id="e2e-newest-form-btn-{{i}}">
-          <button 
-          appPcariauth
-          [mustHavePermission]="['biobank_form_approve', 'medical_form_approve']"
-          [mustBeAll]="false" 
-          [disabled]="form.status !=='Pending'"
-          (click)="approveForm(form, true)"
-          class="btn btn-sm btn-success" >
-            <i class="fa fa-check-circle e2e-newest-form-approve-btn"></i> 
-          </button>
-          <button 
-          appPcariauth
-          [mustHavePermission]="['biobank_form_approve', 'medical_form_approve']"
-          [mustBeAll]="false" 
-          [disabled]="form.status !=='Pending'"
-            (click)="approveForm(form, false)"
-            class="btn btn-sm btn-default" >
-            <i class="fa fa-times-circle"></i>
-          </button>
-          <button 
-          appPcariauth
-          [mustHavePermission]="['biobank_form_update', 'medical_form_update']"
-          [mustBeAll]="false" 
-              (click)="setCurrentForm(form)"
-              class="btn btn-sm btn-warning">
-            <i class="fa fa-edit"></i>
-          </button>
-          <button 
-          appPcariauth
-          [mustHavePermission]="['biobank_form_delete', 'medical_form_delete']"
-          [mustBeAll]="false" 
+        <td style="text-align: right;" class="col-sm-2 col-md-2" id="e2e-newest-form-btn-{{i}}">
+            <div class="row">
+            <button 
+              appPcariauth
+              [mustHavePermission]="['biobank_form_delete', 'medical_form_delete']"
+              [mustBeAll]="false" 
               (click)="callDeleteForm(form)"
-              class="btn btn-sm btn-danger">
-            <i class="fa fa-trash"></i> 
-          </button>
+              class="btn btn-sm btn-danger col-sm-4 col-md-4 pull-right">
+              <i class="fa fa-trash"></i> 
+              Delete
+            </button>
+            <button 
+              appPcariauth
+              [mustHavePermission]="['biobank_form_update', 'medical_form_update']"
+              [mustBeAll]="false" 
+              (click)="setCurrentForm(form)"
+              class="btn btn-sm btn-warning col-sm-4 col-md-4 pull-right">
+              <i class="fa fa-edit"></i>
+              Update
+            </button>
+            <button 
+              appPcariauth
+              [mustHavePermission]="['biobank_form_view', 'medical_form_view']"
+              [mustBeAll]="false" 
+              (click)="setCurrentForm(form)"
+              class="btn btn-sm btn-default col-sm-4 col-md-4 pull-right">
+              <i class="fa fa-eye"></i>
+              View
+            </button>
+          </div>
+          <br/> 
+          <div class="row" style="text-align: center">
+              <button 
+                appPcariauth
+                [mustHavePermission]="['biobank_form_approve', 'medical_form_approve']"
+                [mustBeAll]="false" 
+                [disabled]="form.status !=='Pending'"
+                (click)="approveForm(form, false)"
+                class="btn btn-sm btn-danger col-sm-4 col-md-4 pull-right" >
+                <i class="fa fa-times-circle"></i>
+                Reject 
+              </button>
+              <button 
+                appPcariauth
+                [mustHavePermission]="['biobank_form_approve', 'medical_form_approve']"
+                [mustBeAll]="false" 
+                [disabled]="form.status !=='Pending'"
+                (click)="approveForm(form, true)"
+                class="btn btn-sm btn-success col-sm-4 col-md-4 pull-right" >
+                <i class="fa fa-check-circle e2e-newest-form-approve-btn"></i> 
+                Approve
+              </button>
+          </div>
         </td>
         <!-- <td style="text-align: center">
           <button 
