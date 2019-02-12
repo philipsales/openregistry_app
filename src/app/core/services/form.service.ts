@@ -115,6 +115,19 @@ export class FormService {
     }).catch(Helper.handleError);
   }
 
+  getMedicalReportForms(): Observable<Form[]> {
+    const medical_form_type = environment.FORM_TYPE_MEDICAL;
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    const url = environment.API_ENDPOINT + 'forms/';
+    return this.http.get(url).map((response: Response) => {
+      return response['data'].filter((all_forms: FormJSON) => {
+        console.log(all_forms, 'ALL');
+        return all_forms.type === medical_form_type;
+      }).map(Form.fromJSON);
+    }).catch(Helper.handleError);
+  }
+
   getValidMedicalForms(): Observable<Form[]> {
     const medical_form_type = environment.FORM_TYPE_MEDICAL;
     const user = JSON.parse(localStorage.getItem('user'));
