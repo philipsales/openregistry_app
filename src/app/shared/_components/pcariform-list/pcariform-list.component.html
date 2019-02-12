@@ -31,12 +31,12 @@
   <table class="table table-striped">
     <thead>
       <tr>
+        <th>#</th>
         <th>Form Name</th>
-        <!-- <th>Type</th> -->
         <th style="text-align: left;">Department</th>
         <th style="text-align: center;" [hidden]="dontDisplayValidity">Validity</th>
         <th (click)="doSort()" style="text-align: center;">
-          Approval <i class="fa fa-4"
+          Approval Status <i class="fa fa-4"
           [ngClass]="{
           'fa-chevron-up': sort == 1, 
           'fa-chevron-down': sort == -1}"
@@ -46,11 +46,12 @@
           appPcariauth
           [mustHavePermission]="['biobank_form_approve', 'medical_form_approve' ]"
           [mustBeAll]="false" 
-        style="text-align: center;">Manage</th>
+        style="text-align: center;"></th>
       </tr>
     </thead>
     <tbody>
       <tr  *ngFor="let form of _forms; let i = index">
+        <th scope="row">{{ i+1 }}</th>
         <td class="e2e-newest-form"> {{ form.name }}</td>
         <td style="text-align: left;">
           <p *ngFor="let department of form.department">{{department}}</p>
@@ -68,7 +69,7 @@
           <span *ngIf="form.status ==='Approved'" class="badge badge--success" #active> {{form.status }}</span>
           <span *ngIf="form.status ==='Rejected'" class="badge badge--danger" #rejected> {{form.status }}</span>
         </td>
-        <td style="text-align: center;" id="e2e-newest-form-btn-{{i}}">
+        <td style="text-align: right;" id="e2e-newest-form-btn-{{i}}">
           <button 
           appPcariauth
           [mustHavePermission]="['biobank_form_approve', 'medical_form_approve']"
@@ -139,7 +140,7 @@
       [pageIndex]="0"
       [pageSize]="10" 
       [pageSizeOptions]="[5, 10, 25, 100]"
-      class="pull-right"
+      class="pull-left"
       (page)="getForms($event)">
     </mat-paginator>
 </div>

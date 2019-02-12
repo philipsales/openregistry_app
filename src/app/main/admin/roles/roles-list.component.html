@@ -57,7 +57,7 @@
 	    <th>#</th>
 			<th>Name</th>
 			<th>Description</th>
-			<th>Status</th>
+			<th style="text-align: center">Status</th>
 			<th style="text-align: center"></th>
 	  </tr>
 	</thead>
@@ -66,7 +66,7 @@
 	    <th scope="row">{{ i + 1 }}</th>
 			<td>{{ role.name }}</td>
 			<td>{{ role.description  | ellipsis:50 }}</td>
-	    <td>
+	    <td style="text-align: center">
 	      <span *ngIf="role.isActive" class="badge badge--success" #active> Active</span>
 	      <span *ngIf="!role.isActive"  class="badge badge--failed" #inactive>Inactive</span>
 			</td>
