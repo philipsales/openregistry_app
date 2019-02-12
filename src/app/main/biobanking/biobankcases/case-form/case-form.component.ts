@@ -136,7 +136,6 @@ export class CaseFormComponent implements OnInit {
     if (isNaN(specimen.qty_avail)) {
       specimen.qty_avail = specimen.qty;
     }
-    console.warn(specimen, 'TOTAL COUNT');
   }
 
   onSaveCase() {

@@ -53,8 +53,9 @@
       <tr  *ngFor="let form of _forms; let i = index">
         <th scope="row">{{ i+1 }}</th>
         <td class="e2e-newest-form"> {{ form.name }}</td>
-        <td style="text-align: left;">
-          <p *ngFor="let department of form.department">{{department}}</p>
+        <td >
+          <p *ngFor="let department of form.department"
+             style="text-align: left">{{department}}</p>
         </td>
         <td  style="text-align: center;" [hidden]="dontDisplayValidity">
           <span *ngIf='form.isValid'

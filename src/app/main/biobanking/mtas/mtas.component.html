@@ -73,8 +73,9 @@
               <td>{{ mta.description }}</td>
               <td>
                 <div *ngIf="mta.dir_path">
-                  <p (click)="onClickAttachment(mta)" style="text-align:center;cursor:pointer;">
-                    {{ mta.dir_path }} <i class="fa fa-paperclip"></i>
+                  <p (click)="onClickAttachment(mta)" style="text-align:left;cursor:pointer;">
+                    <i class="fa fa-paperclip"></i>
+                    {{ mta.dir_path }} 
                   </p>
                 </div>
               </td>
