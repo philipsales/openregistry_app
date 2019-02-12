@@ -28,7 +28,8 @@
 
     <div class="col-md-12 table-nav" >
       <div class="col-sm-3 reset-wrapper">
-        <button class="btn btn-default pull-left" >
+        <button class="btn btn-default pull-left" 
+           (click)="onClickReset()">
           <i class="fa fa-refresh"></i> &nbsp; Reset
         </button>
       </div>
@@ -85,19 +86,18 @@
       </div> 
     </div>
 
-    <!-- Aggregated result table -->
-    <div *ngIf="aggregated_data" > 
-      <a class="btn btn-warning pull-right"
-          (click)="onClickDownloadAggregate()">
-          <i class="fa fa-download e2e-report-medical-download">
-          </i> &nbsp; Aggregated Data 
-      </a>
-    </div>
-    <div *ngIf="aggregated_data" > 
-      <a class="btn btn-success pull-right"
+    <div *ngIf="(aggregated_data | json) != '[]'">
+      <a class="btn btn-default pull-right"
           (click)="onClickDownloadRaw()">
           <i class="fa fa-download e2e-report-medical-download">
           </i> &nbsp; Raw Data 
+      </a>
+    </div>
+    <div *ngIf="(aggregated_data | json) != '[]'">
+      <a class="btn btn-default pull-right"
+          (click)="onClickDownloadAggregate()">
+          <i class="fa fa-download e2e-report-medical-download">
+          </i> &nbsp; Count Data 
       </a>
     </div>
     <div class="col-md-12">

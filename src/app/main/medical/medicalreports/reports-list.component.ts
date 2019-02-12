@@ -48,12 +48,19 @@ export class ReportListComponent implements OnInit {
 
   getMedicalForms() {
     this.formService
-      .getMedicalForms()
+      .getMedicalReportForms()
       .subscribe(
         forms => {
           this.questionnaire_form = forms;
         }
     );
+  }
+
+  onClickReset() {
+    this.searchCriteria = new SearchCriteria();
+    console.log(this.aggregated_data.length, 'count');
+    this.aggregated_data = [];
+
   }
 
   onDropdownFormType(newObject: any) {

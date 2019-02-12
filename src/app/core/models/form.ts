@@ -38,7 +38,7 @@ export class Form {
         id = json.id;
       }
 
-      let output = Object.assign(section, json, {
+      const output = Object.assign(section, json, {
         id: id,
         title: json.title,
         name: json.name,
