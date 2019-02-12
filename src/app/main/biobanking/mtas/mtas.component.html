@@ -61,6 +61,7 @@
               <th>Name</th>
               <th>Type</th>
               <th>Description</th>
+              <th>Document</th>
               <th></th>
             </tr>
           </thead>
@@ -70,21 +71,14 @@
               <td>{{ mta.name }}</td>
               <td>{{ mta.type }}</td>
               <td>{{ mta.description }}</td>
+              <td>
+                <div *ngIf="mta.dir_path">
+                  <p (click)="onClickAttachment(mta)" style="text-align:center;cursor:pointer;">
+                    {{ mta.dir_path }} <i class="fa fa-paperclip"></i>
+                  </p>
+                </div>
+              </td>
               <td style="text-align: right">
-                <a 
-                  appPcariauth
-                  [mustHavePermission]="['biobank_mta_view']"
-                  [mustBeAll]="false" 
-                  [routerLink]="['/biobanking/mtas/view', mta.id]"
-                  class="btn btn-sm btn-default">
-                <!-- <a 
-                  appPcariauth
-                  [mustHavePermission]="['biobank_mta_view']"
-                  [mustBeAll]="false" 
-                  class="btn btn-sm btn-default"
-                  href="{{this.download_url + mta.id + '/download'}}"> -->
-                  <i class="fa fa-eye"></i>
-                </a>
                 <a 
                   appPcariauth
                   [mustHavePermission]="['biobank_mta_update']"

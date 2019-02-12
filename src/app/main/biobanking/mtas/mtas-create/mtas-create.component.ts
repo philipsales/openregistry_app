@@ -27,6 +27,7 @@ export class MtasCreateComponent implements OnInit {
 
   onSubmit(form: MTA) {
     this.mtaService.upsert(form).subscribe(created_mta => {
+      this._form = created_mta;
       this.readonly = true;
       this._notificationsService.success(
         'New MTA : ' + created_mta.name,

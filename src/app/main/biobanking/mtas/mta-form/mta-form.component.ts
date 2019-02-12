@@ -40,12 +40,14 @@ export class MtaFormComponent implements OnInit {
   }
 
   onClickAttachment() {
-    this.mtaService.downloadAttachment(this._form).subscribe(file => {
-      var url = window.URL.createObjectURL(file);
-      window.open(url);
-    }, err => {
-      console.error(err, 'micool');
-    });
+    if (this._form.id) {
+      this.mtaService.downloadAttachment(this._form).subscribe(file => {
+        var url = window.URL.createObjectURL(file);
+        window.open(url);
+      }, err => {
+        console.error(err, 'micool');
+      });
+    }
   }
 
   onSubmit() {

@@ -22,7 +22,16 @@ export class MtasComponent implements OnInit {
     private mtaService: MtaService,
     private notificationService: NotificationsService) {
     this.download_url = environment.API_ENDPOINT + 'mtas/';
-  }// --constructor
+  }// --
+
+  onClickAttachment(mta: MTA) {
+    this.mtaService.downloadAttachment(mta).subscribe(file => {
+      var url = window.URL.createObjectURL(file);
+      window.open(url);
+    }, err => {
+      console.error(err, 'micool');
+    });
+  }
 
   delete(mta: MTA) {
     this.mtaService.delete(mta.id).subscribe(mta => {
