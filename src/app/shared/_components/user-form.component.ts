@@ -245,6 +245,21 @@ export class UserFormComponent implements OnInit {
             });
     }
 
+    tooltipOrganization() {
+        return this._user.organizations ? 
+        this._user.organizations.map(org => org.name).join(", ") : "";
+    }
+
+    tooltipPosition() {
+        return this._user.position ? 
+        this._user.position.join(", ") : "";
+    }
+
+    tooltipDepartment() {
+        return this._user.departments ?
+        this._user.departments.map(dept => dept.name).join(", ") : "";
+    }
+
     compareWithId(selected, comparator) {
         return comparator != null && selected._id == comparator._id;
     }
