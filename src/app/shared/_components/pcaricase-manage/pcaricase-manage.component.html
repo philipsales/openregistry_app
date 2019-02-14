@@ -44,7 +44,6 @@
                       id="casenumber"
                       [formControl]="myControl"
                       [(ngModel)]="_case.case_nbr"
-                      [disabled]="method == 'VIEW'"
                       [matAutocomplete]="auto"
                       placeholder="Case Number">
             </mat-form-field>	
@@ -62,18 +61,19 @@
                       [(ngModel)]="_case.diagnosis"
                       #input_case_diagnosis="ngModel" 
                       name="input_case_diagnosis"
-                      [disabled]="method == 'VIEW'"
-                      placeholder="Diagnosis">
+                      placeholder="Diagnosis"
+                      [disabled]="myControl.disabled">
                       <button mat-button 
                               matSuffix
+                              [disabled]="myControl.disabled"
                               (click)="onShowICD()"
-                              [disabled]="method == 'VIEW'"
                               class="pull-right">ICD Oncology</button>
             </mat-form-field>	  
+            <!-- [disabled]="method == 'VIEW' || method == 'UPDATE'" -->
             <!-- Status -->
             <br/><br/>
             <mat-slide-toggle class="material-form-control col-md-offset-1 col-md-11 col-sm-12 col-xs-12"
-                [disabled]="method == 'VIEW'"
+                [disabled]="myControl.disabled"
                 [(ngModel)]="_case.is_active"
                 #input_is_active="ngModel" 
                 name="input_is_active">

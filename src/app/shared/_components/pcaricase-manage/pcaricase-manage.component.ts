@@ -38,7 +38,18 @@ export class PcaricaseManageComponent implements OnInit {
       );
   }// -- _reinit setter
 
-  @Input() method: string;
+  _method: string;
+  @Input() set method(method: string) {
+    if (method == 'VIEW' || method == 'UPDATE') {
+      this.myControl.disable();
+    }
+    this._method = method;
+  }
+
+  get method(): string {
+    return this._method;
+  }
+
   @Input() update_url: string;
   @Input() view_url: string;
   @Input() forms: Form[];
