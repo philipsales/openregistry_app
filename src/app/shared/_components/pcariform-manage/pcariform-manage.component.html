@@ -157,20 +157,28 @@
             <div class="col-sm-1" >
               <div class="row">
                 <div class="sidebar">
-                  <ul class="nav nav-sidebar form-side-editor-main" style="">
+                  <ul class="nav nav-sidebar form-side-editor-main">
                     <li title="Add Sectino" class="form-side-editor-fxn" 
                       *ngIf="!withconsent">
-                      <button 
+                      <!-- <button 
                           mat-button
-                          matTooltip="Add Sectionz" 
+                          matTooltip="Add Section" 
                           [disabled]="is_processing || is_created"
                           class="e2e-add-new-section"
                           (click)="onAddSection()">
                           <i class="fa fa-3x fa-plus-circle"></i> &nbsp; 
+                      </button> -->
+                      <button mat-raised-button 
+                          color="primary"
+                          class="btn-small pull-left" 
+                          matTooltip="Add Table Section" 
+                          [disabled]="is_processing || is_created"
+                          (click)="onAddSection()">
+                          <i class="fa fa-plus"></i>
+                          Add 
                       </button>
                     </li>
-                    <li title="Add Table Section" class="form-side-editor-fxn"
-                      *ngIf="withconsent">
+                    <!-- <li title="Add Table Section" class="form-side-editor-fxn" *ngIf="withconsent">
                       <button 
                           mat-button
                           matTooltip="Add Table Section" 
@@ -179,27 +187,47 @@
                           (click)="onAddTableSection()">
                           <i class="fa fa-3x fa-plus-circle"></i> &nbsp; 
                       </button>
-                    </li>
+                    </li> -->
+                    <br/>
                     
                     <li title="Preview Template" class="form-side-editor-fxn" >
-                      <button 
+                      <button mat-raised-button 
+                          color="primary"
+                          class="btn-small pull-left" 
+                          matTooltip="Prevew Form" 
+                          [disabled]="is_processing || is_created"
+                          (click)="onPreviewForm(_form)" >
+                          <i class="fa fa-eye"></i> 
+                         View 
+                      </button>
+                      <!-- <button 
                           mat-button
-                          matTooltip="Preivew Form" 
+                          matTooltip="Prevew Form" 
                           [disabled]="is_processing || is_created"
                           (click)="onPreviewForm(_form)" >
                           <i class="fa fa-3x fa-eye"></i> &nbsp; 
-                      </button>
+                      </button> -->
                     </li>
+                    <br/> 
                     <li title="Save Template" class="form-side-editor-fxn" >
                           <!-- [disabled]="is_processing || is_created" -->
-                      <button 
+                      <button mat-raised-button 
+                          color="primary"
+                          class="pull-left" 
+                          matTooltip="Save Form" 
+                          [disabled]="is_processing || is_created"
+                          (click)="onSaveForm(_form)" >
+                          <i class="fa fa-save"></i> 
+                          Save 
+                      </button>
+                      <!-- <button 
                           mat-button
                           (click)="onSaveForm(_form)" 
                           [disabled]="!_form.name || is_processing || is_created"
                           id="e2e-save-form"
                           matTooltip="Save Form" >
                           <i class="fa fa-3x fa-save "></i> &nbsp; 
-                      </button>
+                      </button> -->
                     </li>
                   </ul>
                 </div> <!-- sidebar -->

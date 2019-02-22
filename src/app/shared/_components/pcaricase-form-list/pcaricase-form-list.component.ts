@@ -116,7 +116,8 @@ export class PcaricaseFormListComponent implements OnInit {
     this.onCallSelectFormTrigger.emit();
   }
 
-  tryOpen(index, form_id, form_form_id) {
+  tryOpen(index, form_id, form_form_id, eventObject) {
+    console.log('eventObject', eventObject);
     const prev = this.openqueue.index;
     this.openqueue.save = false;
     if (this.openqueue.index !== index) {
@@ -154,6 +155,7 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   private setAll() {
+    console.log("SETALL");
     this.openqueue.savequeue = -1;
     this.openqueue.saveindex = -1;
     this.openqueue.index = this.openqueue.queue;
@@ -161,11 +163,16 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   onRevealForm(form_answer_id, form_id) {
+    console.log("ONREVEALFORM");
     this.is_ok = false;
     this.form_answer_id = form_answer_id;
 
+    
     this.formAnswerService.get(this.caseid, this.form_answer_id).subscribe((response: FormAnswer) => {
+    console.log("this.formAnswerService");
       const form_answers = response;
+      console.log('form_answers', form_answers);
+
       if (form_answers.answers) {
         this.answers.clear();
         form_answers.answers.map((answer: Answer) => {
@@ -174,8 +181,13 @@ export class PcaricaseFormListComponent implements OnInit {
       }
 
       this.formService.getForm(form_id).subscribe((recv_form: Form) => {
+        console.log("this.formService");
         delete this.caseform;
+        //this.caseform = new Form('', '', [], [], '', '');
         this.caseform = recv_form;
+        //this.caseform = new Form('', '', [], [], '', '');
+
+        console.log('this.caseform', this.caseform);
         this.dirpath = recv_form.dir_path;
         this.is_ok = true;
       }, error => {

@@ -23,12 +23,13 @@ import { CaseService, FormAnswerService, ConsentService } from 'app/core/service
 })
 export class DynamicFormComponent implements OnInit {
 
+
   @Input() formArray: FormArray;
   private questionz: Question[] = [];
   @Input() set inquestionz(value: Question[]) {
     if (value) {
       this.questionz = value;
-      this.initUI();
+      //this.initUI();
     }
   }
 
@@ -42,8 +43,9 @@ export class DynamicFormComponent implements OnInit {
   private sectionz: Section[] = [];
   @Input() set insectionz(value: Section[]) {
     if (value) {
+      console.log('value',value);
       this.sectionz = value;
-      this.initUI();
+      //this.initUI();
     }
   }
 
@@ -85,6 +87,7 @@ export class DynamicFormComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log('DYnamicFormOnInit');
     this.consentService.getConsents().subscribe(
       consents => {
         this.consents = consents;
@@ -94,13 +97,16 @@ export class DynamicFormComponent implements OnInit {
 
 
   initUI() {
+    console.log('this.sectionz', this.sectionz);
     this.formArrayTest = new FormArray([]);
-    for (let my_section of this.sectionz) {
+    for (const my_section of this.sectionz) {
+
       this.sectionGroupTest = this.qcs.toFormGroupSection(my_section);
       this.formArrayTest.push(this.sectionGroupTest);
       this.sectionGroupTest.addControl('questions', new FormArray([]));
       this.sectionGroupTest.addControl('questionsType', new FormArray([]));
       for (let my_question of my_section.questions) {
+
         (<FormArray>this.sectionGroupTest.get('questions')).push(this.qcs.toFormGroupQuestion(my_question));
         if (my_question.type === 'textbox' || my_question.type === 'text') {
           this.questions.push(

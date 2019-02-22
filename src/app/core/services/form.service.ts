@@ -62,6 +62,7 @@ export class FormService {
   */
 
   getForms(): Observable<Form[]> {
+    console.log('getForms');
     const url = environment.API_ENDPOINT + 'forms/';
 
     return this.http.get(url).map((response: Response) => {
@@ -71,19 +72,24 @@ export class FormService {
 
   list(type: string = environment.FORM_TYPE_BIOBANK, 
     index:number=0, skip:number=10, keywords:string='', sort:number=0): Observable<FormResultJSON> {
+    const user = JSON.parse(localStorage.getItem('user'));
+    const dept = Object.values(user['departments']).map(department => ( [ department.name, department._id ]));
+    const merged = [].concat.apply([], dept);
+
     const url = environment.API_ENDPOINT + 'forms/list';
     let params = new HttpParams()
       .set('index', index.toString())
       .set('limit', skip.toString())
       .set('keywords', keywords)
       .set('sort', sort.toString())
-      .set('type', type);
+      .set('type', type)
+      .set('department', dept.toString());
     return this.http.get<{count:number; forms: FormJSON[]}>(url, {params}).pipe(
       map(result => {
         return {
           count: result.count,
           forms: result.forms.map(Form.fromJSON)
-        }
+        };
       })
     );
   }
@@ -101,6 +107,7 @@ export class FormService {
   }
 
   getMedicalForms(): Observable<Form[]> {
+    console.log('getMedicalForms');
     const medical_form_type = environment.FORM_TYPE_MEDICAL;
     const user = JSON.parse(localStorage.getItem('user'));
     const url = environment.API_ENDPOINT + 'forms/';
@@ -113,6 +120,7 @@ export class FormService {
   }
 
   getMedicalReportForms(): Observable<Form[]> {
+    console.log('getMedicalReportForms');
     const medical_form_type = environment.FORM_TYPE_MEDICAL;
     const user = JSON.parse(localStorage.getItem('user'));
     const url = environment.API_ENDPOINT + 'forms/';
@@ -124,6 +132,7 @@ export class FormService {
   }
 
   getValidMedicalForms(): Observable<Form[]> {
+    console.log('getValidMedicalForms');
     const medical_form_type = environment.FORM_TYPE_MEDICAL;
     const user = JSON.parse(localStorage.getItem('user'));
     const url = environment.API_ENDPOINT + 'forms/';

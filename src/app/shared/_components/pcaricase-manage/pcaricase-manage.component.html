@@ -79,33 +79,37 @@
                 name="input_is_active">
                 {{ _case.is_active ? 'Active' : ' Inactive' }}
             </mat-slide-toggle>
-        </div> <br/><br/>
+        </div> 
       </form>
     </div>
   </div>      
 </div> <!--Case --> 
 
 <div class="col-md-12 col-sm-12 col-xs-12"
-  *ngIf="method !== 'CREATE'">
-    <app-pcaricase-form-list 
-    [caseid]="_case.id"
-    [casenumber]="_case.case_nbr"
-    [isBiobank]="isBiobank"
-    [show]="show_selected_forms"
-    [forms]="_case.forms"
-    [specform]="_case.specform"
-    [method]="method"
-    [update_url]="update_url"
-    [view_url]="view_url"
-    (onCallSelectFormTrigger)="onAddForm()">
-    </app-pcaricase-form-list>
+    *ngIf="method !== 'CREATE'">
+    <div class="row">
+      <app-pcaricase-form-add
+        (onSaveFormAddTrigger)="onAddSelectedForm($event)"
+        (onCancelFormAddTrigger)="onCancelAddForm()"
+        [forms]="forms"
+        [show]="!show_selected_forms">
+      </app-pcaricase-form-add>
+    </div>
+    <div class="row" >
+      <app-pcaricase-form-list 
+        [caseid]="_case.id"
+        [casenumber]="_case.case_nbr"
+        [isBiobank]="isBiobank"
+        [show]="show_selected_forms"
+        [forms]="_case.forms"
+        [specform]="_case.specform"
+        [method]="method"
+        [update_url]="update_url"
+        [view_url]="view_url"
+        (onCallSelectFormTrigger)="onAddForm()">
+      </app-pcaricase-form-list>
+    </div>
 
-    <app-pcaricase-form-add
-    (onSaveFormAddTrigger)="onAddSelectedForm($event)"
-    (onCancelFormAddTrigger)="onCancelAddForm()"
-    [forms]="forms"
-    [show]="!show_selected_forms">
-    </app-pcaricase-form-add>
   </div> <!-- x-panel -->
 </div>
 
