@@ -10,6 +10,7 @@ import { SpecsListComponent } from './specs-list/specs-list.component';
 import { SpecsCreateComponent } from './specs-create/specs-create.component';
 import { SpecsUpdateComponent } from './specs-update/specs-update.component';
 import { SpecsFormComponent } from './specs-form/specs-form.component';
+import { MatPaginatorModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { SpecsFormComponent } from './specs-form/specs-form.component';
     FormsModule,
     MaterialModule,
     SharedModule,
+    MatPaginatorModule,
     SpecsRoutingModule
   ],
   declarations: [

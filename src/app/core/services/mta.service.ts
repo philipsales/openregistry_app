@@ -27,7 +27,7 @@ export class MtaService {
     skip:number=10, 
     keywords:string='', 
     sort:number=0
-  ) 
+  ): Observable<MTAResultJSON>
   {
     const url = environment.API_ENDPOINT + 'mtas/list';
     let params = new HttpParams()
@@ -111,4 +111,9 @@ export class MtaService {
       })
       .catch(Helper.handleError);
   }
+}
+
+export interface MTAResultJSON {
+  count: number;
+  mtas: MTA[];
 }

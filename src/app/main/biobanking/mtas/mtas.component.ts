@@ -31,7 +31,6 @@ export class MtasComponent implements OnInit {
     this.getMTAs({pageIndex: 0, pageSize: 10});
   }// --OnInit
 
-
   doSort() {
     this.sort = this.sort == 1 ? -1 : 1;
     this.getMTAs(this.paginator);
