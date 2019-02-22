@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 // import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
 
 import { map } from 'rxjs/operators';
 
@@ -20,6 +21,29 @@ export class MtaService {
 
   constructor(private http: HttpClient) {
   }// --constructor
+
+  list(
+    index:number=0, 
+    skip:number=10, 
+    keywords:string='', 
+    sort:number=0
+  ) 
+  {
+    const url = environment.API_ENDPOINT + 'mtas/list';
+    let params = new HttpParams()
+      .set('index', index.toString())
+      .set('limit', skip.toString())
+      .set('keywords', keywords)
+      .set('sort', sort.toString());
+    return this.http.get<{count: number, mtas:MTAJSON[]}>(url, {params}).pipe(
+      map(result => {
+        return {
+          count: result.count,
+          mtas: result.mtas.map(MTA.fromJSON)
+        }
+      })
+    )
+  }
 
   getAll(): Observable<MTA[]> {
     const url = environment.API_ENDPOINT + 'mtas/';

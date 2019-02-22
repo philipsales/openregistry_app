@@ -10,12 +10,14 @@ import { MtasCreateComponent } from './mtas-create/mtas-create.component';
 import { MtaFormComponent } from './mta-form/mta-form.component';
 import { MtsUpdateComponent } from './mtas-update/mts-update.component';
 import { MtsViewComponent } from './mtas-view/mts-view/mts-view.component';
+import { MatPaginatorModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     MaterialModule,
+    MatPaginatorModule,
     SharedModule,
     MtasRoutingModule
   ],

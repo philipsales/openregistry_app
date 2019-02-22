@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { MtaService } from 'app/core/services';
 import { MTA } from 'app/core/models';
 import { NoJWTError } from 'app/core/errors';
 import { environment } from 'environments/environment';
+import { MatPaginator } from '@angular/material';
 import { NotificationsService } from 'angular2-notifications';
 
 @Component({
@@ -13,16 +14,53 @@ import { NotificationsService } from 'angular2-notifications';
 })
 export class MtasComponent implements OnInit {
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   mtas: MTA[];
   download_url = '';
+  sort = 0; // desc == -1
+  pagelength:number;
   searchText = '';
   filter = '';
 
   constructor(
     private mtaService: MtaService,
-    private notificationService: NotificationsService) {
-    this.download_url = environment.API_ENDPOINT + 'mtas/';
-  }// --
+    private notificationService: NotificationsService) {}// --
+
+  ngOnInit() {
+    this.getMTAs({pageIndex: 0, pageSize: 10});
+  }// --OnInit
+
+
+  doSort() {
+    this.sort = this.sort == 1 ? -1 : 1;
+    this.getMTAs(this.paginator);
+  }
+
+  doSearch(newObject: any) {
+    let pageIndex = 0;
+    let pageSize = 10;
+    this.getMTAs({pageIndex, pageSize}, true);
+  }
+
+  getMTAs(paginator={
+      pageIndex: 0, 
+      pageSize: 10
+    }, 
+    reset=false) 
+  {
+    this.mtaService.list(paginator.pageIndex, 
+      paginator.pageSize,
+      this.searchText,
+      this.sort)
+      .subscribe(result => {
+        this.mtas = result.mtas;
+        this.pagelength = result.count;
+        if (reset) {
+          this.paginator.pageIndex = 0;
+        }
+      });
+  }
 
   onClickAttachment(mta: MTA) {
     this.mtaService.downloadAttachment(mta).subscribe(file => {
@@ -61,18 +99,5 @@ export class MtasComponent implements OnInit {
         });
     });
   }
-
-  ngOnInit() {
-    this.mtaService.getAll().subscribe(
-      mtas => {
-        this.mtas = mtas;
-      }, error => {
-        console.warn(error); // get the error in error handler
-        if (error instanceof NoJWTError) {
-          console.warn('TO DO : handle JWT Expired');
-        }
-      }
-    );
-  }// --OnInit
 
 }

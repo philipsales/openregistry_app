@@ -2,106 +2,94 @@
   <header class="app-header row">
     <div class="app-header--primary">
       <div class="app-header--context">
-				<div class="app-header--breadcrumbs">
-					<ol class="aui-nav aui-nav-breadcrumbs" resolved="">
-						<li>
-							<a [routerLink]="['/biobanking/mtas']">Biobank Registry</a>
-						</li>
-						<li>
-								<a [routerLink]="['/biobanking/mtas/list']">
-									<strong>Agreement Form List</strong>
-								</a>
-						</li>
+        <div class="app-header--breadcrumbs">
+          <ol class="aui-nav aui-nav-breadcrumbs" resolved="">
+            <li>
+              <a [routerLink]="['/biobanking/mtas']">Biobank Registry</a>
+            </li>
+            <li>
+              <a [routerLink]="['/biobanking/mtas/list']">
+                <strong>Agreement Form List</strong>
+              </a>
+            </li>
 
-					</ol>
-				</div>
-				<h1 class="app-header--heading">
-					Agreement Form
-				</h1>
+          </ol>
+        </div>
+        <h1 class="app-header--heading">
+          Agreement Form
+        </h1>
       </div>
-    </div>  
+    </div>
     <div class="app-header--secondary">
     </div>
-	</header>
-	<br/> <br/>
+  </header>
+  <br /> <br />
 
   <div class="row">
-      <div class="col-md-12 table-nav">
-          <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
-          <div class="input-group">
-            <input type="text" 
-              [(ngModel)]="searchText"
-			        (keyup.enter)="filter = searchText"
-              class="form-control"
-              placeholder="Search for...">
-            <span class="input-group-btn">
-              <button class="btn btn-default"
-                (click)="filter = searchText"
-                type="button">
-                Go!
-              </button>
-            </span>
-          </div>
-          </div>
-          <a
-            appPcariauth
-            [mustHavePermission]="['biobank_mta_create']"
-            [mustBeAll]="false" 
-            [routerLink]="['/biobanking/mtas/create']" 
-            class="btn btn-default pull-right">
-            <i class="fa fa-plus"></i> &nbsp; Create Agreement Form 
-          </a>
+    <div class="col-md-12 table-nav">
+      <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
+        <div class="input-group">
+          <input type="text" [(ngModel)]="searchText" (keyup.enter)="doSearch($event)" class="form-control" placeholder="Search for...">
+          <span class="input-group-btn">
+            <button class="btn btn-default" (click)="doSearch($event)" type="button">
+              Go!
+            </button>
+          </span>
+        </div>
       </div>
+      <a appPcariauth [mustHavePermission]="['biobank_mta_create']" [mustBeAll]="false" [routerLink]="['/biobanking/mtas/create']"
+        class="btn btn-default pull-right">
+        <i class="fa fa-plus"></i> &nbsp; Create Agreement Form
+      </a>
+    </div>
 
-      <div class="col-md-12">
-          <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Description</th>
-              <th>Document</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let mta of mtas | mtafilter : filter; let i = index">
-              <th scope="row">{{ i+1 }}</th>
-              <td>{{ mta.name }}</td>
-              <td>{{ mta.type }}</td>
-              <td>{{ mta.description }}</td>
-              <td>
-                <div *ngIf="mta.dir_path">
-                  <p (click)="onClickAttachment(mta)" style="text-align:left;cursor:pointer;">
-                    <i class="fa fa-paperclip"></i>
-                    {{ mta.dir_path }} 
-                  </p>
-                </div>
-              </td>
-              <td style="text-align: right">
-                <a 
-                  appPcariauth
-                  [mustHavePermission]="['biobank_mta_update']"
-                  [mustBeAll]="false"
-                  [routerLink]="['/biobanking/mtas/update', mta.id]" 
-                  class="btn btn-sm btn-warning">
-                  <i class="fa fa-edit"></i>
-                  Update
-                </a>
-                <a 
-                appPcariauth
-                [mustHavePermission]="['biobank_mta_delete']"
-                [mustBeAll]="false"
-                (click)="delete(mta)"
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th (click)="doSort()">Name <i class="fa fa-4" aria-hidden="true" [ngClass]="{
+                  'fa-chevron-up': sort == 1, 
+                  'fa-chevron-down': sort == -1}"></i></th>
+            <th>Type</th>
+            <th>Description</th>
+            <th>Document</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mta of mtas; let i = index">
+            <td>{{ mta.name }}</td>
+            <td>{{ mta.type }}</td>
+            <td>{{ mta.description }}</td>
+            <td>
+              <div *ngIf="mta.dir_path">
+                <p (click)="onClickAttachment(mta)" style="text-align:left;cursor:pointer;">
+                  <i class="fa fa-paperclip"></i>
+                  {{ mta.dir_path }}
+                </p>
+              </div>
+            </td>
+            <td style="text-align: right">
+              <a appPcariauth [mustHavePermission]="['biobank_mta_update']" [mustBeAll]="false" [routerLink]="['/biobanking/mtas/update', mta.id]"
+                class="btn btn-sm btn-warning">
+                <i class="fa fa-edit"></i>
+                Update
+              </a>
+              <a appPcariauth [mustHavePermission]="['biobank_mta_delete']" [mustBeAll]="false" (click)="delete(mta)"
                 class="btn btn-sm btn-danger">
-                  <i class="fa fa-trash"></i>
-                  Delete
-                </a>
-              </td>
-            </tr>
-          </tbody>
-          </table>
-      </div>
+                <i class="fa fa-trash"></i>
+                Delete
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-12 table-nav">
+      <mat-paginator #paginator [length]="pagelength" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+        class="pull-left" (page)="getMTAs($event)">
+      </mat-paginator>
+    </div>
   </div>
 </div>

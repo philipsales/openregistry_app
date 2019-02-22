@@ -52,7 +52,6 @@ export class PcaricaseListComponent implements OnInit {
       this.searchText,
       this.sort)
       .subscribe(result => {
-        console.log(result, 'hello world');
         this.cases = result.cases;
         this.pagelength = result.count;
         if (reset) {
