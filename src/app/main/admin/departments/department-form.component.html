@@ -7,11 +7,12 @@
         </button>
     </div>
     <div class="col-sm-6 col-md-6"></div>
-    <div class="col-sm-3 col-md-3">
+
+    <div class="col-sm-3 col-md-3 save-wrapper">
         <button class="btn btn-success pull-right"
             [disabled]="departmentForm.pristine || departmentForm.invalid || readonly"
             (click)="onSubmit()">
-            <i class="fa fa-save"></i> &nbsp; Save
+            <i class="fa fa-save"></i> &nbsp; Save Department
         </button>
     </div>
 </div>
@@ -55,12 +56,12 @@
                     </mat-form-field>
 
                     <mat-form-field class="material-form-control col-md-offset-1 col-md-10 col-sm-12 col-xs-12">
-                        <mat-label>Select an organization</mat-label>
+                        <mat-label>Organization</mat-label>
                         <mat-select matNativeControl 
                         [compareWith]="compareOrganizationSelectValue"
                         formControlName="organization"
                         [value]="organization">
-                            <mat-option [value]="{id:'', name: ''}">--</mat-option>
+                            <mat-option [value]="{id:'', name: ''}">&nbsp;</mat-option>
                             <mat-option *ngFor="let organization of choicesOrganization" [value]="organization">
                                 {{organization.name}}
                             </mat-option>
