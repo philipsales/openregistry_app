@@ -11,11 +11,14 @@ import { SpectypesCreateComponent } from './spectypes-create/spectypes-create.co
 import { SpectypesUpdateComponent } from './spectypes-update/spectypes-update.component';
 import { SpectypesFormComponent } from './spectypes-form/spectypes-form.component';
 
+import { MatPaginatorModule } from '@angular/material';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     MaterialModule,
+    MatPaginatorModule,
     SharedModule,
     SpectypesRoutingModule
   ],

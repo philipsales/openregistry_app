@@ -32,11 +32,11 @@
             <input type="text" 
               class="form-control" 
               [(ngModel)]="searchText"
-			        (keyup.enter)="filter = searchText"
+			        (keyup.enter)="doSearch($event)" 
               placeholder="Search for...">
             <span class="input-group-btn">
               <button class="btn btn-default" 
-                (click)="filter = searchText"
+                (click)="doSearch($event)" 
                 type="button">
                 Go!
               </button>
@@ -57,14 +57,16 @@
           <table class="table table-striped">
           <thead>
             <tr>
-              <th>#</th>
-              <th>Name</th>
+              <th (click)="doSort()">Name <i class="fa fa-4" 
+                aria-hidden="true"
+                [ngClass]="{
+                  'fa-chevron-up': sort == 1, 
+                  'fa-chevron-down': sort == -1}"></i></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let spectype of spectypes | spectypefilter : filter; let i = index">
-              <th scope="row">{{ i+1 }}</th>
               <td>{{ spectype.name }}</td>
               <td style="text-align: right">
                   <button 
@@ -88,6 +90,12 @@
             </tr>
           </tbody>
           </table>
+      </div>
+
+      <div class="col-md-12 table-nav">
+        <mat-paginator #paginator [length]="pagelength" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]"
+          class="pull-left" (page)="getSpecTypes($event)">
+        </mat-paginator>
       </div>
   </div>
 </div>

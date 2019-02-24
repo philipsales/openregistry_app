@@ -32,7 +32,6 @@ export class PcaricaseListComponent implements OnInit {
     this.getCases({pageIndex: 0, pageSize: 10});
   }
 
-
   doSort() {
     this.sort = this.sort == 1 ? -1 : 1;
     this.getCases(this.paginator);
