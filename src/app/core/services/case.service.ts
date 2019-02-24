@@ -39,7 +39,7 @@ export class CaseService {
         return {
           count: result.count,
           cases: result.cases.map(Case.fromJSON)
-        }
+        };
       })
     );
   }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -10,11 +10,33 @@ import { Helper } from '../helper';
 import { User } from '../models';
 import { UserJSON } from '../interfaces';
 import { environment } from 'environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
     constructor(private http: HttpClient) {
     }// --constructor
+
+    list(index:number=0, 
+        skip:number=10, 
+        keywords:string='', 
+        sort:number=0) : Observable<UserResultJSON>
+    {
+        const url = environment.API_ENDPOINT + 'users/list';
+        let params = new HttpParams()
+          .set('index', index.toString())
+          .set('limit', skip.toString())
+          .set('keywords', keywords)
+          .set('sort', sort.toString());
+        return this.http.get<{count:number, users:UserJSON[]}>(url, {params}).pipe(
+            map(result => {
+                return {
+                    count: result.count,
+                    users: result.users.map(User.fromJSON)
+                };
+            })
+        )
+    }
 
     getAll(): Observable<User[]> {
         const url = environment.API_ENDPOINT + 'users/';
@@ -78,3 +100,8 @@ export class UserService {
             }).catch(Helper.handleError);
     }
 }
+
+export interface UserResultJSON {
+    count: number;
+    users: User[];
+  }
