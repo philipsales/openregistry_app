@@ -15,6 +15,8 @@ import { DatabaseService } from 'app/core/services';
 import { DatabaseListComponent } from './database-list.component';
 import { DatabaseCreateComponent } from './database-create.component';
 
+import { MatPaginatorModule } from '@angular/material';
+
 //import { KeysPipe } from 'app/core/utils';
 
 @NgModule({
@@ -22,6 +24,7 @@ import { DatabaseCreateComponent } from './database-create.component';
     CommonModule,
     FormsModule,
     HttpModule,
+    MatPaginatorModule,
     SharedModule,
     // InMemoryWebApiModule.forRoot(DatabaseDummyApiResponse),
     DatabaseRoutingModule
