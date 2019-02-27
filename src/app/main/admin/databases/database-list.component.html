@@ -64,7 +64,6 @@
 				<tbody>
 					<!-- <tr  *ngFor='let database of databases | value:"key":true'> -->
 					<tr  *ngFor='let database of databases; let i = index;'>
-						<th scope="row">{{ i+1 }}</th>
 						<td>{{ database.name }}</td>
 						<td>{{ database.description }}</td>
 						<td>{{ database.dateCreated | date: 'medium' }}</td>
