@@ -190,8 +190,9 @@
     
                             <mat-form-field *ngIf="history.type == 'New Institution'">
                                 <mat-select placeholder="Institution"  
-                                [(ngModel)]="history.reference" name="reference-mta-{{specimen._id}}-{{j}}"
-                                [compareWith]="compareId">
+                                [(ngModel)]="history.reference" 
+                                [(value)]="history.reference"
+                                name="reference-mta-{{specimen._id}}-{{j}}">
                                     <mat-option *ngFor="let mta of mtas" 
                                       [value]="mta._id">
                                       {{ mta.name }}
