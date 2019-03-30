@@ -124,8 +124,16 @@ export class CaseFormComponent implements OnInit {
       }
     );
   }
+ 
+  qtydatevalid=true;
 
-  historyChanged(specimen: Specimen) {
+  datecollectedChange(qtydatevalid=true) {
+    this.qtydatevalid = qtydatevalid;
+  }
+
+  historyChanged(specimen: Specimen, qtydatevalid=true) {
+    this.qtydatevalid = qtydatevalid;
+    console.log(qtydatevalid, 'hello micool');
     let total_count: number;
     total_count = 0;
     specimen.qty_avail = 0;

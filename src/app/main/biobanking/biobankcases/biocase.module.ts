@@ -27,6 +27,7 @@ import { MatTableModule } from '@angular/material';
 import { CaseFormsComponent } from './case-forms/case-forms.component';
 import { CaseFormsUpdateComponent } from './case-forms/case-forms-update.component';
 import { CaseFormComponent } from './case-form/case-form.component';
+import { QuantityDateValidationDirective } from './case-form/quantity-date-validation.directive';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { CaseFormComponent } from './case-form/case-form.component';
     CaseUpdateComponent,
     CaseFormsComponent,
     CaseFormsUpdateComponent,
-    CaseFormComponent
+    CaseFormComponent,
+    QuantityDateValidationDirective
   ],
   providers: [
     // Material Form ErrorMatcher

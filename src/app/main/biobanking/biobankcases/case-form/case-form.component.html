@@ -16,8 +16,8 @@
     </div>
   <div class="col-sm-3 save-wrapper">
     <button 
-      [disabled]="readonly || 
-      ((_case && _case.specforms && _case.specforms.length == 0) || !_case) ||
+      [disabled]="readonly || !qtydatevalid
+       || ((_case && _case.specforms && _case.specforms.length == 0) || !_case) ||
       _case.id == null"
       class="btn btn-success pull-right"
       (click)="onSaveCase()">
@@ -86,16 +86,29 @@
         </a><br><br>
         <div *ngFor="let specimen of form.specimen; let i = index" 
         style="width: 100%;">
-        <div>
+        <div ngModelGroup="qtydate" #qtydate="ngModelGroup" appQuantityDateValidation>
           <!-- specimen -->
           <mat-form-field style="width: 20%">
               <input matInput placeholder="Quantity Collected" 
                 [(ngModel)]="specimen.qty"
-                name="specimenqty-{{specimen._id}}-{{h}}-{{i}}"
-                (change)="historyChanged(specimen)"
+                name="qtycollected{{f}}{{i}}"
+                (change)="historyChanged(specimen, specimen.collectedDate != null && specimen.qty > 0)"
+                #qtycollected="ngModel"
+                type="number"
                 required>
+                <!-- <div *ngIf="qtycollected.errors?.minimumRequired" 
+                style="color:red; position: absolute;">
+                    Can't be zero when date collected isn't empty
+                </div> -->
+                <mat-hint *ngIf="specimen.collectedDate != null && specimen.qty <= 0" style="color:red;">
+                  Can't be below 1
+                </mat-hint>
+                <mat-error>
+                  Field is required
+                </mat-error>
             </mat-form-field>
-    
+
+
             <mat-form-field style="width: 18%">
                 <input matInput placeholder="Specimen" [(ngModel)]="specimen.spec"
                   name="specimenspec--{{specimen._id}}{{specimen._id}}-{{h}}-{{i}}"
@@ -117,7 +130,9 @@
               <input matInput placeholder="Collected Date" 
               [(ngModel)]="specimen.collectedDate" 
               [matDatepicker]="myDatepicker"
-              name="datecollected-{{specimen._id}}-{{h}}-{{i}}"
+              (dateChange)="datecollectedChange(specimen.collectedDate != null && specimen.qty > 0)"
+              name="datecollected{{h}}{{i}}"
+              #datecollected="ngModel"
               [required]="specimen.qty > 0">
               <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
               <mat-datepicker #myDatepicker></mat-datepicker>
