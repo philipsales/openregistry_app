@@ -16,7 +16,7 @@
     </div>
   <div class="col-sm-3 save-wrapper">
     <button 
-      [disabled]="readonly || !qtydatevalid
+      [disabled]="readonly || notValidQtyDate.length > 0
        || ((_case && _case.specforms && _case.specforms.length == 0) || !_case) ||
       _case.id == null"
       class="btn btn-success pull-right"
@@ -91,8 +91,8 @@
           <mat-form-field style="width: 20%">
               <input matInput placeholder="Quantity Collected" 
                 [(ngModel)]="specimen.qty"
-                name="qtycollected{{f}}{{i}}"
-                (change)="historyChanged(specimen, specimen.collectedDate != null && specimen.qty > 0)"
+                name="qtycollected{{h}}{{i}}"
+                (change)="historyChanged(specimen, specimen.collectedDate != null && specimen.qty > 0, 'qtycollected' + h + '' + i)"
                 #qtycollected="ngModel"
                 type="number"
                 required>
@@ -130,7 +130,7 @@
               <input matInput placeholder="Collected Date" 
               [(ngModel)]="specimen.collectedDate" 
               [matDatepicker]="myDatepicker"
-              (dateChange)="datecollectedChange(specimen.collectedDate != null && specimen.qty > 0)"
+              (dateChange)="datecollectedChange('qtycollected' + h + '' + i, specimen.collectedDate != null && specimen.qty > 0)"
               name="datecollected{{h}}{{i}}"
               #datecollected="ngModel"
               [required]="specimen.qty > 0">

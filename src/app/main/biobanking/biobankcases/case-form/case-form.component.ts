@@ -125,14 +125,32 @@ export class CaseFormComponent implements OnInit {
     );
   }
  
-  qtydatevalid=true;
+  notValidQtyDate = [];
 
-  datecollectedChange(qtydatevalid=true) {
-    this.qtydatevalid = qtydatevalid;
+  datecollectedChange(qtydatename="", qtydatevalid=true) {
+    let pos = this.notValidQtyDate.indexOf(qtydatename);
+    if (!qtydatevalid) {
+      if (pos == -1) {
+        this.notValidQtyDate.push(qtydatename);
+      }
+    } else {
+      if (pos != -1) {
+        this.notValidQtyDate.splice(pos, 1);  
+      }
+    }
   }
 
-  historyChanged(specimen: Specimen, qtydatevalid=true) {
-    this.qtydatevalid = qtydatevalid;
+  historyChanged(specimen: Specimen, qtydatevalid=true, qtydatename="") {
+    let pos = this.notValidQtyDate.indexOf(qtydatename);
+    if (!qtydatevalid) {
+      if (pos == -1) {
+        this.notValidQtyDate.push(qtydatename);
+      }
+    } else {
+      if (pos != -1) {
+        this.notValidQtyDate.splice(pos, 1);  
+      }
+    }
     console.log(qtydatevalid, 'hello micool');
     let total_count: number;
     total_count = 0;
