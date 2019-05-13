@@ -13,6 +13,7 @@ declare var $: any;
   styleUrls: ['./pcaricase-form-list.component.css']
 })
 export class PcaricaseFormListComponent implements OnInit {
+  selected_form: number = null;
   answers = new Map<string, string>();
   caseform: Form;
   dirpath = '';
@@ -117,6 +118,7 @@ export class PcaricaseFormListComponent implements OnInit {
   }
 
   tryOpen(index, form_id, form_form_id, eventObject) {
+
     console.log('eventObject', eventObject);
     const prev = this.openqueue.index;
     this.openqueue.save = false;
@@ -134,7 +136,14 @@ export class PcaricaseFormListComponent implements OnInit {
     } else {
       this.setAll();
     }
+
+    this.setActive(index)
   }
+
+  setActive(index:number) {
+    this.selected_form = index; 
+  }
+
 
   onCloseConfirmation() {
     $('#modal_confirmation').modal('hide');

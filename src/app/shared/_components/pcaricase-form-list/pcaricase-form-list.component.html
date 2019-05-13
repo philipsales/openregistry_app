@@ -86,7 +86,7 @@
   <div class="modal-dialog modal-sm" role="document">
     <div class="modal-content">
       <div>
-        <h4 class="modal-header">Case Assistant</h4>
+        <h4 class="modal-header">Update Confirmation</h4>
       </div>
       <div class="modal-body">
         <div class="modal-body-content">
@@ -224,12 +224,16 @@
 </mat-accordion>
 
   <div class="col-md-12 col-sm-12" >
-    <div class="col-md-3 col-sm-3" > 
+    <div class="col-md-3 col-sm-3 form-header-detail" > 
       <mat-card *ngFor="let form of _forms; let i = index"
+        [class.active]="selected_form === i" 
         (click)="tryOpen(i, form.id, form.form_id)">
-          <span> {{ form.form_name }} </span>
-          <br/>
-          <span> {{ form.date_created | date :'medium' }}</span>
+          <div class="">
+            <span> {{ form.form_name }} </span>
+            <span> {{ active_class }} </span>
+            <br/>
+            <span> {{ form.date_created | date :'medium' }}</span>
+          </div>
       </mat-card>
     </div>
 

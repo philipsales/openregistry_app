@@ -97,3 +97,9 @@ li {
 .mat-expansion-panel-header {
     background: rgba(0,0,0,.04);
 }
+
+.form-header-detail .active {
+    color: #C69248;
+    background-color: rgba(9, 30, 66, 0.04);
+}
+
