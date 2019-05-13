@@ -27,9 +27,15 @@
     <div class="col-md-12 table-nav">
       <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search for...">
+					<input type="text" 
+					class="form-control" 
+					[(ngModel)]="searchText" 
+					(keyup.enter)="doSearch($event)" 
+					placeholder="Search for...">
 					<span class="input-group-btn">
-						<button class="btn btn-default" type="button">Go!</button>
+						<button class="btn btn-default"
+						(click)="doSearch($event)"  
+						type="button">Go!</button>
 					</span>
 				</div>
       </div>
@@ -45,17 +51,19 @@
       <table class="table table-striped">
 				<thead>
 					<tr>
-						<th>#</th>
 						<th>Name</th>
 						<th>Description</th>
-						<th>Date Created</th>
+						<th (click)="doSort()">Date Created <i class="fa fa-4" 
+							aria-hidden="true"
+							[ngClass]="{
+								'fa-chevron-up': sort == 1, 
+								'fa-chevron-down': sort == -1}"></i></th>
 						<th style="text-align: center"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- <tr  *ngFor='let database of databases | value:"key":true'> -->
 					<tr  *ngFor='let database of databases; let i = index;'>
-						<th scope="row">{{ i+1 }}</th>
 						<td>{{ database.name }}</td>
 						<td>{{ database.description }}</td>
 						<td>{{ database.dateCreated | date: 'medium' }}</td>
@@ -76,6 +84,16 @@
 					</tr>
 				</tbody>
       </table>
-    </div>
+		</div>
+		<div class="col-md-12 table-nav">
+			<mat-paginator #paginator 
+				[length]="pagelength" 
+				[pageIndex]="0"
+				[pageSize]="10" 
+				[pageSizeOptions]="[5, 10, 25, 100]"
+				class="pull-left"
+				(page)="getDatabases($event)">
+			</mat-paginator>
+		</div>
   </div>
 </div>

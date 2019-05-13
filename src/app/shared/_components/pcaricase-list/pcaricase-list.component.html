@@ -1,81 +1,77 @@
+<div class="col-md-12 table-nav">
+	<div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
+		<div class="input-group">
+			<input type="text" 
+			class="form-control" 
+			[(ngModel)]="searchText" 
+			(keyup.enter)="doSearch($event)" 
+			placeholder="Search for...">
+			<span class="input-group-btn">
+				<button 
+				class="btn btn-default" 
+				(click)="doSearch($event)" 
+				type="button">
+					Go!
+				</button>
+			</span>
+		</div>
+	</div>
+	<a [routerLink]="[create_url]" appPcariauth [mustHavePermission]="['biobank_case_create', 'medical_case_create']"
+	 [mustBeAll]="false" class="btn btn-default pull-right">
+		<i class="fa fa-plus e2e-create-case"></i> &nbsp; Create Case
+	</a>
+</div>
 
-    <div class="col-md-12 table-nav">
-      <div class="col-md-3 col-sm-3 col-xs-12 form-group pull-left top_search">
-				<div class="input-group">
-					<input type="text"
-						class="form-control"
-						[(ngModel)]="searchText"
-						(keyup.enter)="filter = searchText"
-						placeholder="Search for...">
-					<span class="input-group-btn">
-						<button class="btn btn-default"
-							(click)="filter = searchText"
-							type="button">
-							Go!
-						</button>
-					</span>
-				</div>
-	  </div>
-			<a [routerLink]="[create_url]"
-			appPcariauth
-			[mustHavePermission]="['biobank_case_create', 'medical_case_create']"
-			[mustBeAll]="false" 
-         class="btn btn-default pull-right">
-        <i class="fa fa-plus e2e-create-case"></i> &nbsp; Create Case
-      </a>
-    </div>
-    
-    <div class="col-md-12">
-      <table class="table table-striped">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Case Number</th>
-						<th *ngIf="show_diagnosis">Diagnosis</th>
-						<th>Date Created</th>
-						<th>Case Status</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr  *ngFor="let case of _cases | casefilter : filter; let i = index">
-						<th scope="row">{{ i + 1 }}</th>
-						<td class="e2e-newest-case">{{ case.case_nbr }}</td>
-						<td *ngIf="show_diagnosis"
-							matTooltip="{{case.diagnosis}}" >{{case.diagnosis | ellipsis:40 }} </td>
-						<td>{{ case.date_created | date: 'MMM dd, yyyy' }}</td>
-						<td>
-							<span *ngIf="!case.is_active" class="badge badge--failed" #inactive> Inactive</span>
-							<span *ngIf="case.is_active" class="badge badge--success" #active> Active</span>
-						</td>
-						<td style="text-align: right">
-							<button 
-							appPcariauth
-								[mustHavePermission]="['biobank_case_view', 
-								'medical_case_view']"
-								[mustBeAll]="false" 
-								*ngIf="false"
-								class="btn btn-sm btn-default"
-								[routerLink]="[view_url, case.id]">
-								<i class="fa fa-eye"></i> View
-							</button>
-							<button 
-								appPcariauth
-								[mustHavePermission]="['biobank_case_view']"
-							  [mustBeAll]="false" 
-								class="btn btn-sm btn-default e2e-update-newest-case"
-								[routerLink]="[view_url, case.id]">
-								<i class="fa fa-eye"></i> View
-							</button>
-							<button 
-								appPcariauth
-								[mustHavePermission]="['biobank_case_update', 'medical_case_update']"
-							  [mustBeAll]="false" 
-								class="btn btn-sm btn-warning e2e-update-newest-case"
-								[routerLink]="[update_url, case.id]">
-								<i class="fa fa-edit"></i> Data Entry
-							</button>
-						</td>
-					</tr>
-				</tbody>
-      </table>
-    </div>
+<div class="col-md-12">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th (click)="doSort()">Case Number <i class="fa fa-4" 
+					aria-hidden="true"
+					[ngClass]="{
+					  'fa-chevron-up': sort == 1, 
+					  'fa-chevron-down': sort == -1}"></i></th>
+				<th *ngIf="show_diagnosis">Diagnosis</th>
+				<th>Date Created</th>
+				<th>Case Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let case of cases let i = index">
+				<td class="e2e-newest-case">{{ case.case_nbr }}</td>
+				<td *ngIf="show_diagnosis" matTooltip="{{case.diagnosis}}">{{case.diagnosis | ellipsis:40 }} </td>
+				<td>{{ case.date_created | date: 'MMM dd, yyyy' }}</td>
+				<td>
+					<span *ngIf="!case.is_active" class="badge badge--failed" #inactive> Inactive</span>
+					<span *ngIf="case.is_active" class="badge badge--success" #active> Active</span>
+				</td>
+				<td style="text-align: right">
+					<button appPcariauth [mustHavePermission]="['biobank_case_view', 
+								'medical_case_view']" [mustBeAll]="false"
+					 *ngIf="false" class="btn btn-sm btn-default" [routerLink]="[view_url, case.id]">
+						<i class="fa fa-eye"></i> View
+					</button>
+					<button appPcariauth [mustHavePermission]="['biobank_case_view']" [mustBeAll]="false" class="btn btn-sm btn-default e2e-update-newest-case"
+					 [routerLink]="[view_url, case.id]">
+						<i class="fa fa-eye"></i> View
+					</button>
+					<button appPcariauth [mustHavePermission]="['biobank_case_update', 'medical_case_update']" [mustBeAll]="false"
+					 class="btn btn-sm btn-warning e2e-update-newest-case" [routerLink]="[update_url, case.id]">
+						<i class="fa fa-edit"></i> Data Entry
+					</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="col-md-12 table-nav">
+	<mat-paginator #paginator 
+		[length]="pagelength" 
+		[pageIndex]="0"
+		[pageSize]="10" 
+		[pageSizeOptions]="[5, 10, 25, 100]"
+		class="pull-left"
+		(page)="getCases($event)">
+	</mat-paginator>
+</div>

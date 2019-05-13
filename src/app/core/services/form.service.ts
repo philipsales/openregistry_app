@@ -71,11 +71,18 @@ export class FormService {
   }
 
   list(type: string = environment.FORM_TYPE_BIOBANK, 
+<<<<<<< HEAD
     index:number=0, skip:number=10, keywords:string='', sort:number=0): Observable<FormResultJSON> {
     const user = JSON.parse(localStorage.getItem('user'));
     const dept = Object.values(user['departments']).map(department => ( [ department.name, department._id ]));
     const merged = [].concat.apply([], dept);
 
+=======
+    index:number=0, 
+    skip:number=10, 
+    keywords:string='', 
+    sort:number=0): Observable<FormResultJSON> {
+>>>>>>> develop
     const url = environment.API_ENDPOINT + 'forms/list';
     let params = new HttpParams()
       .set('index', index.toString())

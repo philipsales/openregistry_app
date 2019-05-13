@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 // import { Http, Headers, RequestOptions, Response } from '@angular/http';
 // import { Observable } from 'rxjs';
@@ -11,12 +11,34 @@ import { Helper } from '../helper';
 import { Role } from '../models';
 import { RoleJSON } from '../interfaces';
 import { environment } from 'environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class RoleService {
 
     constructor(private http: HttpClient) {
     }// --constructor
+
+    list(index:number=0, 
+      skip:number=10, 
+      keywords:string='', 
+      sort:number=0) : Observable<RoleResultJSON>
+    {
+      const url = environment.API_ENDPOINT + 'roles/list';
+      let params = new HttpParams()
+        .set('index', index.toString())
+        .set('limit', skip.toString())
+        .set('keywords', keywords)
+        .set('sort', sort.toString());
+      return this.http.get<{count:number, roles:RoleJSON[]}>(url, {params}).pipe(
+        map(result => {
+          return {
+            count: result.count,
+            roles: result.roles.map(Role.fromJSON)
+          };
+        })
+      );
+    }
 
     getAll(): Observable<Role[]> {
       const url = environment.API_ENDPOINT + 'roles/';
@@ -54,4 +76,9 @@ export class RoleService {
             return Role.fromJSON(response);
         }).catch(Helper.handleError);
       }
+}
+
+export interface RoleResultJSON {
+  count: number;
+  roles: Role[];
 }

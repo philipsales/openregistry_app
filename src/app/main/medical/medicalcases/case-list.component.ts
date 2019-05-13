@@ -16,15 +16,5 @@ export class CaseListComponent implements OnInit {
   constructor(private caseService: CaseService) { }
 
   ngOnInit() {
-    this.caseService.getAll().subscribe(
-      cases => {
-        this.cases = cases;
-      }, error => {
-        console.warn(error); // get the error in error handler
-        if (error instanceof NoJWTError) {
-          console.warn('TO DO : handle JWT Expired');
-        }
-      });
-
   }
 }

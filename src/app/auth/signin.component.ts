@@ -40,7 +40,7 @@ export class SigninComponent implements OnInit {
     this.authService.login(this.model.username, this.model.password).subscribe(
       result => {
         if (result['status'] === true) {
-          this.router.navigate(['my-account']);
+          this.router.navigate(['dashboard']);
         } else {
           this.error = 'Username or password is incorrect';
           this.loading = false;

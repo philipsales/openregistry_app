@@ -5,6 +5,10 @@ import { MainComponent } from './main.component';
 const routes: Routes = [
     {   path: '', component: MainComponent,
 	children: [
+		{
+			path: 'dashboard',
+			loadChildren: './dashboard/dashboard.module#DashboardModule'
+		},
 	    {
 		path: 'admin',
 		loadChildren: './admin/admin.module#AdminModule'
@@ -21,7 +25,7 @@ const routes: Routes = [
 		path: 'my-account',
 		loadChildren: './my-account/my-account.module#MyAccountModule'
 	    },
-	    { path: '', redirectTo: 'admin' }
+	    { path: '', redirectTo: 'dashboard' }
 	]
     }
 ];
