@@ -9,11 +9,14 @@ import { UsersListComponent } from './users-list.component';
 import { UsersViewComponent } from './users-view.component';
 import { UsersUpdateComponent } from './users-update.component';
 
+import { MatPaginatorModule } from '@angular/material';
+
 @NgModule({
   imports: [
       CommonModule,
       FormsModule,
       SharedModule,
+      MatPaginatorModule,
       UsersRoutingModule,
   ],
   declarations: [

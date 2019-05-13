@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Headers, RequestOptions, Response, ResponseContentType } from '@angular/http';
 
-import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpClientModule, HttpParams } from '@angular/common/http';
 //import { Observable } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 //import { map, catch } from 'rxjs/operators';
@@ -16,6 +16,7 @@ import { Database } from '../models';
 import { DatabaseJSON } from '../interfaces';
 import { environment } from 'environments/environment';
 import { Data } from '@angular/router/src/config';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class DatabaseService {
@@ -30,6 +31,26 @@ export class DatabaseService {
   ) {
   }//--constructor
 
+  list(index:number=0, 
+    skip:number=10, 
+    keywords:string='', 
+    sort:number=0) : Observable<DatabaseResultJSON>
+  {
+    const url = environment.API_ENDPOINT + 'databases/list';
+    let params = new HttpParams()
+      .set('index', index.toString())
+      .set('limit', skip.toString())
+      .set('keywords', keywords)
+      .set('sort', sort.toString());
+    return this.http.get<{count:number, databases: DatabaseJSON[]}>(url, {params}).pipe(
+      map(result => {
+        return {
+          count: result.count,
+          databases: result.databases.map(Database.fromJSON)
+        }
+      })
+    )
+  }
 
   create(database: Database): Observable<Database> {
     const url = environment.API_ENDPOINT + `databases/backup`;
@@ -105,4 +126,9 @@ export class DatabaseService {
   private handleError(error: any): Promise<any> {
     return Promise.reject(error.message || error);
   }
+}
+
+export interface DatabaseResultJSON {
+  count: number;
+  databases: Database[];
 }

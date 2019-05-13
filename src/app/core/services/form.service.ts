@@ -70,7 +70,10 @@ export class FormService {
   }
 
   list(type: string = environment.FORM_TYPE_BIOBANK, 
-    index:number=0, skip:number=10, keywords:string='', sort:number=0): Observable<FormResultJSON> {
+    index:number=0, 
+    skip:number=10, 
+    keywords:string='', 
+    sort:number=0): Observable<FormResultJSON> {
     const url = environment.API_ENDPOINT + 'forms/list';
     let params = new HttpParams()
       .set('index', index.toString())

@@ -12,11 +12,14 @@ import { RolesManageComponent } from './roles-manage/roles-manage.component';
 import { RolesUpdateComponent } from './roles-update.component';
 import { RolesViewComponent } from './roles-view.component';
 
+import { MatPaginatorModule } from '@angular/material';
+
 
 @NgModule({
   imports: [
       CommonModule,
       FormsModule,
+      MatPaginatorModule,
       RolesRoutingModule,
       MaterialModule,
       SharedModule

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Headers, RequestOptions, Response, ResponseContentType } from '@angular/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -22,6 +22,27 @@ export class CaseService {
   constructor(
     private httpclient: HttpClient) {
   }// --constructor
+
+  list(index:number=0, 
+    skip:number=10, 
+    keywords:string='', 
+    sort:number=0): Observable<CaseResultJSON>
+  {
+    const url = environment.API_ENDPOINT + 'cases/list';
+    let params = new HttpParams()
+      .set('index', index.toString())
+      .set('limit', skip.toString())
+      .set('keywords', keywords)
+      .set('sort', sort.toString());
+    return this.httpclient.get<{count:number, cases: CaseJSON[]}>(url, {params}).pipe(
+      map(result => {
+        return {
+          count: result.count,
+          cases: result.cases.map(Case.fromJSON)
+        };
+      })
+    );
+  }
 
   getAll(): Observable<Case[]> {
     const url = environment.API_ENDPOINT + 'cases/';
@@ -179,4 +200,9 @@ export class CaseService {
       })
       .catch(Helper.handleError);
   }
+}
+
+export interface CaseResultJSON {
+  count: number;
+  cases: Case[];
 }
