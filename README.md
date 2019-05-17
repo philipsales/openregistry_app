@@ -138,9 +138,9 @@ None
 
 ## Authors
 
-* **Kristhian Tiu** - *Lead Software Developer* 
-* **Philip Sales** - *Lead Health Informaticist* 
-* **Philip Sales** - *Junior Software Developer* 
+* **Kristhian Tiu (https://github.com/chantiu) ** - *Lead Software Developer* 
+* **Philip Sales (https://github.com/philipsales) ** - *Lead Health Informaticist* 
+* **Miko Chu (https://github.com/meSmashsta) ** - *Junior Software Developer* 
 
 ## License
 
