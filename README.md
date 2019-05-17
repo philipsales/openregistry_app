@@ -1,5 +1,4 @@
-# _IHITM 2016-013: Establishment of a Philippine Cancer Phenome-Biobanking System and Biomonitoring Program_
-# PCARI website application source code
+# _Dynamic Biobanking Information System_
 
 FHIR STU3 Profiles and Examples
 
@@ -139,8 +138,9 @@ None
 
 ## Authors
 
-* **Kristhian Tiu** - *Lead Engineer* 
+* **Kristhian Tiu** - *Lead Software Developer* 
 * **Philip Sales** - *Lead Health Informaticist* 
+* **Philip Sales** - *Junior Software Developer* 
 
 ## License
 
